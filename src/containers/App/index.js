@@ -24,10 +24,10 @@ class App extends Component {
                 <div>
                     <Modal hideModal={hideModal} {...modalOptions} />
                     <Switch>
-                        {!user && <Route exact path="/product" render={() => (<Redirect to="/"/>)}/>}
-                        {!user && <Route exact path="/" component={Login}/>}
-                        {user && <Route exact path="/" render={() => (<Redirect to="/product"/>)}/>}
-                        {user && <Route path="/product" component={Product}/>}
+                        {/*{!user && <Route exact path="/product" render={() => (<Redirect to="/"/>)}/>}*/}
+                        {/*{!user && <Route exact path="/" component={Login}/>}*/}
+                        {/*{user && <Route exact path="/" render={() => (<Redirect to="/product"/>)}/>}*/}
+                        {!user && <Route path="/product" component={Product}/>}
                     </Switch>
                 </div>
             </div>

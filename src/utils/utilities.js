@@ -56,3 +56,7 @@ export const findStorageItems = (text) => {
     }
     return results;
 };
+
+export const getType = (constant, resource) => {
+    return `${constant}_${resource}`;
+};

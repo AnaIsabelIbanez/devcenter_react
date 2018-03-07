@@ -2,20 +2,7 @@ import React from 'react';
 
 import {Button} from 'react-bootstrap';
 
-import { KeyboardArrowLeft, KeyboardArrowRight }  from 'material-ui-icons';
-
-const generatePageNumbers = (currentPage, totalPages, maxVisiblePages) => {
-    const middle = Math.round(maxVisiblePages / 2);
-    const startPage = currentPage <= middle ? 0 : currentPage - middle;
-    const diffToFinal = totalPages - currentPage;
-    const sliceFrom = diffToFinal < middle ? totalPages - maxVisiblePages : startPage;
-    const sliceTo = sliceFrom + maxVisiblePages;
-
-    return Array(totalPages)
-        .fill(0)
-        .map((x, i) => i + 1)
-        .slice(sliceFrom, sliceTo);
-};
+import {KeyboardArrowLeft, KeyboardArrowRight} from 'material-ui-icons';
 
 const style = {
     display: 'flex',
@@ -24,51 +11,60 @@ const style = {
 };
 
 const Pagination = ({
-    sliceStart,
-    sliceEnd,
-    recordsPerPage,
-    totalRecords,
+    totalPages,
     onClick,
-    currentPage,
-    maxVisiblePages
+    currentPage
 }) => {
-    const totalPages = Math.ceil(totalRecords / recordsPerPage);
+    //const totalPages = Math.ceil(totalRecords / recordsPerPage);
     // const currentPage = Math.ceil(sliceEnd / recordsPerPage);
     return (
         <div style={style}>
             <Button
                 bsStyle="link"
                 disabled={currentPage === 1}
-                onClick={() => onClick({newSliceStart: 0})}
+                onClick={() => onClick({page: 'first'})}
             >
                 <KeyboardArrowLeft/>
             </Button>
-            <Button
-                bsStyle="link"
-                disabled={currentPage === 1}
-                onClick={() => onClick({newSliceStart: sliceStart - recordsPerPage})}
-            >
-                <KeyboardArrowLeft/>
-            </Button>
+            {currentPage !== 1 && <span>
+                <Button
+                    bsStyle="link"
+                    disabled={currentPage === 1}
+                    onClick={() => onClick({page: 'first'})}
+                >
+                1
+                </Button>  -
+                <Button
+                    bsStyle="link"
+                    onClick={() => onClick({page: 'prev'})}
+                >
+                    {currentPage - 1}
+                </Button>
+            </span>}
             <Button
                 bsStyle="link"
                 disabled
             >
-                {1}
+                {currentPage}
             </Button>
+            {currentPage !== totalPages && <span>
+                <Button
+                    bsStyle="link"
+                    onClick={() => onClick({page: 'next'})}
+                >
+                    {currentPage + 1}
+                </Button> -
+                <Button
+                    bsStyle="link"
+                    onClick={() => onClick({page: 'last'})}
+                >
+                    {totalPages}
+                </Button>
+            </span>}
             <Button
                 bsStyle="link"
                 disabled={currentPage === totalPages}
-                onClick={() => onClick({newSliceStart: sliceStart + recordsPerPage})}
-            >
-                <KeyboardArrowRight/>
-            </Button>
-            <Button
-                bsStyle="link"
-                disabled={currentPage === totalPages}
-                onClick={() =>
-                    onClick({newSliceStart: totalPages * recordsPerPage - recordsPerPage})
-                }
+                onClick={() => onClick({page: 'last'})}
             >
                 <KeyboardArrowRight/>
             </Button>

@@ -7,14 +7,18 @@ const makeSelectList = (attribute) => createSelector(
     (productState) => productState.list[attribute]
 );
 
-const getProducts = () => makeSelectList('products');
+const getProducts = () => makeSelectList('data');
 const getShowSpinner = () => makeSelectList('showSpinner');
 const getMeta = () => makeSelectList('meta');
 const getLinks = () => makeSelectList('links');
+const getCurrentSort = () => makeSelectList('currentSort');
+const getColumns = () => makeSelectList('columns');
 
 export {
     getProducts,
     getShowSpinner,
     getMeta,
-    getLinks
+    getLinks,
+    getCurrentSort,
+    getColumns
 };

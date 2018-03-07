@@ -1,8 +1,10 @@
 import {fork, takeLatest, takeEvery} from 'redux-saga/effects';
 
-import {FETCH_DATA} from '../constants';
-import productSaga from './productSaga';
+import {FETCH_DATA} from '../../common/constants';
+import {KEY_PRODUCT_RESOURCE} from '../constants';
+import {getType} from '../../../utils/utilities';
+import dataSaga from '../../common/saga/getDataSaga';
 
 export default function* product() {
-    yield takeLatest(FETCH_DATA, productSaga);
+    yield takeLatest(getType(FETCH_DATA, KEY_PRODUCT_RESOURCE), dataSaga);
 }

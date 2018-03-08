@@ -6,15 +6,18 @@ import styled from 'styled-components';
 import 'react-table/react-table.css';
 
 import CustomGrid from '../../components/CustomGrid';
-import {getData, getShowSpinner, getMeta, getLinks, getCurrentSort, getColumns} from './selectors';
+import {getData, getShowSpinner, getMeta, getLinks, getCurrentSort, getColumns, getFilters, getFields } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
-import reducer from './reducer/rootReducers';
-import saga from './saga/rootSagas';
+import reducer from './reducer/rootReducer';
+import saga from './saga/rootSaga';
 import {fetchData} from '../common/actions/table';
 import Table from '../../components/Table';
+import Filters from './Filters';
 import serverDataTableHoc from '../../components/ServerDataTable';
-import {KEY_PRODUCT_RESOURCE} from './constants';
+import {KEY_RETURN_RESOURCE} from './constants';
+import {launchFilter, changeField, clearFields} from './actions';
+import columns from './columnsDefinition';
 
 const StyledGrid = styled(CustomGrid)`
     && {
@@ -22,9 +25,9 @@ const StyledGrid = styled(CustomGrid)`
     }
 `;
 
-const ServerDataTable = serverDataTableHoc(Table, KEY_PRODUCT_RESOURCE);
+const ServerDataTable = serverDataTableHoc(Table, KEY_RETURN_RESOURCE);
 
-class ProductPage extends Component {
+class ReturnPage extends Component {
 
     render() {
         const {
@@ -33,12 +36,22 @@ class ProductPage extends Component {
             meta: {currentPage, totalPages, pageSize},
             links,
             loading,
-            columns
+            filters,
+            filterFields,
+            launchFilter,
+            changeField,
+            clearFields
         } = this.props;
         return (
             <StyledGrid container>
+                <Filters
+                    fields={filterFields}
+                    changeField={changeField}
+                    launchFilter={launchFilter}
+                    clearFields={clearFields}
+                />
                 <ServerDataTable
-                    fetchData={this.props.fetchData.bind(null, KEY_PRODUCT_RESOURCE)}
+                    fetchData={this.props.fetchData.bind(null, KEY_RETURN_RESOURCE)}
                     columns={columns}
                     data={data}
                     sorted={currentSort}
@@ -47,6 +60,7 @@ class ProductPage extends Component {
                     defaultPageSize={pageSize}
                     currentPage={currentPage}
                     links={links}
+                    filters={filters}
                 />
             </StyledGrid>
         );
@@ -59,17 +73,23 @@ const mapStateToProps = createStructuredSelector({
     meta: getMeta(),
     links: getLinks(),
     currentSort: getCurrentSort(),
-    columns: getColumns()
+    filterFields: getFields(),
+    filters: getFilters()
 });
 
-const mapDispatchToProps = {fetchData};
+const mapDispatchToProps = {
+    fetchData,
+    launchFilter,
+    changeField,
+    clearFields
+};
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withReducer = injectReducer({key: 'product', reducer});
-const withSaga = injectSaga({key: 'product', saga});
+const withReducer = injectReducer({key: 'return', reducer});
+const withSaga = injectSaga({key: 'return', saga});
 
 export default compose(
     withReducer,
     withSaga,
-    withConnect,
-)(ProductPage);
+    withConnect
+)(ReturnPage);

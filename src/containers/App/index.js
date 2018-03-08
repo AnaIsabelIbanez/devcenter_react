@@ -8,6 +8,7 @@ import {createStructuredSelector} from 'reselect';
 import Header from '../../common/Header';
 import Login from '../Login';
 import Product from '../ProductPage';
+import Return from '../ReturnPage';
 import Modal from '../../components/Modal';
 import {getUser, getModalOptions} from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
@@ -28,6 +29,7 @@ class App extends Component {
                         {/*{!user && <Route exact path="/" component={Login}/>}*/}
                         {/*{user && <Route exact path="/" render={() => (<Redirect to="/product"/>)}/>}*/}
                         {!user && <Route path="/product" component={Product}/>}
+                        {!user && <Route path="/return" component={Return}/>}
                     </Switch>
                 </div>
             </div>

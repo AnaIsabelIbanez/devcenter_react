@@ -18,12 +18,16 @@ export default function withServerSideData(WrappedTable, keyResource) {
             this.props.fetchData(`/${keyResource}`);
         }
 
-        parseSortFromTable(sort) {
+        getParsedSortFromTable(sort) {
             const currentSort = sort.map((sortElem) => {
                 const symbol = sortElem.desc ? '-' : '';
                 return `${symbol}${sortElem.id}`;
             });
             return currentSort.join(',');
+        }
+
+        getParsedFilters(filters) {
+            return filters;
         }
 
         changeResults = (newParameter, currentSort = this.props.currentSort) => {
@@ -40,7 +44,7 @@ export default function withServerSideData(WrappedTable, keyResource) {
                     <div>
                         <WrappedTable
                             onSortedChange={(newSorted, column, shiftKey) => {
-                                this.changeResults({sort: this.parseSortFromTable(newSorted)}, newSorted);
+                                this.changeResults({sort: this.getParsedSortFromTable(newSorted)}, newSorted);
                             }}
                             onPagination={({page}) => {
                                 this.props.fetchData(this.props.links[page]);

@@ -1,7 +1,9 @@
 import {CHANGE_FIELD, LAUNCH_FILTER, CLEAR_FIELDS} from '../constants';
+import {clearEmptyValues} from '../../../utils/utilities';
 
 const defaultState = {
-    fields: {}
+    fields: {},
+    filters: {}
 };
 
 export default (state = defaultState, { type, payload }) => {
@@ -10,16 +12,25 @@ export default (state = defaultState, { type, payload }) => {
             return {
                 ...state,
                 fields: {
-                    ...state.filters,
-                    payload
+                    ...state.fields,
+                    ...payload
                 }
             };
         case CLEAR_FIELDS: {
             return {
                 ...state,
-                fields: {}
+                fields: {},
+                filters: {}
             };
-        }
+        };
+        case LAUNCH_FILTER: {
+            const a = clearEmptyValues(state.fields);
+            console.log('a', a);
+            return {
+                ...state,
+                filters: clearEmptyValues(state.fields)
+            };
+        };
     }
 
     return state;

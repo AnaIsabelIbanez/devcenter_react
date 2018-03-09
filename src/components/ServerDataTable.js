@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import queryString from 'query-string';
+import {isEqual} from 'lodash';
+import {removeKeys} from '../utils/utilities';
 import styled from 'styled-components';
 
-import CustomGrid from './CustomGrid';
+// import CustomGrid from './CustomGrid';
 
-const StyledGrid = styled(CustomGrid)`
-    && {
-        padding: 20px;
-    }
-`;
+// const StyledGrid = styled(CustomGrid)`
+//     && {
+//         padding: 20px;
+//     }
+// `;
 
 export default function withServerSideData(WrappedTable, keyResource) {
     return class ServerDataTable extends Component {
@@ -26,21 +28,35 @@ export default function withServerSideData(WrappedTable, keyResource) {
             return currentSort.join(',');
         }
 
+        componentWillUpdate(nextProps) {
+            const nextFilters = nextProps.filters;
+            if (!isEqual(nextFilters, this.props.filters)) {
+                console.log('nextFilters', nextFilters);
+                this.changeResults(this.getParsedFilters(nextFilters));
+            }
+        }
+
         getParsedFilters(filters) {
-            return filters;
+            let filterObj = {};
+            Object.keys(filters).forEach((filterKey) => {
+                const newFilter = {[`filter[${filterKey}]`]: filters[filterKey]};
+                filterObj = {...filterObj, ...newFilter};
+            });
+            return filterObj;
         }
 
         changeResults = (newParameter, currentSort = this.props.currentSort) => {
             const selfLink = this.props.links.self;
             const currentQueryObject = queryString.parse(selfLink.substr(selfLink.indexOf('?') + 1));
-            const queryObject = {...currentQueryObject, ...newParameter};
+            const queryObjNoFilters = removeKeys(currentQueryObject, /^filter\[/);
+            const queryObject = {...queryObjNoFilters, ...newParameter};
             const query = queryString.stringify(queryObject);
             this.props.fetchData(`${keyResource}?${query}`, currentSort);
         }
 
         render() {
             return (
-                <StyledGrid container>
+                <div>
                     <div>
                         <WrappedTable
                             onSortedChange={(newSorted, column, shiftKey) => {
@@ -52,7 +68,7 @@ export default function withServerSideData(WrappedTable, keyResource) {
                             {...this.props}
                         />
                     </div>
-                </StyledGrid>
+                </div>
             );
         }
     };

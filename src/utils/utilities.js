@@ -60,3 +60,24 @@ export const findStorageItems = (text) => {
 export const getType = (constant, resource) => {
     return `${constant}_${resource}`;
 };
+
+export const clearEmptyValues = (objectData) => {
+    let newObj = {};
+    Object.keys(objectData).forEach((objKey) => {
+        const value = objectData[objKey];
+        if (value) {
+            newObj = {...newObj, [objKey]: value};
+        }
+    });
+    return newObj;
+};
+
+export const removeKeys = (objectData, regularExpresion) => {
+    let newObj = {};
+    Object.keys(objectData).forEach((objKey) => {
+        if (!regularExpresion.test(objKey)) {
+            newObj = {...newObj, [objKey]: objectData[objKey]};
+        }
+    });
+    return newObj;
+};

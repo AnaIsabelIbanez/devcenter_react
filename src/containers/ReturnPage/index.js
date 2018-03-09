@@ -3,7 +3,7 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import styled from 'styled-components';
-import 'react-table/react-table.css';
+// import 'react-table/react-table.css';
 
 import CustomGrid from '../../components/CustomGrid';
 import {getData, getShowSpinner, getMeta, getLinks, getCurrentSort, getColumns, getFilters, getFields } from './selectors';
@@ -19,11 +19,6 @@ import {KEY_RETURN_RESOURCE} from './constants';
 import {launchFilter, changeField, clearFields} from './actions';
 import columns from './columnsDefinition';
 
-const StyledGrid = styled(CustomGrid)`
-    && {
-        padding: 20px;
-    }
-`;
 
 const ServerDataTable = serverDataTableHoc(Table, KEY_RETURN_RESOURCE);
 
@@ -43,7 +38,7 @@ class ReturnPage extends Component {
             clearFields
         } = this.props;
         return (
-            <StyledGrid container>
+            <div>
                 <Filters
                     fields={filterFields}
                     changeField={changeField}
@@ -62,7 +57,7 @@ class ReturnPage extends Component {
                     links={links}
                     filters={filters}
                 />
-            </StyledGrid>
+            </div>
         );
     }
 };

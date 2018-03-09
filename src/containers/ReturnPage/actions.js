@@ -1,8 +1,7 @@
 import {CHANGE_FIELD, LAUNCH_FILTER, CLEAR_FIELDS} from './constants';
 
-export const launchFilter = (filters) => ({
-    type: LAUNCH_FILTER,
-    payload: filters
+export const launchFilter = () => ({
+    type: LAUNCH_FILTER
 });
 
 export const changeField = (field) => ({
@@ -10,7 +9,6 @@ export const changeField = (field) => ({
     payload: field
 });
 
-export const clearFields = (filters) => ({
-    type: CLEAR_FIELDS,
-    payload: filters
+export const clearFields = () => ({
+    type: CLEAR_FIELDS
 });

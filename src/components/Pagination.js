@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Button} from 'react-bootstrap';
 
-import {KeyboardArrowLeft, KeyboardArrowRight} from 'material-ui-icons';
+// import {KeyboardArrowLeft, KeyboardArrowRight} from 'material-ui-icons';
 
 const style = {
     display: 'flex',
@@ -24,7 +24,7 @@ const Pagination = ({
                 disabled={currentPage === 1}
                 onClick={() => onClick({page: 'first'})}
             >
-                <KeyboardArrowLeft/>
+                *
             </Button>
             {currentPage !== 1 && <span>
                 <Button
@@ -66,7 +66,7 @@ const Pagination = ({
                 disabled={currentPage === totalPages}
                 onClick={() => onClick({page: 'last'})}
             >
-                <KeyboardArrowRight/>
+                *
             </Button>
         </div>
     );

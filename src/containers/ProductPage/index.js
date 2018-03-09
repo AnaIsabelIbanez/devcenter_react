@@ -3,9 +3,9 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import styled from 'styled-components';
-import 'react-table/react-table.css';
+// import 'react-table/react-table.css';
 
-import CustomGrid from '../../components/CustomGrid';
+// import CustomGrid from '../../components/CustomGrid';
 import {getData, getShowSpinner, getMeta, getLinks, getCurrentSort, getColumns} from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -16,11 +16,11 @@ import Table from '../../components/Table';
 import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_PRODUCT_RESOURCE} from './constants';
 
-const StyledGrid = styled(CustomGrid)`
-    && {
-        padding: 20px;
-    }
-`;
+// const StyledGrid = styled(CustomGrid)`
+//     && {
+//         padding: 20px;
+//     }
+// `;
 
 const ServerDataTable = serverDataTableHoc(Table, KEY_PRODUCT_RESOURCE);
 
@@ -36,7 +36,7 @@ class ProductPage extends Component {
             columns
         } = this.props;
         return (
-            <StyledGrid container>
+            <div>
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_PRODUCT_RESOURCE)}
                     columns={columns}
@@ -48,7 +48,7 @@ class ProductPage extends Component {
                     currentPage={currentPage}
                     links={links}
                 />
-            </StyledGrid>
+            </div>
         );
     }
 };

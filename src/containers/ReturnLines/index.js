@@ -7,11 +7,7 @@ import {
     getData,
     getShowSpinner,
     getMeta,
-    getLinks,
-    getCurrentSort,
-    getColumns,
-    getFilters,
-    getFields
+    getLinks
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -19,50 +15,67 @@ import reducer from './reducer/rootReducer';
 import saga from './saga/rootSaga';
 import {fetchData} from '../common/actions/table';
 import Table from '../../components/Table';
-import Filters from './Filters';
 import serverDataTableHoc from '../../components/ServerDataTable';
-import {KEY_RETURN_RESOURCE} from './constants';
-import {launchFilter, changeField, clearFields} from './actions';
+import {KEY_LINE_RESOURCE} from './constants';
 import columns from './columnsDefinition';
 
 
-const ServerDataTable = serverDataTableHoc(Table, KEY_RETURN_RESOURCE);
+const ServerDataTable = serverDataTableHoc(Table);
 
 class ReturnPage extends Component {
+
+    getEditableColumns(rol, changeSubreason, subreasons) {
+        return [{
+            Header: 'Submotivo almacén',
+            accessor: 'warehouse_subreason',
+            Cell: row => {
+                console.log('submotivo value', row.value);
+                return <select
+                // value={row.value}
+                    value="dos"
+                    onChange={({target}) => changeSubreason(target.value)}
+                >   {subreasons.map((subreason, index) => {
+                        return (<option key={index} value={subreason.id}>{subreason.text}</option>);
+                    })}</select>;
+            },
+            sortable: false
+        }, {
+            Header: 'Submotivo almacén',
+            accessor: 'warehouse_subreason',
+            Cell: row => {
+                console.log('submotivo value', row.value);
+                return <select
+                    // value={row.value}
+                    value="dos"
+                    onChange={({target}) => changeSubreason(target.value)}
+                >   {subreasons.map((subreason, index) => {
+                        return (<option key={index} value={subreason.id}>{subreason.text}</option>);
+                    })}</select>;
+            },
+            sortable: false
+        }];
+    }
 
     render() {
         const {
             data,
-            currentSort,
             meta: {currentPage, totalPages, pageSize},
             links,
-            loading,
-            filters,
-            filterFields,
-            launchFilter,
-            changeField,
-            clearFields
+            loading
         } = this.props;
+        console.log('props.match.params.id', this.props.match.params.id);
         return (
             <div>
                 <ServerDataTable
-                    fetchData={this.props.fetchData.bind(null, KEY_RETURN_RESOURCE)}
-                    columns={columns}
+                    fetchData={this.props.fetchData.bind(null, KEY_LINE_RESOURCE)}
+                    columns={columns(() => console.log('algo'), [{id: 'uno', text: 'uno'}, {id: 'dos', text: 'dos'}])}
                     data={data}
-                    sorted={currentSort}
                     pages={totalPages}
                     loading={loading}
                     defaultPageSize={pageSize}
                     currentPage={currentPage}
                     links={links}
-                    filters={filters}
-                    getTdProps={(state, rowInfo, column, instance) => {
-                        return {
-                            onClick: (e, handleOriginal) => {
-                                this.props.history.push(`/return/${rowInfo.original.id}`);
-                            }
-                        };
-                    }}
+                    baseUri={`/return/${this.props.match.params.id}/${KEY_LINE_RESOURCE}`}
                 />
             </div>
         );
@@ -73,22 +86,16 @@ const mapStateToProps = createStructuredSelector({
     data: getData(),
     showSpinner: getShowSpinner(),
     meta: getMeta(),
-    links: getLinks(),
-    currentSort: getCurrentSort(),
-    filterFields: getFields(),
-    filters: getFilters()
+    links: getLinks()
 });
 
 const mapDispatchToProps = {
-    fetchData,
-    launchFilter,
-    changeField,
-    clearFields
+    fetchData
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withReducer = injectReducer({key: 'return', reducer});
-const withSaga = injectSaga({key: 'return', saga});
+const withReducer = injectReducer({key: 'lines', reducer});
+const withSaga = injectSaga({key: 'lines', saga});
 
 export default compose(
     withReducer,

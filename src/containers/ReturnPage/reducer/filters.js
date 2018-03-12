@@ -25,7 +25,6 @@ export default (state = defaultState, { type, payload }) => {
         };
         case LAUNCH_FILTER: {
             const a = clearEmptyValues(state.fields);
-            console.log('a', a);
             return {
                 ...state,
                 filters: clearEmptyValues(state.fields)

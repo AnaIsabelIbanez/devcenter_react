@@ -47,6 +47,7 @@ class ProductPage extends Component {
                     defaultPageSize={pageSize}
                     currentPage={currentPage}
                     links={links}
+                    baseUri={`/${KEY_PRODUCT_RESOURCE}`}
                 />
             </div>
         );

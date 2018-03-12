@@ -17,7 +17,7 @@ export default function withServerSideData(WrappedTable, keyResource) {
 
         constructor(props) {
             super(props);
-            this.props.fetchData(`/${keyResource}`);
+            this.props.fetchData(this.props.baseUri);
         }
 
         getParsedSortFromTable(sort) {
@@ -51,7 +51,7 @@ export default function withServerSideData(WrappedTable, keyResource) {
             const queryObjNoFilters = removeKeys(currentQueryObject, /^filter\[/);
             const queryObject = {...queryObjNoFilters, ...newParameter};
             const query = queryString.stringify(queryObject);
-            this.props.fetchData(`${keyResource}?${query}`, currentSort);
+            this.props.fetchData(`${this.props.baseUri}?${query}`, currentSort);
         }
 
         render() {

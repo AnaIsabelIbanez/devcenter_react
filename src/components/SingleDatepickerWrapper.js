@@ -67,16 +67,10 @@ class SingleDatePickerWrapper extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            focused: props.autoFocus,
-            date: props.initialDate
+            focused: props.autoFocus
         };
 
-        this.onDateChange = this.onDateChange.bind(this);
         this.onFocusChange = this.onFocusChange.bind(this);
-    }
-
-    onDateChange(date) {
-        this.setState({ date });
     }
 
     onFocusChange({ focused }) {
@@ -84,7 +78,7 @@ class SingleDatePickerWrapper extends React.Component {
     }
 
     render() {
-        const { focused, date } = this.state;
+        const { focused } = this.state;
 
         // autoFocus and initialDate are helper props for the example wrapper but are not
         // props on the SingleDatePicker itself and thus, have to be omitted.
@@ -96,10 +90,7 @@ class SingleDatePickerWrapper extends React.Component {
         return (
             <SingleDatePicker
                 {...props}
-                id="date_input"
-                date={date}
                 focused={focused}
-                onDateChange={this.onDateChange}
                 onFocusChange={this.onFocusChange}
             />
         );

@@ -6,7 +6,16 @@ import styled from 'styled-components';
 // import 'react-table/react-table.css';
 
 import CustomGrid from '../../components/CustomGrid';
-import {getData, getShowSpinner, getMeta, getLinks, getCurrentSort, getColumns, getFilters, getFields } from './selectors';
+import {
+    getData,
+    getShowSpinner,
+    getMeta,
+    getLinks,
+    getCurrentSort,
+    getColumns,
+    getFilters,
+    getFields
+} from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducer/rootReducer';
@@ -56,6 +65,16 @@ class ReturnPage extends Component {
                     currentPage={currentPage}
                     links={links}
                     filters={filters}
+                    getTdProps={(state, rowInfo, column, instance) => {
+                        return {
+                            onClick: (e, handleOriginal) => {
+                                if (rowInfo) {
+                                    this.props.history.push(`/return/${rowInfo.original.id}`);
+                                }
+                            }
+                        };
+                    }}
+                    baseUri={`/${KEY_RETURN_RESOURCE}`}
                 />
             </div>
         );

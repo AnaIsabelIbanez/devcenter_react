@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import {Form,Col, Button, Row, Grid} from 'react-bootstrap';
-// import DatePicker from 'react-bootstrap-date-picker';
-// import { SingleDatePicker } from 'react-dates';
+import {Form, Col, Button, Row, Grid, ControlLabel, FormGroup, FormControl} from 'react-bootstrap';
+import 'react-dates/initialize';
+import moment from 'moment/moment';
+import 'react-dates/lib/css/_datepicker.css';
 
 import FormField from '../../components/FormField';
 import Select from '../../components/Select';
+import SingleDatepickerWrapper from '../../components/SingleDatepickerWrapper';
 
 const CustomField = ({fields, nameField, onChange, ...props}) => {
     return (
@@ -34,7 +36,8 @@ export default class ReturnFilters extends Component {
             fields,
             changeField,
             launchFilter,
-            clearFields
+            clearFields,
+            disabled
         } = this.props;
 
         return (
@@ -52,6 +55,7 @@ export default class ReturnFilters extends Component {
                                 nameField="return_id"
                                 onChange={changeField}
                                 error={false}
+                                disabled={disabled}
                             />
                             <CustomField
                                 width={3}
@@ -60,6 +64,7 @@ export default class ReturnFilters extends Component {
                                 nameField="order_id"
                                 onChange={changeField}
                                 error={false}
+                                disabled={disabled}
                             />
                             <CustomSelect
                                 label="Tipo de devolución"
@@ -69,6 +74,7 @@ export default class ReturnFilters extends Component {
                                 fields={fields}
                                 nameField="return_type"
                                 onChange={changeField}
+                                disabled={disabled}
 
                             />
                             {/*nameField correcto ??????*/}
@@ -80,6 +86,7 @@ export default class ReturnFilters extends Component {
                                 fields={fields}
                                 nameField="member_reason"
                                 onChange={changeField}
+                                disabled={disabled}
 
                             />
                         </Col>
@@ -93,6 +100,7 @@ export default class ReturnFilters extends Component {
                                 fields={fields}
                                 nameField="warehouse_name"
                                 onChange={changeField}
+                                disabled={disabled}
 
                             />
 
@@ -103,6 +111,7 @@ export default class ReturnFilters extends Component {
                                 nameField="campaign_id"
                                 onChange={changeField}
                                 error={false}
+                                disabled={disabled}
                             />
 
                             <CustomField
@@ -112,22 +121,20 @@ export default class ReturnFilters extends Component {
                                 nameField="campaign_name"
                                 onChange={changeField}
                                 error={false}
+                                disabled={disabled}
                             />
 
                             {/*nameField correcto???*/}
-                            <CustomField
-                                width={4}
-                                label={'Fecha de devolución'}
-                                fields={fields}
-                                nameField="checkin_date"
-                                onChange={changeField}
-                                error={false}
-                            />
-                            <SingleDatePicker
-                                value={fields.checkin_date ? fields.checkin_date : ''}
-                                onChange={({target}) => changeField({checkin_date: target.value})}
-                                dateFormat="MM/DD/YYYY"
-                            />
+                            <FormGroup>
+                                <Col componentClass={ControlLabel} sm={4}>Fecha de devolución</Col>
+                                <SingleDatepickerWrapper
+                                    date={moment(fields.checkin_date)} // momentPropTypes.momentObj or null
+                                    onDateChange={(date) => changeField({checkin_date: date.toISOString()})} // PropTypes.func.isRequired
+                                    numberOfMonths={1}
+                                    displayFormat="DD/MM/YYYY"
+                                    disabled={disabled}
+                                />
+                            </FormGroup>
                         </Col>
                         <Col md={4}>
                             <CustomField
@@ -137,6 +144,7 @@ export default class ReturnFilters extends Component {
                                 nameField="member_name"
                                 onChange={changeField}
                                 error={false}
+                                disabled={disabled}
                             />
                             <CustomField
                                 width={4}
@@ -145,6 +153,7 @@ export default class ReturnFilters extends Component {
                                 nameField="member_email"
                                 onChange={changeField}
                                 error={true}
+                                disabled={disabled}
                             />
                         </Col>
                     </Row>

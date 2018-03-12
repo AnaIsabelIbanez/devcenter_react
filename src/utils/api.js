@@ -20,7 +20,7 @@ function replacer(key, value) {
 }
 
 export default class Api {
-    constructor(options = { baseUrl: 'api/', defaultOptions: {} }) {
+    constructor(options = { baseUrl: '/api/', defaultOptions: {} }) {
         this.baseUrl = options.baseUrl;
         this.defaultOptions = {
             credentials: 'same-origin',
@@ -39,6 +39,7 @@ export default class Api {
     }
 
     fetch(url, options) {
+        console.log('url', url);
         return fetch(url, options)
             .catch(() => {
                 throw NETWORK_ERROR;

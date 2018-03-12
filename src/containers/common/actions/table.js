@@ -9,7 +9,7 @@ import {getType} from '../../../utils/utilities';
 export const fetchData = (resource, queryParams, currentSort) => {
     return {
         type: getType(FETCH_DATA, resource),
-        payload: queryParams,
+        payload: `${queryParams}`,
         meta: currentSort,
         resource
     };

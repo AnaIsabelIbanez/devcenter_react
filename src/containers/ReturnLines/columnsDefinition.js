@@ -2,58 +2,56 @@ import React, {Component} from 'react';
 import {Checkbox} from 'react-bootstrap';
 
 
-export default [
+export default (changeSubreason, subreasons) => [
     {
-        Header: 'Número de devolución',
-        accessor: 'return_id'
+        Header: 'SKU',
+        accessor: 'sku'
     },
     {
-        Header: 'Número de pedido',
-        accessor: 'order_id'
+        Header: 'Ref. Comercial',
+        accessor: 'ref_com'
     },
     {
-        Header: 'Identificador campaña',
-        accessor: 'campaign_id'
+        Header: 'EAN',
+        accessor: 'ean'
     },
     {
-        Header: 'Campaign name',
-        accessor: 'campaign_name'
+        Header: 'Motivo devolución',
+        accessor: 'member_reason'
     },
     {
-        Header: 'Almacén de destino',
-        accessor: 'warehouse_name'
+        Header: 'Observaciones socio',
+        accessor: 'member_observations'
     },
     {
-        Header: 'Devolución tratada por el Almacén',
+        Header: 'Producto realmente recepcionado',
+        accesor: 'sku_real_product'
+    },
+    {
+        Header: 'Motivo almacén',
+        accessor: 'warehouse_reason'
+    },
+    {
+        Header: 'Submotivo almacén',
+        accessor: 'warehouse_subreason',
         Cell: row => {
-            return <Checkbox checked={row.original.warehouse_date} readOnly/>;
+            console.log('submotivo value', row.value);
+            return <select
+                // value={row.value}
+                value="dos"
+                onChange={({target}) => changeSubreason(target.value)}
+            >   {subreasons.map((subreason, index) => {
+                    return (<option key={index} value={subreason.id}>{subreason.text}</option>);
+                })}</select>;
         },
         sortable: false
     },
     {
-        Header: 'Fecha recepción en el Almacén',
-        accessor: 'warehouse_date'
+        Header: 'Submotivo calidad',
+        accesor: 'quality_subreason'
     },
     {
-        Header: 'Deolución tratada por Calidad',
-        Cell: row => {
-            return <Checkbox checked={row.original.quality_date} readOnly/>;
-        },
-        sortable: false
-    },
-    {
-        Header: 'Fecha de tratamiento por Calidad',
-        accessor: 'quality_date'
-    },
-    {
-        Header: 'Devolución tratada por Producción',
-        Cell: row => {
-            return <Checkbox checked={row.original.production_date} readOnly/>;
-        },
-        sortable: false
-    },
-    {
-        Header: 'Fecha de tratamiento por Producción',
-        accessor: 'production_date'
+        Header: 'Submotivo Producción',
+        accessor: 'production_subreason'
     }
 ];

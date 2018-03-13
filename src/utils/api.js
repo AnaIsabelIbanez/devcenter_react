@@ -39,7 +39,6 @@ export default class Api {
     }
 
     fetch(url, options) {
-        console.log('url', url);
         return fetch(url, options)
             .catch(() => {
                 throw NETWORK_ERROR;

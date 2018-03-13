@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import {RETURN_REASONS, RETURN_SUBREASONS} from '../common/constants';
 
 const selectReturn = (state) => state.return;
 
@@ -12,6 +13,11 @@ const makeSelectFilters = (attribute) => createSelector(
     (state) => state.filters[attribute]
 );
 
+const makeSelectGlobal = (attribute) => createSelector(
+    selectReturn,
+    (state) => state.global[attribute]
+);
+
 const getData = () => makeSelectList('data');
 const getShowSpinner = () => makeSelectList('showSpinner');
 const getMeta = () => makeSelectList('meta');
@@ -21,6 +27,9 @@ const getCurrentSort = () => makeSelectList('currentSort');
 const getFields = () => makeSelectFilters('fields');
 const getFilters = () => makeSelectFilters('filters');
 
+const getReasons = () => makeSelectGlobal(RETURN_REASONS);
+const getSubreasons = () => makeSelectGlobal(RETURN_SUBREASONS);
+
 export {
     getData,
     getShowSpinner,
@@ -28,5 +37,7 @@ export {
     getLinks,
     getCurrentSort,
     getFields,
-    getFilters
+    getFilters,
+    getReasons,
+    getSubreasons
 };

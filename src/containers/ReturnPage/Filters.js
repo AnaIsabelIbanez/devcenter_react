@@ -5,7 +5,7 @@ import moment from 'moment/moment';
 import 'react-dates/lib/css/_datepicker.css';
 
 import FormField from '../../components/FormField';
-import Select from '../../components/Select';
+import Select from '../../components/SelectForm';
 import SingleDatepickerWrapper from '../../components/SingleDatepickerWrapper';
 
 const CustomField = ({fields, nameField, onChange, ...props}) => {
@@ -37,7 +37,9 @@ export default class ReturnFilters extends Component {
             changeField,
             launchFilter,
             clearFields,
-            disabled
+            disabled,
+            reasonsOptions,
+            subreasonOptions
         } = this.props;
 
         return (
@@ -81,7 +83,7 @@ export default class ReturnFilters extends Component {
                             <CustomSelect
                                 label="Motivo de la devolución"
                                 width={3}
-                                options={[{id: 1, text: 'prueba'}, {id: 2, text: 'prueba2'}]}
+                                options={reasonsOptions}
                                 error={false}
                                 fields={fields}
                                 nameField="member_reason"

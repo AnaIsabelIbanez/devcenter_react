@@ -31,7 +31,6 @@ export default function withServerSideData(WrappedTable, keyResource) {
         componentWillUpdate(nextProps) {
             const nextFilters = nextProps.filters;
             if (!isEqual(nextFilters, this.props.filters)) {
-                console.log('nextFilters', nextFilters);
                 this.changeResults(this.getParsedFilters(nextFilters));
             }
         }

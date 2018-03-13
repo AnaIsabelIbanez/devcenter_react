@@ -7,7 +7,9 @@ import {
     getData,
     getShowSpinner,
     getMeta,
-    getLinks
+    getLinks,
+    getReasons,
+    getSubreasons
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -18,41 +20,60 @@ import Table from '../../components/Table';
 import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_LINE_RESOURCE} from './constants';
 import columns from './columnsDefinition';
+import Select from '../../components/Select';
+import {getInitialData} from './actions';
 
 
 const ServerDataTable = serverDataTableHoc(Table);
 
 class ReturnPage extends Component {
 
+    constructor(props) {
+        super(props);
+        this.props.getInitialData();
+    }
+
     getEditableColumns(rol, changeSubreason, subreasons) {
         return [{
-            Header: 'Submotivo almacén',
-            accessor: 'warehouse_subreason',
+            Header: 'Motivo almacén',
+            accessor: 'warehouse_reason',
             Cell: row => {
-                console.log('submotivo value', row.value);
-                return <select
-                // value={row.value}
-                    value="dos"
-                    onChange={({target}) => changeSubreason(target.value)}
-                >   {subreasons.map((subreason, index) => {
-                        return (<option key={index} value={subreason.id}>{subreason.text}</option>);
-                    })}</select>;
-            },
-            sortable: false
+                return <Select
+                    value={'uno'}
+                    onChange={({target}) => console.log(target.value)}
+                    options={[{id: 'uno', text: 'uno_warehouse_reason'}, {id: 'dos', text: 'dos'}]}
+                />;
+            }
         }, {
             Header: 'Submotivo almacén',
             accessor: 'warehouse_subreason',
             Cell: row => {
-                console.log('submotivo value', row.value);
-                return <select
-                    // value={row.value}
-                    value="dos"
-                    onChange={({target}) => changeSubreason(target.value)}
-                >   {subreasons.map((subreason, index) => {
-                        return (<option key={index} value={subreason.id}>{subreason.text}</option>);
-                    })}</select>;
-            },
-            sortable: false
+                return <Select
+                    value={'uno'}
+                    onChange={({target}) => console.log(target.value)}
+                    options={[{id: 'uno', text: 'uno_warehouse_subreason'}, {id: 'dos', text: 'dos'}]}
+                />;
+            }
+        }, {
+            Header: 'Submotivo calidad',
+            accessor: 'quality_subreason',
+            Cell: row => {
+                return <Select
+                    value={'uno'}
+                    onChange={({target}) => console.log(target.value)}
+                    options={[{id: 'uno', text: 'uno_quality_subreason'}, {id: 'dos', text: 'dos'}]}
+                />;
+            }
+        }, {
+            Header: 'Submotivo Producción',
+            accessor: 'production_subreason',
+            Cell: row => {
+                return <Select
+                    value={'uno'}
+                    onChange={({target}) => console.log(target.value)}
+                    options={[{id: 'uno', text: 'uno_production_subreason'}, {id: 'dos', text: 'dos'}]}
+                />;
+            }
         }];
     }
 
@@ -61,14 +82,14 @@ class ReturnPage extends Component {
             data,
             meta: {currentPage, totalPages, pageSize},
             links,
-            loading
+            loading,
+            reasons
         } = this.props;
-        console.log('props.match.params.id', this.props.match.params.id);
         return (
             <div>
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_LINE_RESOURCE)}
-                    columns={columns(() => console.log('algo'), [{id: 'uno', text: 'uno'}, {id: 'dos', text: 'dos'}])}
+                    columns={columns(() => console.log('algo'), reasons)}
                     data={data}
                     pages={totalPages}
                     loading={loading}
@@ -86,11 +107,14 @@ const mapStateToProps = createStructuredSelector({
     data: getData(),
     showSpinner: getShowSpinner(),
     meta: getMeta(),
-    links: getLinks()
+    links: getLinks(),
+    reasons: getReasons(),
+    subreasons: getSubreasons()
 });
 
 const mapDispatchToProps = {
-    fetchData
+    fetchData,
+    getInitialData
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

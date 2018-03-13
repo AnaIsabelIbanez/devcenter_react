@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Checkbox} from 'react-bootstrap';
+import Select from '../../components/Select';
 
 
 export default (changeSubreason, subreasons) => [
@@ -35,9 +36,7 @@ export default (changeSubreason, subreasons) => [
         Header: 'Submotivo almacén',
         accessor: 'warehouse_subreason',
         Cell: row => {
-            console.log('submotivo value', row.value);
             return <select
-                // value={row.value}
                 value="dos"
                 onChange={({target}) => changeSubreason(target.value)}
             >   {subreasons.map((subreason, index) => {
@@ -48,7 +47,14 @@ export default (changeSubreason, subreasons) => [
     },
     {
         Header: 'Submotivo calidad',
-        accesor: 'quality_subreason'
+        accesor: 'quality_subreason',
+        Cell: row => {
+            return (<Select
+                value={'uno'}
+                onChange={({target}) => console.log(target.value)}
+                options={[{id: 'uno', text: 'uno'}, {id: 'dos', text: 'dos'}]}
+            />);
+        }
     },
     {
         Header: 'Submotivo Producción',

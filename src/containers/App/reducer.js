@@ -19,7 +19,10 @@ function appReducer(state = initialState, {type, payload}) {
         case SET_USER:
             return {
                 ...state,
-                user: payload
+                user: {
+                    ...payload,
+                    rol: 'almacen'
+                }
             };
         case 'SHOW_MODAL':
             return {

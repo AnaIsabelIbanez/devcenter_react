@@ -14,7 +14,9 @@ import {
     getCurrentSort,
     getColumns,
     getFilters,
-    getFields
+    getFields,
+    getReasons,
+    getSubreasons
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -25,13 +27,18 @@ import Table from '../../components/Table';
 import Filters from './Filters';
 import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_RETURN_RESOURCE} from './constants';
-import {launchFilter, changeField, clearFields} from './actions';
+import {launchFilter, changeField, clearFields, getInitialData} from './actions';
 import columns from './columnsDefinition';
 
 
 const ServerDataTable = serverDataTableHoc(Table, KEY_RETURN_RESOURCE);
 
 class ReturnPage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.props.getInitialData();
+    }
 
     render() {
         const {
@@ -44,7 +51,9 @@ class ReturnPage extends Component {
             filterFields,
             launchFilter,
             changeField,
-            clearFields
+            clearFields,
+            reasons,
+            subreasons
         } = this.props;
         return (
             <div>
@@ -53,6 +62,8 @@ class ReturnPage extends Component {
                     changeField={changeField}
                     launchFilter={launchFilter}
                     clearFields={clearFields}
+                    reasonsOptions={reasons}
+                    subreasonOptons={subreasons}
                 />
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_RETURN_RESOURCE)}
@@ -88,14 +99,17 @@ const mapStateToProps = createStructuredSelector({
     links: getLinks(),
     currentSort: getCurrentSort(),
     filterFields: getFields(),
-    filters: getFilters()
+    filters: getFilters(),
+    reasons: getReasons(),
+    subreasons: getSubreasons()
 });
 
 const mapDispatchToProps = {
     fetchData,
     launchFilter,
     changeField,
-    clearFields
+    clearFields,
+    getInitialData
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

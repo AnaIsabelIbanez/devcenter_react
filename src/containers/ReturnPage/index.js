@@ -16,7 +16,8 @@ import {
     getFilters,
     getFields,
     getReasons,
-    getSubreasons
+    getReturnTypes,
+    getWarehouseNames
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -27,7 +28,8 @@ import Table from '../../components/Table';
 import Filters from './Filters';
 import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_RETURN_RESOURCE} from './constants';
-import {launchFilter, changeField, clearFields, getInitialData} from './actions';
+import {getInitialData} from './actions';
+import {launchFilter, changeField, clearFields} from '../common/actions/filter';
 import columns from './columnsDefinition';
 
 
@@ -53,17 +55,17 @@ class ReturnPage extends Component {
             changeField,
             clearFields,
             reasons,
-            subreasons
+            returnTypes,
+            warehouseNames
         } = this.props;
         return (
             <div>
                 <Filters
                     fields={filterFields}
-                    changeField={changeField}
-                    launchFilter={launchFilter}
-                    clearFields={clearFields}
-                    reasonsOptions={reasons}
-                    subreasonOptons={subreasons}
+                    changeField={changeField.bind(null, KEY_RETURN_RESOURCE)}
+                    launchFilter={launchFilter.bind(null, KEY_RETURN_RESOURCE)}
+                    clearFields={clearFields.bind(null, KEY_RETURN_RESOURCE)}
+                    options={{reasons, returnTypes, warehouseNames}}
                 />
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_RETURN_RESOURCE)}
@@ -101,7 +103,8 @@ const mapStateToProps = createStructuredSelector({
     filterFields: getFields(),
     filters: getFilters(),
     reasons: getReasons(),
-    subreasons: getSubreasons()
+    returnTypes: getReturnTypes(),
+    warehouseNames: getWarehouseNames()
 });
 
 const mapDispatchToProps = {

@@ -4,7 +4,7 @@ const setData = (state, payload) => {
     const {meta} = payload;
     return {
         ...state,
-        data: payload.data.map((data) => ({id: data.id, ...data.attributes})),
+        data: payload.data.map((data) => ({id: data.id, self: data.links.self, type: data.type, ...data.attributes})),
         meta: {
             ...state.meta,
             currentPage: meta['current-page'],

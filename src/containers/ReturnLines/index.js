@@ -21,7 +21,10 @@ import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_LINE_RESOURCE} from './constants';
 import columns from './columnsDefinition';
 import Select from '../../components/Select';
-import {getInitialData} from './actions';
+import {
+    getInitialData,
+    changeAttributeTable
+} from './actions';
 
 
 const ServerDataTable = serverDataTableHoc(Table);
@@ -33,63 +36,22 @@ class ReturnPage extends Component {
         this.props.getInitialData();
     }
 
-    getEditableColumns(rol, changeSubreason, subreasons) {
-        return [{
-            Header: 'Motivo almacén',
-            accessor: 'warehouse_reason',
-            Cell: row => {
-                return <Select
-                    value={'uno'}
-                    onChange={({target}) => console.log(target.value)}
-                    options={[{id: 'uno', text: 'uno_warehouse_reason'}, {id: 'dos', text: 'dos'}]}
-                />;
-            }
-        }, {
-            Header: 'Submotivo almacén',
-            accessor: 'warehouse_subreason',
-            Cell: row => {
-                return <Select
-                    value={'uno'}
-                    onChange={({target}) => console.log(target.value)}
-                    options={[{id: 'uno', text: 'uno_warehouse_subreason'}, {id: 'dos', text: 'dos'}]}
-                />;
-            }
-        }, {
-            Header: 'Submotivo calidad',
-            accessor: 'quality_subreason',
-            Cell: row => {
-                return <Select
-                    value={'uno'}
-                    onChange={({target}) => console.log(target.value)}
-                    options={[{id: 'uno', text: 'uno_quality_subreason'}, {id: 'dos', text: 'dos'}]}
-                />;
-            }
-        }, {
-            Header: 'Submotivo Producción',
-            accessor: 'production_subreason',
-            Cell: row => {
-                return <Select
-                    value={'uno'}
-                    onChange={({target}) => console.log(target.value)}
-                    options={[{id: 'uno', text: 'uno_production_subreason'}, {id: 'dos', text: 'dos'}]}
-                />;
-            }
-        }];
-    }
-
     render() {
         const {
             data,
             meta: {currentPage, totalPages, pageSize},
             links,
             loading,
-            reasons
+            reasons,
+            subreasons,
+            changeAttributeTable,
+            rol
         } = this.props;
         return (
             <div>
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_LINE_RESOURCE)}
-                    columns={columns(() => console.log('algo'), reasons)}
+                    columns={columns('warehouse', changeAttributeTable, reasons, subreasons)}
                     data={data}
                     pages={totalPages}
                     loading={loading}
@@ -114,7 +76,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
     fetchData,
-    getInitialData
+    getInitialData,
+    changeAttributeTable
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

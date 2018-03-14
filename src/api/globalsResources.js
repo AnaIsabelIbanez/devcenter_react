@@ -19,11 +19,11 @@ export const getColors = () => {
 };
 
 export const getReturnTypes = () => {
-    return api.get('/returns_type');
+    return api.get('/return_type');
 };
 
 export const getReturnReasons = () => {
-    return api.get('/reason_type');
+    return api.get('/return_reason');
 };
 
 export const getWarehouseNames = () => {
@@ -31,5 +31,5 @@ export const getWarehouseNames = () => {
 };
 
 export const getReturnSubreasons = () => {
-    return api.get('/subreason_type');
+    return api.get('/return_subreason');
 };

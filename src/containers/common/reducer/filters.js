@@ -6,9 +6,9 @@ const defaultState = {
     filters: {}
 };
 
-export default (state = defaultState, { type, payload }) => {
+export default (state = defaultState, { type, payload, resource }) => {
     switch (type) {
-        case CHANGE_FIELD:
+        case `${CHANGE_FIELD}_${resource}`:
             return {
                 ...state,
                 fields: {
@@ -16,15 +16,14 @@ export default (state = defaultState, { type, payload }) => {
                     ...payload
                 }
             };
-        case CLEAR_FIELDS: {
+        case `${CLEAR_FIELDS}_${resource}`: {
             return {
                 ...state,
                 fields: {},
                 filters: {}
             };
         };
-        case LAUNCH_FILTER: {
-            const a = clearEmptyValues(state.fields);
+        case `${LAUNCH_FILTER}_${resource}`: {
             return {
                 ...state,
                 filters: clearEmptyValues(state.fields)

@@ -38,7 +38,7 @@ export default class ReturnFilters extends Component {
             launchFilter,
             clearFields,
             disabled,
-            options: {reasons, returnTypes, warehouseNames}
+            options: {brands, categories, sizes, colors}
         } = this.props;
 
         return (
@@ -51,109 +51,104 @@ export default class ReturnFilters extends Component {
                         <Col md={4}>
                             <CustomField
                                 width={3}
-                                label={'Número de devolución'}
+                                label={'Ean'}
                                 fields={fields}
-                                nameField="return_id"
+                                nameField="ean"
                                 onChange={changeField}
                                 error={false}
                                 disabled={disabled}
                             />
                             <CustomField
                                 width={3}
-                                label={'Número de pedido'}
+                                label={'Referencia comercial'}
                                 fields={fields}
-                                nameField="order_id"
+                                nameField="ref_com"
                                 onChange={changeField}
                                 error={false}
                                 disabled={disabled}
                             />
-                            <CustomSelect
-                                label="Tipo de devolución"
-                                width={3}
-                                options={returnTypes}
-                                error={false}
-                                fields={fields}
-                                nameField="return_type"
-                                onChange={changeField}
-                                disabled={disabled}
-                            />
-                            {/*nameField correcto ??????*/}
-                            <CustomSelect
-                                label="Motivo de la devolución"
-                                width={3}
-                                options={reasons}
-                                error={false}
-                                fields={fields}
-                                nameField="member_reason"
-                                onChange={changeField}
-                                disabled={disabled}
-
-                            />
-                        </Col>
-
-                        <Col md={4}>
-                            <CustomSelect
-                                label="Almacén destino devolución"
-                                width={4}
-                                options={warehouseNames}
-                                error={false}
-                                fields={fields}
-                                nameField="warehouse_name"
-                                onChange={changeField}
-                                disabled={disabled}
-
-                            />
-
                             <CustomField
-                                width={4}
-                                label={'Id Campaña'}
+                                width={3}
+                                label={'Referencia física'}
+                                fields={fields}
+                                nameField="ref_physic"
+                                onChange={changeField}
+                                error={false}
+                                disabled={disabled}
+                            />
+                            <CustomField
+                                width={3}
+                                label={'Referencia logística'}
+                                fields={fields}
+                                nameField="ref_logistic"
+                                onChange={changeField}
+                                error={false}
+                                disabled={disabled}
+                            />
+                            <CustomField
+                                width={3}
+                                label={'Id campaña'}
                                 fields={fields}
                                 nameField="campaign_id"
                                 onChange={changeField}
                                 error={false}
                                 disabled={disabled}
                             />
-
-                            <CustomField
-                                width={4}
-                                label={'Campaña'}
-                                fields={fields}
-                                nameField="campaign_name"
-                                onChange={changeField}
-                                error={false}
-                                disabled={disabled}
-                            />
-
-                            {/*nameField correcto???*/}
-                            <FormGroup>
-                                <Col componentClass={ControlLabel} sm={4}>Fecha de devolución</Col>
-                                <SingleDatepickerWrapper
-                                    date={moment(fields.checkin_date)} // momentPropTypes.momentObj or null
-                                    onDateChange={(date) => changeField({checkin_date: date.toISOString()})} // PropTypes.func.isRequired
-                                    numberOfMonths={1}
-                                    displayFormat="DD/MM/YYYY"
-                                    disabled={disabled}
-                                />
-                            </FormGroup>
                         </Col>
+
                         <Col md={4}>
                             <CustomField
-                                width={4}
-                                label={'Nombre del socio'}
+                                width={3}
+                                label={'Text'}
                                 fields={fields}
-                                nameField="member_name"
+                                nameField="text"
                                 onChange={changeField}
                                 error={false}
                                 disabled={disabled}
                             />
-                            <CustomField
+                            <CustomSelect
+                                label="Brand"
                                 width={4}
-                                label={'Mail del socio'}
+                                options={brands}
+                                error={false}
                                 fields={fields}
-                                nameField="member_email"
+                                nameField="brand"
                                 onChange={changeField}
-                                error={true}
                                 disabled={disabled}
+
+                            />
+                            <CustomSelect
+                                label="Category"
+                                width={4}
+                                options={categories}
+                                error={false}
+                                fields={fields}
+                                nameField="category"
+                                onChange={changeField}
+                                disabled={disabled}
+
+                            />
+                            <CustomSelect
+                                label="Size"
+                                width={4}
+                                options={sizes}
+                                error={false}
+                                fields={fields}
+                                nameField="size"
+                                onChange={changeField}
+                                disabled={disabled}
+
+                            />
+                            <CustomSelect
+                                label="Color"
+                                width={4}
+                                options={colors}
+                                error={false}
+                                fields={fields}
+                                nameField="color"
+                                onChange={changeField}
+                                disabled={disabled}
+
                             />
                         </Col>
                     </Row>

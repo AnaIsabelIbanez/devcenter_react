@@ -2,62 +2,83 @@ import React, {Component} from 'react';
 import {Checkbox} from 'react-bootstrap';
 import Select from '../../components/Select';
 
+export default (rol, changeAttribute, reasons, subreasons) => {
+    const SelectCell = ({row, rolName, attributeName, options}) => {
+        return rol === rolName
+            ? <Select
+                value={row.value}
+                onChange={(value) => {
+                    changeAttribute({[`${attributeName}`]: value}, row.original);
+                }}
+                options={options}
+            />
+            : <span>{row.value}</span>;
+    };
 
-export default (changeSubreason, subreasons) => [
-    {
-        Header: 'SKU',
-        accessor: 'sku'
-    },
-    {
-        Header: 'Ref. Comercial',
-        accessor: 'ref_com'
-    },
-    {
-        Header: 'EAN',
-        accessor: 'ean'
-    },
-    {
-        Header: 'Motivo devolución',
-        accessor: 'member_reason'
-    },
-    {
-        Header: 'Observaciones socio',
-        accessor: 'member_observations'
-    },
-    {
-        Header: 'Producto realmente recepcionado',
-        accesor: 'sku_real_product'
-    },
-    {
-        Header: 'Motivo almacén',
-        accessor: 'warehouse_reason'
-    },
-    {
-        Header: 'Submotivo almacén',
-        accessor: 'warehouse_subreason',
-        Cell: row => {
-            return <select
-                value="dos"
-                onChange={({target}) => changeSubreason(target.value)}
-            >   {subreasons.map((subreason, index) => {
-                    return (<option key={index} value={subreason.id}>{subreason.text}</option>);
-                })}</select>;
+    return [
+        {
+            Header: 'SKU',
+            accessor: 'sku'
         },
-        sortable: false
-    },
-    {
-        Header: 'Submotivo calidad',
-        accesor: 'quality_subreason',
-        Cell: row => {
-            return (<Select
-                value={'uno'}
-                onChange={({target}) => console.log(target.value)}
-                options={[{id: 'uno', text: 'uno'}, {id: 'dos', text: 'dos'}]}
-            />);
+        {
+            Header: 'Ref. Comercial',
+            accessor: 'ref_com'
+        },
+        {
+            Header: 'EAN',
+            accessor: 'ean'
+        },
+        {
+            Header: 'Motivo devolución',
+            accessor: 'member_reason'
+        },
+        {
+            Header: 'Observaciones socio',
+            accessor: 'member_observations'
+        },
+        {
+            Header: 'Producto realmente recepcionado',
+            accesor: 'sku_real_product'
+        },
+        {
+            Header: 'Motivo almacén',
+            accessor: 'warehouse_reason',
+            Cell: row => <SelectCell
+                row={row}
+                rolName="warehouse"
+                attributeName="warehouse_reason"
+                options={reasons}
+            />
+        },
+        {
+            Header: 'Submotivo almacén',
+            accessor: 'warehouse_subreason',
+            Cell: row => <SelectCell
+                row={row}
+                rolName="warehouse"
+                attributeName="warehouse_subreason"
+                options={subreasons}
+            />
+        },
+        {
+            Header: 'Submotivo calidad',
+            accesor: 'quality_subreason',
+            Cell: row => <SelectCell
+                row={row}
+                rolName="quality"
+                attributeName="quality_subreason"
+                options={subreasons}
+            />
+        },
+        {
+            Header: 'Submotivo Producción',
+            accessor: 'production_subreason',
+            Cell: row => <SelectCell
+                row={row}
+                rolName="production"
+                attributeName="production_subreason"
+                options={subreasons}
+            />
         }
-    },
-    {
-        Header: 'Submotivo Producción',
-        accessor: 'production_subreason'
-    }
-];
+    ];
+};

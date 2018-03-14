@@ -112,6 +112,10 @@ export default class Api {
         return this.genericRequest('put', originalUrl, options);
     }
 
+    patch(originalUrl, options = {}) {
+        return this.genericRequest('PATCH', originalUrl, options);
+    }
+
     delete(originalUrl, options = {}) {
         options.headers = options.headers || {};
         options.headers.Accept = options.headers.Accept || '*';

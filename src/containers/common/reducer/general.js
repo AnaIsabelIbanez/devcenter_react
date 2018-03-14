@@ -6,7 +6,11 @@ const initialState = {
     returnTypes: [],
     returnReasons: [],
     returnSubreasons: [],
-    warehouseNames: []
+    warehouseNames: [],
+    colors: [],
+    categories: [],
+    sizes: [],
+    brands: []
 };
 
 export default function generalReducer(state = initialState, {type, payload, resource}) {

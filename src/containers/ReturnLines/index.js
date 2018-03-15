@@ -9,7 +9,8 @@ import {
     getMeta,
     getLinks,
     getReasons,
-    getSubreasons
+    getSubreasons,
+    getDetail
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -17,10 +18,10 @@ import reducer from './reducer/rootReducer';
 import saga from './saga/rootSaga';
 import {fetchData} from '../common/actions/table';
 import Table from '../../components/Table';
+import DetailReturn from './DetailReturn';
 import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_LINE_RESOURCE} from './constants';
 import columns from './columnsDefinition';
-import Select from '../../components/Select';
 import {
     getInitialData,
     changeAttributeTable
@@ -33,7 +34,7 @@ class ReturnPage extends Component {
 
     constructor(props) {
         super(props);
-        this.props.getInitialData();
+        this.props.getInitialData(this.props.match.params.id);
     }
 
     render() {
@@ -45,13 +46,16 @@ class ReturnPage extends Component {
             reasons,
             subreasons,
             changeAttributeTable,
-            rol
+            //TODO: get roles from the user
+            rol = 'warehouse',
+            detail
         } = this.props;
         return (
             <div>
+                <DetailReturn detail={detail} />
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_LINE_RESOURCE)}
-                    columns={columns('warehouse', changeAttributeTable, reasons, subreasons)}
+                    columns={columns(rol, changeAttributeTable, reasons, subreasons)}
                     data={data}
                     pages={totalPages}
                     loading={loading}
@@ -71,7 +75,8 @@ const mapStateToProps = createStructuredSelector({
     meta: getMeta(),
     links: getLinks(),
     reasons: getReasons(),
-    subreasons: getSubreasons()
+    subreasons: getSubreasons(),
+    detail: getDetail()
 });
 
 const mapDispatchToProps = {

@@ -14,10 +14,17 @@ const makeSelectGlobal = (attribute) => createSelector(
     (state) => state.global[attribute]
 );
 
+const makeSelectDetail = (attribute) => createSelector(
+    selectReturn,
+    (state) => state.detail[attribute]
+);
+
 const getData = () => makeSelectList('data');
 const getShowSpinner = () => makeSelectList('showSpinner');
 const getMeta = () => makeSelectList('meta');
 const getLinks = () => makeSelectList('links');
+
+const getDetail = () => makeSelectDetail('detail');
 
 const getReasons = () => makeSelectGlobal(RETURN_REASONS);
 const getSubreasons = () => makeSelectGlobal(RETURN_SUBREASONS);
@@ -28,5 +35,6 @@ export {
     getMeta,
     getLinks,
     getReasons,
-    getSubreasons
+    getSubreasons,
+    getDetail
 };

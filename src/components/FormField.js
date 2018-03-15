@@ -1,7 +1,7 @@
 import React from 'react';
 import {ControlLabel, FormGroup, Col, FormControl} from 'react-bootstrap';
 
-export default ({width, label, value, onChange, error, ...props}) => (
+export default ({width, label, value, onChange, error, errorMessage, ...props}) => (
     <FormGroup>
         <Col componentClass={ControlLabel} sm={width}>{label}</Col>
         <FormControl
@@ -11,5 +11,6 @@ export default ({width, label, value, onChange, error, ...props}) => (
             validationstate={error === true ? 'error' : null}
             {...props}
         />
+        {error && <div>{errorMessage}</div>}
     </FormGroup>
 );

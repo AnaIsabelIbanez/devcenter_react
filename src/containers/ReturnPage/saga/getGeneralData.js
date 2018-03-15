@@ -1,8 +1,8 @@
 import {call, put} from 'redux-saga/effects';
 
 import {setGeneralList} from '../../common/reducer/general';
-import {getReturnReasons, getReturnTypes, getWarehouseNames} from '../../../api/globalsResources';
-import {RETURN_REASONS, RETURN_TYPES, WAREHOUSE_NAMES} from '../../common/constants';
+import {getReturnReasons, getReturnSubreasons, getReturnTypes, getWarehouseNames} from '../../../api/globalsResources';
+import {RETURN_REASONS, RETURN_TYPES, WAREHOUSE_NAMES, RETURN_SUBREASONS} from '../../common/constants';
 
 // const getData = function* (getResource, resourceName) {
 //     const returnTypes = yield call(getResource);
@@ -21,4 +21,7 @@ export default function* getGeneralData() {
     const returnReasons = yield call(getReturnReasons);
     yield put(setGeneralList(RETURN_REASONS, returnReasons));
     //getData(getReturnReasons, RETURN_REASONS);
+
+    const returnSubreasons = yield call(getReturnSubreasons);
+    yield put(setGeneralList(RETURN_SUBREASONS, returnSubreasons));
 };

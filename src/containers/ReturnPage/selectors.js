@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import {RETURN_REASONS, RETURN_TYPES, WAREHOUSE_NAMES} from '../common/constants';
+import {RETURN_REASONS, RETURN_SUBREASONS, RETURN_TYPES, WAREHOUSE_NAMES} from '../common/constants';
 
 const selectReturn = (state) => state.return;
 
@@ -30,6 +30,7 @@ const getFilters = () => makeSelectFilters('filters');
 const getReasons = () => makeSelectGlobal(RETURN_REASONS);
 const getReturnTypes = () => makeSelectGlobal(RETURN_TYPES);
 const getWarehouseNames = () => makeSelectGlobal(WAREHOUSE_NAMES);
+const getSubreasons = () => makeSelectGlobal(RETURN_SUBREASONS);
 
 export {
     getData,
@@ -41,5 +42,6 @@ export {
     getFilters,
     getReasons,
     getReturnTypes,
-    getWarehouseNames
+    getWarehouseNames,
+    getSubreasons
 };

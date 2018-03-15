@@ -17,7 +17,8 @@ import {
     getFields,
     getReasons,
     getReturnTypes,
-    getWarehouseNames
+    getWarehouseNames,
+    getSubreasons
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -56,7 +57,8 @@ class ReturnPage extends Component {
             clearFields,
             reasons,
             returnTypes,
-            warehouseNames
+            warehouseNames,
+            subreasons
         } = this.props;
         return (
             <div>
@@ -65,7 +67,7 @@ class ReturnPage extends Component {
                     changeField={changeField.bind(null, KEY_RETURN_RESOURCE)}
                     launchFilter={launchFilter.bind(null, KEY_RETURN_RESOURCE)}
                     clearFields={clearFields.bind(null, KEY_RETURN_RESOURCE)}
-                    options={{reasons, returnTypes, warehouseNames}}
+                    options={{subreasons, reasons, returnTypes, warehouseNames}}
                 />
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_RETURN_RESOURCE)}
@@ -104,7 +106,8 @@ const mapStateToProps = createStructuredSelector({
     filters: getFilters(),
     reasons: getReasons(),
     returnTypes: getReturnTypes(),
-    warehouseNames: getWarehouseNames()
+    warehouseNames: getWarehouseNames(),
+    subreasons: getSubreasons()
 });
 
 const mapDispatchToProps = {

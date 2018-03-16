@@ -6,8 +6,8 @@ import 'react-dates/lib/css/_datepicker.css';
 
 import FormField from '../../components/FormField';
 import Select from '../../components/SelectForm';
-import Tooltip from '../../components/Tooltip';
 import SingleDatepickerWrapper from '../../components/SingleDatepickerWrapper';
+import FieldWithTooltip from '../../components/FieldWithTooltip';
 
 const CustomField = ({fields, nameField, onChange, ...props}) => {
     return (
@@ -29,12 +29,6 @@ const CustomSelect = ({fields, nameField, onChange, ...props}) => {
     );
 };
 
-const FieldWithTooltip = () => {
-    return (<span>
-
-    </span>);
-};
-
 export default ({
     fields,
     changeField,
@@ -53,15 +47,6 @@ export default ({
                     <Col md={3}>
                         <CustomField
                             width={3}
-                            label={'Número de devolución'}
-                            fields={fields}
-                            nameField="return_id"
-                            onChange={changeField}
-                            error={false}
-                            disabled={disabled}
-                        />
-                        <CustomField
-                            width={3}
                             label={'Número de pedido'}
                             fields={fields}
                             nameField="order_id"
@@ -69,49 +54,61 @@ export default ({
                             error={false}
                             disabled={disabled}
                         />
-                        <CustomSelect
-                            label="Tipo de devolución"
-                            width={3}
-                            options={returnTypes}
-                            error={false}
-                            fields={fields}
-                            nameField="return_type"
-                            onChange={changeField}
-                            disabled={disabled}
-                            data-for={'returnTypeFilter'}
-                            data-tip
-                        />
-                        <Tooltip
-                            id={'returnTypeFilter'}
-                        >
-                            <div>hola</div>
-                        </Tooltip>
-                        {/*nameField correcto ??????*/}
-                        <CustomSelect
-                            label="Motivo de la devolución"
-                            width={3}
-                            options={reasons}
-                            error={false}
-                            fields={fields}
-                            nameField="member_reason"
-                            onChange={changeField}
-                            disabled={disabled}
 
-                        />
+                        <FieldWithTooltip
+                            id="filter_return_type"
+                            message="Busca en líneas de devolución"
+                        >
+                            <CustomSelect
+                                label="Tipo de devolución"
+                                width={3}
+                                options={returnTypes}
+                                error={false}
+                                fields={fields}
+                                nameField="return_type"
+                                onChange={changeField}
+                                disabled={disabled}
+                                data-for={'returnTypeFilter'}
+                                data-tip
+                            />
+                        </FieldWithTooltip>
+
+                        <FieldWithTooltip
+                            id="filter_member_reason"
+                            message="Busca en líneas de devolución"
+                        >
+                            {/*nameField correcto ??????*/}
+                            <CustomSelect
+                                label="Motivo de la devolución"
+                                width={3}
+                                options={reasons}
+                                error={false}
+                                fields={fields}
+                                nameField="member_reason"
+                                onChange={changeField}
+                                disabled={disabled}
+                                loading={true}
+
+                            />
+                        </FieldWithTooltip>
                     </Col>
 
                     <Col md={3}>
-                        <CustomSelect
-                            label="Almacén destino devolución"
-                            width={4}
-                            options={warehouseNames}
-                            error={false}
-                            fields={fields}
-                            nameField="warehouse_name"
-                            onChange={changeField}
-                            disabled={disabled}
-
-                        />
+                        <FieldWithTooltip
+                            id="filter_warehouse_name"
+                            message="Busca en líneas de devolución"
+                        >
+                            <CustomSelect
+                                label="Almacén destino devolución"
+                                width={4}
+                                options={warehouseNames}
+                                error={false}
+                                fields={fields}
+                                nameField="warehouse_name"
+                                onChange={changeField}
+                                disabled={disabled}
+                            />
+                        </FieldWithTooltip>
 
                         <CustomField
                             width={4}
@@ -166,13 +163,13 @@ export default ({
                         />
                     </Col>
                     <Col md={3}>
-                        <fieldset style={{ border: '1px solid black', margin: '10px', padding: '10px'}}>
+                        <fieldset style={{border: '1px solid black', margin: '10px', padding: '10px'}}>
                             <legend style={{width: 'auto', fontSize: '14px'}}>Almacén</legend>
                             <Row>
                                 <Col md={5}>
                                     <label>
                                         Tratada por el almacén?
-                                        <input type="checkbox" checked />
+                                        <input type="checkbox"/>
                                     </label>
                                 </Col>
                                 <Col md={5}>
@@ -187,17 +184,21 @@ export default ({
                                         />
                                     </FormGroup>
                                 </Col>
-                                <CustomSelect
-                                    label="Submotivo"
-                                    width={4}
-                                    options={subreasons}
-                                    error={false}
-                                    fields={fields}
-                                    nameField="warehouse_name"
-                                    onChange={changeField}
-                                    disabled={disabled}
-
-                                />
+                                <FieldWithTooltip
+                                    id="warehouse_subreason"
+                                    message="Busca en líneas de devolución"
+                                >
+                                    <CustomSelect
+                                        label="Submotivo"
+                                        width={4}
+                                        options={subreasons}
+                                        error={false}
+                                        fields={fields}
+                                        nameField="warehouse_subreason"
+                                        onChange={changeField}
+                                        disabled={disabled}
+                                    />
+                                </FieldWithTooltip>
                             </Row>
                         </fieldset>
                     </Col>
@@ -208,7 +209,7 @@ export default ({
                         <Button
                             onClick={() => clearFields()}
                         >
-                                Clear
+                            Clear
                         </Button>
 
                     </Col>

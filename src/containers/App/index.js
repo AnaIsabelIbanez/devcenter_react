@@ -20,11 +20,12 @@ class App extends Component {
 
     render() {
         const {user, modalOptions, hideModal} = this.props;
+        console.log('modalOptions', modalOptions);
         return (
             <div>
                 <Header/>
                 <div>
-                    {/*<Modal hideModal={hideModal} {...modalOptions} />*/}
+                    <Modal show={modalOptions.open} {...modalOptions} />
                     <Switch>
                         {/*{!user && <Route exact path="/product" render={() => (<Redirect to="/"/>)}/>}*/}
                         {/*{!user && <Route exact path="/" component={Login}/>}*/}

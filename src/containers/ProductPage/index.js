@@ -9,13 +9,13 @@ import {
     getShowSpinner,
     getMeta, getLinks,
     getCurrentSort,
-    getColumns,
     getCategories,
     getColors,
     getFields,
     getFilters,
     getSizes,
-    getBrands
+    getBrands,
+    getFetch
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -28,6 +28,7 @@ import Table from '../../components/Table';
 import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_PRODUCT_RESOURCE} from './constants';
 import Filters from './Filters';
+import columns from './columnsDefinition';
 
 // const StyledGrid = styled(CustomGrid)`
 //     && {
@@ -48,10 +49,9 @@ class ProductPage extends Component {
         const {
             data,
             currentSort,
-            meta: {currentPage, totalPages, pageSize},
+            meta: {currentPage, totalPages, pageSize, totalResults},
             links,
             loading,
-            columns,
             filterFields,
             launchFilter,
             changeField,
@@ -60,7 +60,8 @@ class ProductPage extends Component {
             categories,
             sizes,
             colors,
-            filters
+            filters,
+            fetch
         } = this.props;
         return (
             <div>
@@ -70,6 +71,7 @@ class ProductPage extends Component {
                     launchFilter={launchFilter.bind(null, KEY_PRODUCT_RESOURCE)}
                     clearFields={clearFields.bind(null, KEY_PRODUCT_RESOURCE)}
                     options={{brands, categories, sizes, colors}}
+                    fetch={fetch}
                 />
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_PRODUCT_RESOURCE)}
@@ -78,8 +80,9 @@ class ProductPage extends Component {
                     sorted={currentSort}
                     pages={totalPages}
                     loading={loading}
-                    defaultPageSize={pageSize}
+                    pageSize={pageSize}
                     currentPage={currentPage}
+                    totalResults={totalResults}
                     links={links}
                     baseUri={`/${KEY_PRODUCT_RESOURCE}`}
                     filters={filters}
@@ -95,13 +98,13 @@ const mapStateToProps = createStructuredSelector({
     meta: getMeta(),
     links: getLinks(),
     currentSort: getCurrentSort(),
-    columns: getColumns(),
     filterFields: getFields(),
     filters: getFilters(),
     colors: getColors(),
     sizes: getSizes(),
     brands: getBrands(),
-    categories: getCategories()
+    categories: getCategories(),
+    fetch: getFetch()
 });
 
 const mapDispatchToProps = {

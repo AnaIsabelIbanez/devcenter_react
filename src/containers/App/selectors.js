@@ -9,9 +9,12 @@ const makeSelect = (attribute) => createSelector(
     (appState) => appState[attribute]
 );
 
-const getModalOptions = () => makeSelect('modal');
+const getUser = (attribute) => createSelector(
+    selectApp,
+    (state) => state.user.user
+);
 
-const getUser = () => makeSelect('user');
+const getModalOptions = () => makeSelect('modal');
 
 export {
     selectApp,

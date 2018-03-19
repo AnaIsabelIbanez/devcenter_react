@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
-import {Checkbox} from 'react-bootstrap';
+import React from 'react';
+
 import Select from '../../components/Select';
+import {ROL_WAREHOUSE, ROL_PRODUCTION, ROL_QUALITY} from '../App/constants';
+import {getLiteral} from '../../utils/utilities';
 
 export default (rol, changeAttribute, reasons, subreasons) => {
     const SelectCell = ({row, rolName, attributeName, options}) => {
@@ -12,70 +14,70 @@ export default (rol, changeAttribute, reasons, subreasons) => {
                 }}
                 options={options}
             />
-            : <span>{row.value}</span>;
+            : <span>{row.original[attributeName]}</span>;
     };
 
     return [
         {
-            Header: 'SKU',
+            Header: getLiteral('product.sku'),
             accessor: 'sku'
         },
         {
-            Header: 'Ref. Comercial',
+            Header: getLiteral('product.refCom'),
             accessor: 'ref_com'
         },
         {
-            Header: 'EAN',
+            Header: getLiteral('product.ean'),
             accessor: 'ean'
         },
         {
-            Header: 'Motivo devolución',
+            Header: getLiteral('return.returnReason'),
             accessor: 'member_reason'
         },
         {
-            Header: 'Observaciones socio',
+            Header: getLiteral('return.partnerObservations'),
             accessor: 'member_observations'
         },
         {
-            Header: 'Producto realmente recepcionado',
+            Header: getLiteral('product.reallyReceived'),
             accesor: 'sku_real_product'
         },
         {
-            Header: 'Motivo almacén',
+            Header: getLiteral('return.warehouseReason'),
             accessor: 'warehouse_reason',
             Cell: row => <SelectCell
                 row={row}
-                rolName="warehouse"
+                rolName={ROL_WAREHOUSE}
                 attributeName="warehouse_reason"
                 options={reasons}
             />
         },
         {
-            Header: 'Submotivo almacén',
+            Header: getLiteral('return.warehouseSubreason'),
             accessor: 'warehouse_subreason',
             Cell: row => <SelectCell
                 row={row}
-                rolName="warehouse"
+                rolName={ROL_WAREHOUSE}
                 attributeName="warehouse_subreason"
                 options={subreasons}
             />
         },
         {
-            Header: 'Submotivo calidad',
+            Header: getLiteral('return.qualitySubreason'),
             accesor: 'quality_subreason',
             Cell: row => <SelectCell
                 row={row}
-                rolName="quality"
+                rolName={ROL_QUALITY}
                 attributeName="quality_subreason"
                 options={subreasons}
             />
         },
         {
-            Header: 'Submotivo Producción',
+            Header: getLiteral('return.productionSubreason'),
             accessor: 'production_subreason',
             Cell: row => <SelectCell
                 row={row}
-                rolName="production"
+                rolName={ROL_PRODUCTION}
                 attributeName="production_subreason"
                 options={subreasons}
             />

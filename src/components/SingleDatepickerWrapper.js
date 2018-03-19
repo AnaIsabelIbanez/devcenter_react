@@ -92,6 +92,7 @@ class SingleDatePickerWrapper extends React.Component {
                 {...props}
                 focused={focused}
                 onFocusChange={this.onFocusChange}
+                isOutsideRange={() => false}
             />
         );
     }

@@ -18,7 +18,7 @@ export default function generalReducer(state = initialState, {type, payload, res
         case SET_GENERAL_LIST:
             return {
                 ...state,
-                [`${resource}`]: payload.list
+                [resource]: payload.list
             };
         default:
             return state;

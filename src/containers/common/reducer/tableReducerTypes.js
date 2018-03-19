@@ -28,8 +28,8 @@ export const initialState = {
     currentSort: [],
     meta: {
         currentPage: 1,
-        totalPages: 10,
-        pageSize: 5,
+        totalPages: 0,
+        pageSize: 3,
         totalResults: 0
     },
     links: {}

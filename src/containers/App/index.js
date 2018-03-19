@@ -4,6 +4,7 @@ import {withRouter} from 'react-router';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
+import {Button} from 'react-bootstrap';
 
 import Header from '../../common/Header';
 import Login from '../Login';
@@ -13,23 +14,37 @@ import ReturnLines from '../ReturnLines';
 import Modal from '../../components/Modal';
 import {getUser, getModalOptions} from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
-import reducer from './reducer';
-import {hideModal} from './actions';
+import reducer from './reducer/rootReducer';
+import {hideModal, showError} from './actions';
+import {getLiteral} from '../../utils/utilities';
 
 class App extends Component {
 
     render() {
-        const {user, modalOptions, hideModal} = this.props;
-        console.log('modalOptions', modalOptions);
+        const {user, modals, hideModal} = this.props;
         return (
             <div>
                 <Header/>
                 <div>
-                    <Modal show={modalOptions.open} {...modalOptions} />
+                    {modals.modals.map((modalOpt, index) => {
+                        return (<Modal key={index} hideModal={hideModal} {...modalOpt} />);
+                    })}
+                    <Button
+                        onClick={() => this.props.history.push('/product')}
+                    >{getLiteral('product.products')}
+                    </Button>
+                    <Button
+                        onClick={() => this.props.history.push('/return')}
+                    >{getLiteral('return.returns')}
+                    </Button>
+                    <Button>
+                        {getLiteral('inboundQuality.inboundQuality')}
+                    </Button>
                     <Switch>
                         {/*{!user && <Route exact path="/product" render={() => (<Redirect to="/"/>)}/>}*/}
                         {/*{!user && <Route exact path="/" component={Login}/>}*/}
                         {/*{user && <Route exact path="/" render={() => (<Redirect to="/product"/>)}/>}*/}
+                        {!user && <Route exact path="/" render={() => (<Redirect to="/product"/>)}/>}
                         {!user && <Route path="/product" component={Product}/>}
                         {!user && <Route exact path="/return" component={Return}/>}
                         {!user && <Route exact path="/return/:id" component={ReturnLines}/>}
@@ -42,11 +57,12 @@ class App extends Component {
 
 const mapStateToProps = createStructuredSelector({
     user: getUser(),
-    modalOptions: getModalOptions()
+    modals: getModalOptions()
 });
 
 const mapDispatchToProps = {
-    hideModal
+    hideModal,
+    showError
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

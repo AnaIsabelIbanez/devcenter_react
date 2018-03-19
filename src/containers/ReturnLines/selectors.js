@@ -19,6 +19,11 @@ const makeSelectDetail = (attribute) => createSelector(
     (state) => state.detail[attribute]
 );
 
+const getFetch = () => createSelector(
+    selectReturn,
+    (state) => state.fetch
+);
+
 const getData = () => makeSelectList('data');
 const getShowSpinner = () => makeSelectList('showSpinner');
 const getMeta = () => makeSelectList('meta');
@@ -36,5 +41,6 @@ export {
     getLinks,
     getReasons,
     getSubreasons,
-    getDetail
+    getDetail,
+    getFetch
 };

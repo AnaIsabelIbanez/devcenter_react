@@ -3,7 +3,7 @@
  */
 
 import {routerReducer} from 'react-router-redux';
-import globalReducer from './containers/App/reducer';
+import globalReducer from './containers/App/reducer/rootReducer';
 import {combineReducers} from 'redux';
 
 export default function createReducer(injectedReducers) {

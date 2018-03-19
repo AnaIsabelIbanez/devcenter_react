@@ -18,12 +18,16 @@ const makeSelectGlobal = (attribute) => createSelector(
     (state) => state.global[attribute]
 );
 
+const getFetch = () => createSelector(
+    selectProduct,
+    (state) => state.fetch
+);
+
 const getData = () => makeSelectList('data');
 const getShowSpinner = () => makeSelectList('showSpinner');
 const getMeta = () => makeSelectList('meta');
 const getLinks = () => makeSelectList('links');
 const getCurrentSort = () => makeSelectList('currentSort');
-const getColumns = () => makeSelectList('columns');
 
 const getFields = () => makeSelectFilters('fields');
 const getFilters = () => makeSelectFilters('filters');
@@ -39,11 +43,11 @@ export {
     getMeta,
     getLinks,
     getCurrentSort,
-    getColumns,
     getFields,
     getFilters,
     getColors,
     getCategories,
     getSizes,
-    getBrands
+    getBrands,
+    getFetch
 };

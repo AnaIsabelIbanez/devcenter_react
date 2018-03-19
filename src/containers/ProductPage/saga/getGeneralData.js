@@ -1,19 +1,18 @@
-import {call, put} from 'redux-saga/effects';
+import {call, put, spawn} from 'redux-saga/effects';
 
 import {setGeneralList} from '../../common/reducer/general';
-import {getCategories, getColors, getSizes, getBrands} from '../../../api/globalsResources';
+import {getCategories, getColors, getSizes, getBrands, getReturnSubreasons} from '../../../api/globalsResources';
 import {CATEGORIES, COLORS, SIZES, BRANDS} from '../../common/constants';
+import fetchApiSaga from '../../common/saga/fetchApiSaga';
 
 export default function* getGeneralData() {
-    const categories = yield call(getCategories);
-    yield put(setGeneralList(CATEGORIES, categories));
 
-    const colors = yield call(getColors);
-    yield put(setGeneralList(COLORS, colors));
+    yield spawn(fetchApiSaga, getCategories, setGeneralList.bind(null, CATEGORIES), CATEGORIES);
 
-    const sizes = yield call(getSizes);
-    yield put(setGeneralList(SIZES, colors));
+    yield spawn(fetchApiSaga, getColors, setGeneralList.bind(null, COLORS), COLORS);
 
-    const brands = yield call(getBrands);
-    yield put(setGeneralList(BRANDS, colors));
+    yield spawn(fetchApiSaga, getSizes, setGeneralList.bind(null, SIZES), SIZES);
+
+    yield spawn(fetchApiSaga, getBrands, setGeneralList.bind(null, BRANDS), BRANDS);
+
 };

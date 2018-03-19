@@ -15,7 +15,7 @@ export const fetchData = (resource, queryParams, currentSort) => {
     };
 };
 
-export const setData = (products, resource) => ({
+export const setData = (resource, products) => ({
     type: getType(SET_DATA, resource),
     payload: products,
     resource

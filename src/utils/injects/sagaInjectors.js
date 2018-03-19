@@ -51,7 +51,7 @@ export function injectSagaFactory(store, isValid) {
         }
 
         if (!hasSaga || (hasSaga && mode !== DAEMON && mode !== ONCE_TILL_UNMOUNT)) {
-            store.injectedSagas[key] = {...newDescriptor, task: store.runSaga(saga, args)}; // eslint-disable-line no-param-reassign
+            store.injectedSagas[key] = {...newDescriptor, task: store.runSaga(saga, args)};
         }
     };
 }

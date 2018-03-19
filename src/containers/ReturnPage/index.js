@@ -18,7 +18,8 @@ import {
     getReasons,
     getReturnTypes,
     getWarehouseNames,
-    getSubreasons
+    getSubreasons,
+    getFetch
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -47,9 +48,8 @@ class ReturnPage extends Component {
         const {
             data,
             currentSort,
-            meta: {currentPage, totalPages, pageSize},
+            meta: {currentPage, totalPages, pageSize, totalResults},
             links,
-            loading,
             filters,
             filterFields,
             launchFilter,
@@ -58,7 +58,8 @@ class ReturnPage extends Component {
             reasons,
             returnTypes,
             warehouseNames,
-            subreasons
+            subreasons,
+            fetchStatus
         } = this.props;
         return (
             <div>
@@ -68,6 +69,8 @@ class ReturnPage extends Component {
                     launchFilter={launchFilter.bind(null, KEY_RETURN_RESOURCE)}
                     clearFields={clearFields.bind(null, KEY_RETURN_RESOURCE)}
                     options={{subreasons, reasons, returnTypes, warehouseNames}}
+                    buttonDisabled={links === undefined}
+                    fetchStatus={fetchStatus}
                 />
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_RETURN_RESOURCE)}
@@ -75,9 +78,10 @@ class ReturnPage extends Component {
                     data={data}
                     sorted={currentSort}
                     pages={totalPages}
-                    loading={loading}
-                    defaultPageSize={pageSize}
+                    loading={fetchStatus.return.fetching === true}
+                    pageSize={pageSize}
                     currentPage={currentPage}
+                    totalResults={totalResults}
                     links={links}
                     filters={filters}
                     getTdProps={(state, rowInfo, column, instance) => {
@@ -89,6 +93,7 @@ class ReturnPage extends Component {
                             }
                         };
                     }}
+                    noDataText={'No rows found'}
                     baseUri={`/${KEY_RETURN_RESOURCE}`}
                 />
             </div>
@@ -107,7 +112,8 @@ const mapStateToProps = createStructuredSelector({
     reasons: getReasons(),
     returnTypes: getReturnTypes(),
     warehouseNames: getWarehouseNames(),
-    subreasons: getSubreasons()
+    subreasons: getSubreasons(),
+    fetchStatus: getFetch()
 });
 
 const mapDispatchToProps = {

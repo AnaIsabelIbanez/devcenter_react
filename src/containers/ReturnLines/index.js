@@ -10,7 +10,8 @@ import {
     getLinks,
     getReasons,
     getSubreasons,
-    getDetail
+    getDetail,
+    getFetch
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -20,6 +21,7 @@ import {fetchData} from '../common/actions/table';
 import Table from '../../components/Table';
 import DetailReturn from './DetailReturn';
 import serverDataTableHoc from '../../components/ServerDataTable';
+import LoadingIndicator from '../../components/LoadingIndicator';
 import {KEY_LINE_RESOURCE} from './constants';
 import columns from './columnsDefinition';
 import {
@@ -40,29 +42,35 @@ class ReturnPage extends Component {
     render() {
         const {
             data,
-            meta: {currentPage, totalPages, pageSize},
+            meta: {currentPage, totalPages, pageSize, totalResults},
             links,
             loading,
             reasons,
             subreasons,
             changeAttributeTable,
             //TODO: get roles from the user
-            rol = 'warehouse',
-            detail
+            rol = 'WAREHOUSE',
+            detail,
+            fetch
         } = this.props;
         return (
             <div>
-                <DetailReturn detail={detail} />
+                {fetch.detailLine.fetching === true
+                    ? <LoadingIndicator/>
+                    : <DetailReturn detail={detail} />
+                }
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_LINE_RESOURCE)}
                     columns={columns(rol, changeAttributeTable, reasons, subreasons)}
                     data={data}
                     pages={totalPages}
-                    loading={loading}
-                    defaultPageSize={pageSize}
+                    loading={fetch.detailLine.fetching === true}
+                    pageSize={pageSize}
                     currentPage={currentPage}
+                    totalResults={totalResults}
                     links={links}
                     baseUri={`/return/${this.props.match.params.id}/${KEY_LINE_RESOURCE}`}
+                    noDataText={'No rows found'}
                 />
             </div>
         );
@@ -76,7 +84,8 @@ const mapStateToProps = createStructuredSelector({
     links: getLinks(),
     reasons: getReasons(),
     subreasons: getSubreasons(),
-    detail: getDetail()
+    detail: getDetail(),
+    fetch: getFetch()
 });
 
 const mapDispatchToProps = {

@@ -18,6 +18,11 @@ const makeSelectGlobal = (attribute) => createSelector(
     (state) => state.global[attribute]
 );
 
+const getFetch = () => createSelector(
+    selectReturn,
+    (state) => state.fetch
+);
+
 const getData = () => makeSelectList('data');
 const getShowSpinner = () => makeSelectList('showSpinner');
 const getMeta = () => makeSelectList('meta');
@@ -43,5 +48,6 @@ export {
     getReasons,
     getReturnTypes,
     getWarehouseNames,
-    getSubreasons
+    getSubreasons,
+    getFetch
 };

@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {Form, Col, Button, Row, Grid, ControlLabel, FormGroup, FormControl} from 'react-bootstrap';
 import 'react-dates/initialize';
-import moment from 'moment/moment';
 import 'react-dates/lib/css/_datepicker.css';
 
+import {getLiteral} from '../../utils/utilities';
 import FormField from '../../components/FormField';
 import Select from '../../components/SelectForm';
-import SingleDatepickerWrapper from '../../components/SingleDatepickerWrapper';
 
 const CustomField = ({fields, nameField, onChange, ...props}) => {
     return (
@@ -38,7 +37,8 @@ export default class ReturnFilters extends Component {
             launchFilter,
             clearFields,
             disabled,
-            options: {brands, categories, sizes, colors}
+            options: {brands, categories, sizes, colors},
+            fetch
         } = this.props;
 
         return (
@@ -51,7 +51,7 @@ export default class ReturnFilters extends Component {
                         <Col md={4}>
                             <CustomField
                                 width={3}
-                                label={'Ean'}
+                                label={getLiteral('product.ean')}
                                 fields={fields}
                                 nameField="ean"
                                 onChange={changeField}
@@ -60,7 +60,7 @@ export default class ReturnFilters extends Component {
                             />
                             <CustomField
                                 width={3}
-                                label={'Referencia comercial'}
+                                label={getLiteral('product.refCom')}
                                 fields={fields}
                                 nameField="ref_com"
                                 onChange={changeField}
@@ -69,7 +69,7 @@ export default class ReturnFilters extends Component {
                             />
                             <CustomField
                                 width={3}
-                                label={'Referencia física'}
+                                label={getLiteral('product.refPhis')}
                                 fields={fields}
                                 nameField="ref_physic"
                                 onChange={changeField}
@@ -78,7 +78,7 @@ export default class ReturnFilters extends Component {
                             />
                             <CustomField
                                 width={3}
-                                label={'Referencia logística'}
+                                label={getLiteral('product.refLog')}
                                 fields={fields}
                                 nameField="ref_logistic"
                                 onChange={changeField}
@@ -87,7 +87,7 @@ export default class ReturnFilters extends Component {
                             />
                             <CustomField
                                 width={3}
-                                label={'Id campaña'}
+                                label={getLiteral('common.campaingId')}
                                 fields={fields}
                                 nameField="campaign_id"
                                 onChange={changeField}
@@ -99,7 +99,7 @@ export default class ReturnFilters extends Component {
                         <Col md={4}>
                             <CustomField
                                 width={3}
-                                label={'Text'}
+                                label={getLiteral('product.text')}
                                 fields={fields}
                                 nameField="text"
                                 onChange={changeField}
@@ -107,7 +107,7 @@ export default class ReturnFilters extends Component {
                                 disabled={disabled}
                             />
                             <CustomSelect
-                                label="Brand"
+                                label={getLiteral('product.brand')}
                                 width={4}
                                 options={brands}
                                 error={false}
@@ -115,10 +115,10 @@ export default class ReturnFilters extends Component {
                                 nameField="brand"
                                 onChange={changeField}
                                 disabled={disabled}
-
+                                loading={fetch.brands.fetching === true}
                             />
                             <CustomSelect
-                                label="Category"
+                                label={getLiteral('product.category')}
                                 width={4}
                                 options={categories}
                                 error={false}
@@ -126,10 +126,10 @@ export default class ReturnFilters extends Component {
                                 nameField="category"
                                 onChange={changeField}
                                 disabled={disabled}
-
+                                loading={fetch.categories.fetching === true}
                             />
                             <CustomSelect
-                                label="Size"
+                                label={getLiteral('product.size')}
                                 width={4}
                                 options={sizes}
                                 error={false}
@@ -137,10 +137,10 @@ export default class ReturnFilters extends Component {
                                 nameField="size"
                                 onChange={changeField}
                                 disabled={disabled}
-
+                                loading={fetch.sizes.fetching === true}
                             />
                             <CustomSelect
-                                label="Color"
+                                label={getLiteral('product.color')}
                                 width={4}
                                 options={colors}
                                 error={false}
@@ -148,17 +148,17 @@ export default class ReturnFilters extends Component {
                                 nameField="color"
                                 onChange={changeField}
                                 disabled={disabled}
-
+                                loading={fetch.colors.fetching === true}
                             />
                         </Col>
                     </Row>
                     <Row>
                         <Col md={6} mdOffset={6}>
-                            <Button type="submit">Filter</Button>
+                            <Button type="submit">{getLiteral('common.filter')}</Button>
                             <Button
                                 onClick={() => clearFields()}
                             >
-                                Clear
+                                {getLiteral('common.clear')}
                             </Button>
 
                         </Col>

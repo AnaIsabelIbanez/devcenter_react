@@ -1,4 +1,4 @@
-import {SET_USER, HIDE_MODAL} from './constants';
+import {SET_USER, HIDE_MODAL, SHOW_MODAL} from './constants';
 
 export const setUser = user => {
     return {
@@ -9,7 +9,7 @@ export const setUser = user => {
 
 export const showModal = (options) => {
     return {
-        type: 'SHOW_MODAL',
+        type: SHOW_MODAL,
         payload: options
     };
 };

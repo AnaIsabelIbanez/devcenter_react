@@ -8,6 +8,8 @@ import FormField from '../../components/FormField';
 import Select from '../../components/SelectForm';
 import SingleDatepickerWrapper from '../../components/SingleDatepickerWrapper';
 import FieldWithTooltip from '../../components/FieldWithTooltip';
+import {getLiteral} from '../../utils/utilities';
+import {dateFormat} from '../App/constants';
 
 const CustomField = ({fields, nameField, onChange, ...props}) => {
     return (
@@ -35,6 +37,8 @@ export default ({
     launchFilter,
     clearFields,
     disabled,
+    buttonDisabled,
+    fetchStatus,
     options: {subreasons, reasons, returnTypes, warehouseNames}
 }) => {
     return (
@@ -47,7 +51,7 @@ export default ({
                     <Col md={3}>
                         <CustomField
                             width={3}
-                            label={'Número de pedido'}
+                            label={getLiteral('return.returnNum')}
                             fields={fields}
                             nameField="order_id"
                             onChange={changeField}
@@ -57,10 +61,10 @@ export default ({
 
                         <FieldWithTooltip
                             id="filter_return_type"
-                            message="Busca en líneas de devolución"
+                            message={getLiteral('return.filterInfo')}
                         >
                             <CustomSelect
-                                label="Tipo de devolución"
+                                label={getLiteral('return.returnType')}
                                 width={3}
                                 options={returnTypes}
                                 error={false}
@@ -68,18 +72,17 @@ export default ({
                                 nameField="return_type"
                                 onChange={changeField}
                                 disabled={disabled}
-                                data-for={'returnTypeFilter'}
-                                data-tip
+                                loading={fetchStatus.returnTypes.fetching === true}
                             />
                         </FieldWithTooltip>
 
                         <FieldWithTooltip
                             id="filter_member_reason"
-                            message="Busca en líneas de devolución"
+                            message={getLiteral('return.filterInfo')}
                         >
                             {/*nameField correcto ??????*/}
                             <CustomSelect
-                                label="Motivo de la devolución"
+                                label={getLiteral('return.returnReason')}
                                 width={3}
                                 options={reasons}
                                 error={false}
@@ -87,8 +90,7 @@ export default ({
                                 nameField="member_reason"
                                 onChange={changeField}
                                 disabled={disabled}
-                                loading={true}
-
+                                loading={fetchStatus.returnReasons.fetching === true}
                             />
                         </FieldWithTooltip>
                     </Col>
@@ -96,10 +98,10 @@ export default ({
                     <Col md={3}>
                         <FieldWithTooltip
                             id="filter_warehouse_name"
-                            message="Busca en líneas de devolución"
+                            message={getLiteral('return.filterInfo')}
                         >
                             <CustomSelect
-                                label="Almacén destino devolución"
+                                label={getLiteral('return.destinationWarehouse')}
                                 width={4}
                                 options={warehouseNames}
                                 error={false}
@@ -107,12 +109,13 @@ export default ({
                                 nameField="warehouse_name"
                                 onChange={changeField}
                                 disabled={disabled}
+                                loading={fetchStatus.warehouseNames.fetching === true}
                             />
                         </FieldWithTooltip>
 
                         <CustomField
                             width={4}
-                            label={'Id Campaña'}
+                            label={getLiteral('common.campaingId')}
                             fields={fields}
                             nameField="campaign_id"
                             onChange={changeField}
@@ -122,7 +125,7 @@ export default ({
 
                         <CustomField
                             width={4}
-                            label={'Campaña'}
+                            label={getLiteral('common.compaignName')}
                             fields={fields}
                             nameField="campaign_name"
                             onChange={changeField}
@@ -132,12 +135,12 @@ export default ({
 
                         {/*nameField correcto???*/}
                         <FormGroup>
-                            <Col componentClass={ControlLabel} sm={4}>Fecha de devolución</Col>
+                            <Col componentClass={ControlLabel} sm={4}>{getLiteral('return.returnDate')}</Col>
                             <SingleDatepickerWrapper
-                                date={moment(fields.checkin_date)} // momentPropTypes.momentObj or null
-                                onDateChange={(date) => changeField({checkin_date: date.toISOString()})} // PropTypes.func.isRequired
+                                date={moment(fields.checkin_date)}
+                                onDateChange={(date) => changeField({checkin_date: date.toISOString()})}
                                 numberOfMonths={1}
-                                displayFormat="DD/MM/YYYY"
+                                displayFormat={dateFormat}
                                 disabled={disabled}
                             />
                         </FormGroup>
@@ -145,7 +148,7 @@ export default ({
                     <Col md={3}>
                         <CustomField
                             width={4}
-                            label={'Nombre del socio'}
+                            label={getLiteral('return.partnerName')}
                             fields={fields}
                             nameField="member_name"
                             onChange={changeField}
@@ -154,7 +157,7 @@ export default ({
                         />
                         <CustomField
                             width={4}
-                            label={'Mail del socio'}
+                            label={getLiteral('return.partnerEmail')}
                             fields={fields}
                             nameField="member_email"
                             onChange={changeField}
@@ -164,32 +167,32 @@ export default ({
                     </Col>
                     <Col md={3}>
                         <fieldset style={{border: '1px solid black', margin: '10px', padding: '10px'}}>
-                            <legend style={{width: 'auto', fontSize: '14px'}}>Almacén</legend>
+                            <legend style={{width: 'auto', fontSize: '14px'}}>{getLiteral('return.warehouse')}</legend>
                             <Row>
                                 <Col md={5}>
                                     <label>
-                                        Tratada por el almacén?
+                                        {getLiteral('return.managedWarehouse')}
                                         <input type="checkbox"/>
                                     </label>
                                 </Col>
                                 <Col md={5}>
                                     <FormGroup>
-                                        <Col componentClass={ControlLabel} md={4}>Fecha</Col>
+                                        <Col componentClass={ControlLabel} md={4}>{getLiteral('common.date')}</Col>
                                         <SingleDatepickerWrapper
                                             date={moment(fields.warehouse_date)}
                                             onDateChange={(date) => changeField({warehouse_date: date.toISOString()})}
                                             numberOfMonths={1}
-                                            displayFormat="DD/MM/YYYY"
+                                            displayFormat={dateFormat}
                                             disabled={disabled}
                                         />
                                     </FormGroup>
                                 </Col>
                                 <FieldWithTooltip
                                     id="warehouse_subreason"
-                                    message="Busca en líneas de devolución"
+                                    message={getLiteral('return.filterInfo')}
                                 >
                                     <CustomSelect
-                                        label="Submotivo"
+                                        label={getLiteral('return.subreason')}
                                         width={4}
                                         options={subreasons}
                                         error={false}
@@ -197,6 +200,7 @@ export default ({
                                         nameField="warehouse_subreason"
                                         onChange={changeField}
                                         disabled={disabled}
+                                        loading={fetchStatus.returnSubreasons.fetching === true}
                                     />
                                 </FieldWithTooltip>
                             </Row>
@@ -205,11 +209,12 @@ export default ({
                 </Row>
                 <Row>
                     <Col md={6} mdOffset={6}>
-                        <Button type="submit">Filter</Button>
+                        <Button type="submit" disabled={buttonDisabled}>{getLiteral('common.filter')}</Button>
                         <Button
                             onClick={() => clearFields()}
+                            disabled={buttonDisabled}
                         >
-                            Clear
+                            {getLiteral('common.clear')}
                         </Button>
 
                     </Col>

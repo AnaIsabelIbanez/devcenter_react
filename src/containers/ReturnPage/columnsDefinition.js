@@ -1,59 +1,63 @@
 import React, {Component} from 'react';
 import {Checkbox} from 'react-bootstrap';
 
+import {formatIsoString, getLiteral} from '../../utils/utilities';
 
 export default [
     {
-        Header: 'Número de devolución',
+        Header: getLiteral('return.returnNum'),
         accessor: 'return_id'
     },
     {
-        Header: 'Número de pedido',
+        Header: getLiteral('return.orderNum'),
         accessor: 'order_id'
     },
     {
-        Header: 'Identificador campaña',
+        Header: getLiteral('common.campaingId'),
         accessor: 'campaign_id'
     },
     {
-        Header: 'Campaign name',
+        Header: getLiteral('common.compaignName'),
         accessor: 'campaign_name'
     },
     {
-        Header: 'Almacén de destino',
+        Header: getLiteral('return.destinationWarehouse'),
         accessor: 'warehouse_name'
     },
     {
-        Header: 'Devolución tratada por el Almacén',
+        Header: getLiteral('return.managedWarehouse'),
         Cell: row => {
             return <Checkbox checked={row.original.warehouse_date} readOnly/>;
         },
         sortable: false
     },
     {
-        Header: 'Fecha recepción en el Almacén',
-        accessor: 'warehouse_date'
+        Header: getLiteral('return.receivedDateWarehouse'),
+        accessor: 'warehouse_date',
+        Cell: row => formatIsoString(row.value)
     },
     {
-        Header: 'Deolución tratada por Calidad',
+        Header: getLiteral('return.managedQuality'),
         Cell: row => {
             return <Checkbox checked={row.original.quality_date} readOnly/>;
         },
         sortable: false
     },
     {
-        Header: 'Fecha de tratamiento por Calidad',
-        accessor: 'quality_date'
+        Header: getLiteral('return.qualityDate'),
+        accessor: 'quality_date',
+        Cell: row => formatIsoString(row.value)
     },
     {
-        Header: 'Devolución tratada por Producción',
+        Header: getLiteral('return.managedProduction'),
         Cell: row => {
             return <Checkbox checked={row.original.production_date} readOnly/>;
         },
         sortable: false
     },
     {
-        Header: 'Fecha de tratamiento por Producción',
-        accessor: 'production_date'
+        Header: getLiteral('return.productionDate'),
+        accessor: 'production_date',
+        Cell: row => formatIsoString(row.value)
     }
 ];

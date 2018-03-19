@@ -1,5 +1,6 @@
 import React from 'react';
 import {ControlLabel, FormGroup, Col, FormControl} from 'react-bootstrap';
+import {FormattedMessage} from 'react-intl';
 
 export default ({width, label, value, onChange, error, errorMessage, ...props}) => (
     <FormGroup>

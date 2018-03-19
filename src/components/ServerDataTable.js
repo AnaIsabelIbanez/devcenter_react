@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import queryString from 'query-string';
 import {isEqual} from 'lodash';
+
 import {removeKeys} from '../utils/utilities';
+import LoadingIndicator from '../components/LoadingIndicator';
 import styled from 'styled-components';
 
 // import CustomGrid from './CustomGrid';
@@ -31,7 +33,7 @@ export default function withServerSideData(WrappedTable, keyResource) {
         componentWillUpdate(nextProps) {
             const nextFilters = nextProps.filters;
             if (!isEqual(nextFilters, this.props.filters)) {
-                this.changeResults(this.getParsedFilters(nextFilters));
+                this.changeResults(true, this.getParsedFilters(nextFilters));
             }
         }
 
@@ -44,13 +46,24 @@ export default function withServerSideData(WrappedTable, keyResource) {
             return filterObj;
         }
 
-        changeResults = (newParameter, currentSort = this.props.currentSort) => {
-            const selfLink = this.props.links.self;
-            const currentQueryObject = queryString.parse(selfLink.substr(selfLink.indexOf('?') + 1));
-            const queryObjNoFilters = removeKeys(currentQueryObject, /^filter\[/);
-            const queryObject = {...queryObjNoFilters, ...newParameter};
-            const query = queryString.stringify(queryObject);
-            this.props.fetchData(`${this.props.baseUri}?${query}`, currentSort);
+        changeResults = (isFilter, newParameter, currentSort = this.props.currentSort) => {
+            const selfLink = this.props.links ? this.props.links.self : null;
+            if (selfLink) {
+                const currentQueryObject = queryString.parse(selfLink.substr(selfLink.indexOf('?') + 1));
+                const queryObjNoFilters = isFilter ? removeKeys(currentQueryObject, /^filter\[/) : currentQueryObject;
+                const queryObject = {...queryObjNoFilters, ...newParameter};
+                const query = queryString.stringify(queryObject);
+                this.props.fetchData(`${this.props.baseUri}?${query}`, currentSort);
+            }
+        }
+
+        changePageSize = (valuePageSize) => {
+            console.log('a',valuePageSize);
+            const newParameter = {
+                ['page[limit]']: valuePageSize,
+                ['page[offset]']: 0
+            };
+            this.changeResults(false, newParameter);
         }
 
         render() {
@@ -59,10 +72,13 @@ export default function withServerSideData(WrappedTable, keyResource) {
                     <div>
                         <WrappedTable
                             onSortedChange={(newSorted, column, shiftKey) => {
-                                this.changeResults({sort: this.getParsedSortFromTable(newSorted)}, newSorted);
+                                this.changeResults(false, {sort: this.getParsedSortFromTable(newSorted)}, newSorted);
                             }}
                             onPagination={({page}) => {
-                                this.props.fetchData(this.props.links[page]);
+                                this.props.links && this.props.fetchData(this.props.links[page]);
+                            }}
+                            onChangePageSize={({target}) => {
+                                this.changePageSize(target.value);
                             }}
                             {...this.props}
                         />

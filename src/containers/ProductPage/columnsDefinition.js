@@ -28,10 +28,6 @@ export default [
         accessor: 'short_description'
     },
     {
-        Header: getLiteral('product.shortDescription'),
-        accessor: 'short_description'
-    },
-    {
         Header: getLiteral('product.category'),
         accessor: 'category'
     },

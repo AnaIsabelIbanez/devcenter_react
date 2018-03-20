@@ -15,7 +15,8 @@ import {
     getFilters,
     getSizes,
     getBrands,
-    getFetch
+    getFetch,
+    getSelectedProduct
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -23,11 +24,12 @@ import reducer from './reducer/rootReducers';
 import saga from './saga/rootSagas';
 import {fetchData} from '../common/actions/table';
 import {launchFilter, changeField,clearFields} from '../common/actions/filter';
-import {getInitialData} from './actions';
+import {getInitialData, setSelectedProduct} from './actions';
 import Table from '../../components/Table';
 import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_PRODUCT_RESOURCE} from './constants';
 import Filters from './Filters';
+import DetailProduct from './DetailProduct';
 import columns from './columnsDefinition';
 
 // const StyledGrid = styled(CustomGrid)`
@@ -51,7 +53,6 @@ class ProductPage extends Component {
             currentSort,
             meta: {currentPage, totalPages, pageSize, totalResults},
             links,
-            loading,
             filterFields,
             launchFilter,
             changeField,
@@ -61,7 +62,8 @@ class ProductPage extends Component {
             sizes,
             colors,
             filters,
-            fetch
+            fetch,
+            selectedProduct
         } = this.props;
         return (
             <div>
@@ -79,14 +81,28 @@ class ProductPage extends Component {
                     data={data}
                     sorted={currentSort}
                     pages={totalPages}
-                    loading={loading}
+                    loading={fetch.product.fetching === true}
                     pageSize={pageSize}
                     currentPage={currentPage}
                     totalResults={totalResults}
                     links={links}
                     baseUri={`/${KEY_PRODUCT_RESOURCE}`}
                     filters={filters}
+                    getTdProps={(state, rowInfo, column, instance) => {
+                        return {
+                            onClick: (e, handleOriginal) => {
+                                if (rowInfo) {
+                                    this.props.setSelectedProduct(rowInfo.original);
+                                }
+                            }
+                        };
+                    }}
+                    noDataText={'No rows found'}
                 />
+
+                {selectedProduct && <DetailProduct
+                    attributes={selectedProduct}
+                />}
             </div>
         );
     }
@@ -104,7 +120,8 @@ const mapStateToProps = createStructuredSelector({
     sizes: getSizes(),
     brands: getBrands(),
     categories: getCategories(),
-    fetch: getFetch()
+    fetch: getFetch(),
+    selectedProduct: getSelectedProduct()
 });
 
 const mapDispatchToProps = {
@@ -112,7 +129,8 @@ const mapDispatchToProps = {
     getInitialData,
     launchFilter,
     changeField,
-    clearFields
+    clearFields,
+    setSelectedProduct
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

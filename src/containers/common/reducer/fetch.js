@@ -32,7 +32,8 @@ const defaultState = {
     sizes: defaultPromiseStatus,
     brands: defaultPromiseStatus,
     return: defaultPromiseStatus,
-    detailLine: defaultPromiseStatus
+    detailLine: defaultPromiseStatus,
+    product: defaultPromiseStatus
 };
 
 export default (state = defaultState, { type, payload }) => {

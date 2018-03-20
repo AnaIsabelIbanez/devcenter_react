@@ -23,6 +23,13 @@ const getFetch = () => createSelector(
     (state) => state.fetch
 );
 
+const makeSelectDetail = (attribute) => createSelector(
+    selectProduct,
+    (state) => state.detail[attribute]
+);
+
+const getSelectedProduct = () => makeSelectDetail('selectedProduct');
+
 const getData = () => makeSelectList('data');
 const getShowSpinner = () => makeSelectList('showSpinner');
 const getMeta = () => makeSelectList('meta');
@@ -49,5 +56,6 @@ export {
     getCategories,
     getSizes,
     getBrands,
-    getFetch
+    getFetch,
+    getSelectedProduct
 };

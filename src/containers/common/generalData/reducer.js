@@ -1,6 +1,6 @@
 import {
     SET_GENERAL_LIST
-} from '../constants';
+} from './constants';
 
 const initialState = {
     returnTypes: [],

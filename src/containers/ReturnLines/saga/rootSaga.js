@@ -1,9 +1,9 @@
 import {fork, takeLatest, takeEvery, take} from 'redux-saga/effects';
 
-import {FETCH_DATA, SET_DATA} from '../../common/constants';
+import {FETCH_DATA} from '../../common/table/constants';
 import {KEY_LINE_RESOURCE, GET_INITIAL_DATA_LINES, CHANGE_ATTRIBUTE_TABLE} from '../constants';
 import {getType} from '../../../utils/utilities';
-import dataTableSaga from '../../common/saga/getDataTableSaga';
+import dataTableSaga from '../../common/table/saga';
 import getInitialDataSaga from './getGeneralData';
 import changeAttributeSaga from './changeAttribute';
 

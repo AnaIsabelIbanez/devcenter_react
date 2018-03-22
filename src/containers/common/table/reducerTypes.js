@@ -1,4 +1,4 @@
-import {SET_CURRENT_SORT, SET_DATA} from '../constants';
+import {SET_CURRENT_SORT, SET_DATA} from './constants';
 
 const setData = (state, payload) => {
     const {meta} = payload;

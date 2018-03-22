@@ -2,7 +2,7 @@ import {
     FETCH_DATA,
     SET_DATA,
     SET_CURRENT_SORT
-} from '../constants';
+} from './constants';
 
 import {getType} from '../../../utils/utilities';
 

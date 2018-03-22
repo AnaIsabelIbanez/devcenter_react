@@ -137,7 +137,7 @@ export default ({
                         <FormGroup>
                             <Col componentClass={ControlLabel} sm={4}>{getLiteral('return.returnDate')}</Col>
                             <SingleDatepickerWrapper
-                                date={moment(fields.checkin_date)}
+                                date={fields.checkin_date ? moment(fields.checkin_date) : null}
                                 onDateChange={(date) => changeField({checkin_date: date.toISOString()})}
                                 numberOfMonths={1}
                                 displayFormat={dateFormat}
@@ -179,7 +179,7 @@ export default ({
                                     <FormGroup>
                                         <Col componentClass={ControlLabel} md={4}>{getLiteral('common.date')}</Col>
                                         <SingleDatepickerWrapper
-                                            date={moment(fields.warehouse_date)}
+                                            date={fields.warehouse_date ? moment(fields.warehouse_date) : null}
                                             onDateChange={(date) => changeField({warehouse_date: date.toISOString()})}
                                             numberOfMonths={1}
                                             displayFormat={dateFormat}

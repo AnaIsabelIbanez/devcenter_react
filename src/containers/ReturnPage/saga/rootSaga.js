@@ -1,9 +1,9 @@
-import {fork, takeLatest, takeEvery} from 'redux-saga/effects';
+import {takeLatest} from 'redux-saga/effects';
 
-import {FETCH_DATA} from '../../common/constants';
+import {FETCH_DATA} from '../../common/table/constants';
 import {KEY_RETURN_RESOURCE, GET_INITIAL_DATA_RETURNS} from '../constants';
 import {getType} from '../../../utils/utilities';
-import dataTableSaga from '../../common/saga/getDataTableSaga';
+import dataTableSaga from '../../common/table/saga';
 import getInitialDataSaga from './getGeneralData';
 
 export default function* product() {

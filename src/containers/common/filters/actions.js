@@ -1,4 +1,4 @@
-import {CHANGE_FIELD, LAUNCH_FILTER, CLEAR_FIELDS} from '../constants';
+import {CHANGE_FIELD, LAUNCH_FILTER, CLEAR_FIELDS} from './constants';
 
 import {getType} from '../../../utils/utilities';
 

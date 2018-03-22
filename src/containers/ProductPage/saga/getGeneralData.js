@@ -1,9 +1,9 @@
 import {call, put, spawn} from 'redux-saga/effects';
 
-import {setGeneralList} from '../../common/reducer/general';
-import {getCategories, getColors, getSizes, getBrands, getReturnSubreasons} from '../../../api/globalsResources';
-import {CATEGORIES, COLORS, SIZES, BRANDS} from '../../common/constants';
-import fetchApiSaga from '../../common/saga/fetchApiSaga';
+import {setGeneralList} from '../../common/generalData/reducer';
+import {getCategories, getColors, getSizes, getBrands} from '../../../api/globalsResources';
+import {CATEGORIES, COLORS, SIZES, BRANDS} from '../../common/generalData/constants';
+import fetchApiSaga from '../../common/fetchManage/saga';
 
 export default function* getGeneralData() {
 

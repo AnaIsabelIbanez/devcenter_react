@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import {CATEGORIES, COLORS, SIZES, BRANDS} from '../common/constants';
+import {CATEGORIES, COLORS, SIZES, BRANDS} from '../common/generalData/constants';
 
 const selectProduct = (state) => state.product;
 
@@ -13,15 +13,14 @@ const makeSelectFilters = (attribute) => createSelector(
     (state) => state.filters[attribute]
 );
 
-const makeSelectGlobal = (attribute) => createSelector(
-    selectProduct,
-    (state) => state.global[attribute]
+const makeSelectGeneral = (state) => state.generalData;
+
+const getGeneralData = (attribute) => createSelector(
+    makeSelectGeneral,
+    (state) => state[attribute]
 );
 
-const getFetch = () => createSelector(
-    selectProduct,
-    (state) => state.fetch
-);
+const getFetch = () => (state) => state.fetch;
 
 const makeSelectDetail = (attribute) => createSelector(
     selectProduct,
@@ -39,10 +38,10 @@ const getCurrentSort = () => makeSelectList('currentSort');
 const getFields = () => makeSelectFilters('fields');
 const getFilters = () => makeSelectFilters('filters');
 
-const getColors = () => makeSelectGlobal(COLORS);
-const getCategories = () => makeSelectGlobal(CATEGORIES);
-const getSizes = () => makeSelectGlobal(SIZES);
-const getBrands = () => makeSelectGlobal(BRANDS);
+const getColors = () => getGeneralData(COLORS);
+const getCategories = () => getGeneralData(CATEGORIES);
+const getSizes = () => getGeneralData(SIZES);
+const getBrands = () => getGeneralData(BRANDS);
 
 export {
     getData,

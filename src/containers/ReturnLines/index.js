@@ -17,7 +17,7 @@ import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducer/rootReducer';
 import saga from './saga/rootSaga';
-import {fetchData} from '../common/actions/table';
+import {fetchData} from '../common/table/actions';
 import Table from '../../components/Table';
 import DetailReturn from './DetailReturn';
 import serverDataTableHoc from '../../components/ServerDataTable';
@@ -71,6 +71,15 @@ class ReturnPage extends Component {
                     links={links}
                     baseUri={`/return/${this.props.match.params.id}/${KEY_LINE_RESOURCE}`}
                     noDataText={'No rows found'}
+                    getTdProps={(state, rowInfo, column, instance) => {
+                        return {
+                            onClick: (e, handleOriginal) => {
+                                if (rowInfo) {
+                                    this.props.history.push(`/line/${rowInfo.original.id}`);
+                                }
+                            }
+                        };
+                    }}
                 />
             </div>
         );

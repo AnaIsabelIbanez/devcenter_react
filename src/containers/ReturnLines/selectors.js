@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import {RETURN_REASONS, RETURN_SUBREASONS} from '../common/constants';
+import {RETURN_REASONS, RETURN_SUBREASONS} from '../common/generalData/constants';
 
 const selectReturn = (state) => state.lines;
 
@@ -9,9 +9,11 @@ const makeSelectList = (attribute) => createSelector(
     (state) => state.list[attribute]
 );
 
-const makeSelectGlobal = (attribute) => createSelector(
-    selectReturn,
-    (state) => state.global[attribute]
+const makeSelectGeneral = (state) => state.generalData;
+
+const getGeneralData = (attribute) => createSelector(
+    makeSelectGeneral,
+    (state) => state[attribute]
 );
 
 const makeSelectDetail = (attribute) => createSelector(
@@ -19,9 +21,11 @@ const makeSelectDetail = (attribute) => createSelector(
     (state) => state.detail[attribute]
 );
 
-const getFetch = () => createSelector(
-    selectReturn,
-    (state) => state.fetch
+const selectFetch = (state) => state.fetch;
+
+const getFetch = (attribute) => createSelector(
+    selectFetch,
+    (state) => state
 );
 
 const getData = () => makeSelectList('data');
@@ -31,8 +35,8 @@ const getLinks = () => makeSelectList('links');
 
 const getDetail = () => makeSelectDetail('detail');
 
-const getReasons = () => makeSelectGlobal(RETURN_REASONS);
-const getSubreasons = () => makeSelectGlobal(RETURN_SUBREASONS);
+const getReasons = () => getGeneralData(RETURN_REASONS);
+const getSubreasons = () => getGeneralData(RETURN_SUBREASONS);
 
 export {
     getData,

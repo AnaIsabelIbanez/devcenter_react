@@ -1,4 +1,4 @@
-import {tableReducerTypes, initialState} from '../../common/reducer/tableReducerTypes';
+import {tableReducerTypes, initialState} from '../../common/table/reducerTypes';
 import {KEY_PRODUCT_RESOURCE} from '../constants';
 
 function ProductReducer(state = initialState, {type, payload}) {

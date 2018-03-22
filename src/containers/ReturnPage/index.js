@@ -25,13 +25,13 @@ import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducer/rootReducer';
 import saga from './saga/rootSaga';
-import {fetchData} from '../common/actions/table';
+import {fetchData} from '../common/table/actions';
 import Table from '../../components/Table';
 import Filters from './Filters';
 import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_RETURN_RESOURCE} from './constants';
 import {getInitialData} from './actions';
-import {launchFilter, changeField, clearFields} from '../common/actions/filter';
+import {launchFilter, changeField, clearFields} from '../common/filters/actions';
 import columns from './columnsDefinition';
 
 

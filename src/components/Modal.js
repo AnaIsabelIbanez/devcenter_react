@@ -1,5 +1,5 @@
-// import React from 'react';
-// import { Modal, Button } from 'react-bootstrap';
+import React from 'react';
+import { Modal as ModalBootstrap, Button } from 'react-bootstrap';
 //
 // const getStyle = type => {
 //     switch (type) {
@@ -35,9 +35,9 @@
 //     );
 // };
 
-import React from 'react';
+//import React from 'react';
 import Dialog, {DialogTitle, DialogContent, DialogActions} from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
+//import Button from 'material-ui/Button';
 import Slide from 'material-ui/transitions/Slide';
 import Typography from 'material-ui/Typography';
 import { Error, Warning, AddAlert }  from 'material-ui-icons';
@@ -53,7 +53,7 @@ const renderIcon = (type) => {
     return iconTypes[type];
 };
 
-const Modal = ({
+export default ({
     children,
     type,
     title,
@@ -69,34 +69,15 @@ const Modal = ({
     const messageText = message;
 
     return (
-        <Dialog
-            {...props}
-            transitionDuration={150}
-            transition={Slide}
+        <ModalBootstrap
+            show={true}
         >
-            {titleText !== '' && (
-                <DialogTitle id="modal-title">
-                    <span>
-                        {renderIcon(type)} {titleText}
-                    </span>
-                </DialogTitle>
-            )}
-            <DialogContent>
-                {children ? (
-                    children
-                ) : (
-                    <div>
-                        {messageText && <Typography type="body2">{messageText}</Typography>}
-                        {Array.isArray(details) &&
-                        details.length > 0 && (
-                                <Typography component="ul">{renderDetails(details)}</Typography>
-                            )}
-                    </div>
-                )}
-            </DialogContent>
-            <DialogActions><Button onClick={() => hideModal(id)}>Close</Button></DialogActions>
-        </Dialog>
+            <ModalBootstrap.Header >
+                <ModalBootstrap.Title>Algo</ModalBootstrap.Title>
+            </ModalBootstrap.Header>
+            <ModalBootstrap.Body>Algo</ModalBootstrap.Body>
+            <ModalBootstrap.Footer>Algo
+            </ModalBootstrap.Footer>
+        </ModalBootstrap>
     );
 };
-
-export default Modal;

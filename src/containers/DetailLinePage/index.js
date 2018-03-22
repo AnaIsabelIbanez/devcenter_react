@@ -4,9 +4,7 @@ import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 
 import {
-    getData,
-    getShowSpinner,
-    getFields,
+    getDetail,
     getFetch
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
@@ -15,40 +13,40 @@ import reducer from './reducer/rootReducers';
 import saga from './saga/rootSagas';
 import {getInitialData} from './actions';
 import DetailLine from './DetailLine';
+//TODO poner en sitio común:
+import DetailReturn from '../ReturnLines/DetailReturn';
 
 class DetailLinePage extends Component {
 
     constructor(props) {
         super(props);
-        this.props.getInitialData();
+        this.props.getInitialData(this.props.match.params.id);
     }
 
     render() {
         const {
-            data,
-            changeField,
-            fetch
+            data//,
+            // changeField,
+            // fetch
         } = this.props;
         return (
             <div>
-                <DetailProduct
-                    attributes={data}
+                <DetailLine
+                    detail={data}
                 />
-                <DetailReturn detail={data.return} />
             </div>
         );
     }
 };
 
 const mapStateToProps = createStructuredSelector({
-    data: getData(),
-    showSpinner: getShowSpinner(),
+    data: getDetail(),
     fetch: getFetch()
 });
 
 const mapDispatchToProps = {
-    getInitialData,
-    changeField
+    getInitialData
+    // changeField
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

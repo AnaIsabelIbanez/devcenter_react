@@ -17,6 +17,7 @@ import injectReducer from '../../utils/injects/injectReducer';
 import reducer from './reducer/rootReducer';
 import {hideModal, showError} from './actions';
 import {getLiteral} from '../../utils/utilities';
+import DetailLinePage from '../DetailLinePage';
 
 class App extends Component {
 
@@ -48,6 +49,7 @@ class App extends Component {
                         {!user && <Route path="/product" component={Product}/>}
                         {!user && <Route exact path="/return" component={Return}/>}
                         {!user && <Route exact path="/return/:id" component={ReturnLines}/>}
+                        {!user && <Route exact path="/line/:id" component={DetailLinePage}/>}
                     </Switch>
                 </div>
             </div>

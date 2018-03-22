@@ -40,7 +40,8 @@ export default ({detail: {data = {}}}) => {
                         <Col md={5}>
                             <label>
                                 {getLiteral('return.managedWarehouse')}
-                                <input type="checkbox" disabled checked={attributes.warehouse_date} />
+                                <input type="checkbox" disabled />
+                                {/*<input type="checkbox" disabled checked={attributes.warehouse_date} />*/}
                             </label>
                         </Col>
                         <Col md={5}>

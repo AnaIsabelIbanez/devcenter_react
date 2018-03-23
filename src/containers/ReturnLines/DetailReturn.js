@@ -5,31 +5,30 @@ import FormField from '../../components/FormField';
 import {formatIsoString} from '../../utils/utilities';
 import {getLiteral} from '../../utils/utilities';
 
-export default ({detail: {data = {}}}) => {
-    const {attributes = {}} = data;
+export default ({detail = {}}) => {
     return (<Row>
         <Col md={7}>
             <dl className="row">
                 <dt className="col-md-2">{getLiteral('return.returnNum')}</dt>
-                <dd className="col-md-2">{attributes.return_id}</dd>
+                <dd className="col-md-2">{detail.return_id}</dd>
 
                 <dt className="col-md-2">{getLiteral('return.destinationWarehouse')}</dt>
-                <dd className="col-md-2">{attributes.warehouse_name}</dd>
+                <dd className="col-md-2">{detail.warehouse_name}</dd>
 
                 <dt className="col-md-2">{getLiteral('return.orderNum')}</dt>
-                <dd className="col-md-2">{attributes.order_id}</dd>
+                <dd className="col-md-2">{detail.order_id}</dd>
 
                 <dt className="col-md-2">{getLiteral('common.campaingId')}</dt>
-                <dd className="col-md-2">{attributes.campaign_id}</dd>
+                <dd className="col-md-2">{detail.campaign_id}</dd>
 
                 <dt className="col-md-2">{getLiteral('return.partnerName')}</dt>
-                <dd className="col-md-2">{attributes.member_name}</dd>
+                <dd className="col-md-2">{detail.member_name}</dd>
 
                 <dt className="col-md-2">{getLiteral('common.compaignName')}</dt>
-                <dd className="col-md-2">{attributes.campaign_name}</dd>
+                <dd className="col-md-2">{detail.campaign_name}</dd>
 
                 <dt className="col-md-2">{getLiteral('return.partnerEmail')}</dt>
-                <dd className="col-md-2">{attributes.member_email}</dd>
+                <dd className="col-md-2">{detail.member_email}</dd>
             </dl>
         </Col>
         <Col md={5}>
@@ -48,7 +47,7 @@ export default ({detail: {data = {}}}) => {
                             <FormField
                                 width={5}
                                 label={getLiteral('common.date')}
-                                value={formatIsoString(attributes.warehouse_date)}
+                                value={formatIsoString(detail.warehouse_date)}
                                 disabled
                             />
                         </Col>

@@ -88,3 +88,65 @@ export const removeKeys = (objectData, regularExpresion) => {
 export  const getLiteral = (id) => {
     return <FormattedMessage id={id} />;
 };
+
+export function getFileType(file) {
+    let fileType = '';
+    fileType = file && file.type && file.type.split('/');
+    if (fileType !== '') {
+        fileType = (fileType[1] || fileType[0]).toUpperCase();
+    }
+    return fileType;
+};
+
+export function validateFileType(file, types) {
+    let fileType = getFileType(file);
+
+    if (fileType === 'JPEG') {
+        fileType = 'JPG';
+    }
+
+    return types.includes(fileType);
+};
+
+export function validateFilesType(files, types) {
+    if (!types || types.length === 0) {
+        return true;
+    } else {
+        return files.every(file => validateFileType(file, types));
+    }
+};
+
+export const objIsEmpty = (obj) => {
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            return false;
+        }
+    }
+    return true;
+};
+
+export const mbToBytes = mb => mb * 1024 * 1024;
+
+export const validateFilesSize = (file, maxSizeMB = 0, filesConf = {}) => {
+    let maxSize = maxSizeMB;
+    let fileType = '';
+
+    if (!objIsEmpty(filesConf)) {
+        fileType = file && file.type && file.type.split('/');
+        if (fileType !== '') {
+            fileType = (fileType[1] || fileType[0]).toUpperCase();
+        }
+
+        if (fileType === 'JPEG') {
+            fileType = 'JPG';
+        }
+
+        maxSize = (filesConf[fileType] && filesConf[fileType].maxSize) || 0;
+    }
+
+    return {
+        result: (!maxSize || maxSize < 0) ? true : file.size < mbToBytes(maxSize),
+        type: fileType,
+        maxSize
+    };
+};

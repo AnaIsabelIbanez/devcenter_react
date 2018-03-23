@@ -41,7 +41,7 @@ class ReturnPage extends Component {
 
     render() {
         const {
-            data,
+            tableData,
             meta: {currentPage, totalPages, pageSize, totalResults},
             links,
             loading,
@@ -50,19 +50,20 @@ class ReturnPage extends Component {
             changeAttributeTable,
             //TODO: get roles from the user
             rol = 'WAREHOUSE',
-            detail,
+            detail = { data: { attributes: {}}},
             fetch
         } = this.props;
+        const {data = {attributes: {}}} = detail;
         return (
             <div>
                 {fetch.detailLine.fetching === true
                     ? <LoadingIndicator/>
-                    : <DetailReturn detail={detail} />
+                    : <DetailReturn detail={data.attributes} />
                 }
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_LINE_RESOURCE)}
                     columns={columns(rol, changeAttributeTable, reasons, subreasons)}
-                    data={data}
+                    data={tableData}
                     pages={totalPages}
                     loading={fetch.detailLine.fetching === true}
                     pageSize={pageSize}
@@ -87,7 +88,7 @@ class ReturnPage extends Component {
 };
 
 const mapStateToProps = createStructuredSelector({
-    data: getData(),
+    tableData: getData(),
     showSpinner: getShowSpinner(),
     meta: getMeta(),
     links: getLinks(),

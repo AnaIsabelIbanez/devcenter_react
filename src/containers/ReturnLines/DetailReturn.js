@@ -1,7 +1,7 @@
 import React from 'react';
 import {Col, Row, Checkbox, Form} from 'react-bootstrap';
 
-import FormField from '../../components/FormField';
+import FormField from '../../components/InputField';
 import {formatIsoString} from '../../utils/utilities';
 import {getLiteral} from '../../utils/utilities';
 

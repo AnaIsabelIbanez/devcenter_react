@@ -23,6 +23,7 @@ import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducer/rootReducers';
 import saga from './saga/rootSagas';
 import {fetchData} from '../common/table/actions';
+import {changeActiveTab} from '../App/actions';
 import {launchFilter, changeField,clearFields} from '../common/filters/actions';
 import {getInitialData, setSelectedProduct} from './actions';
 import Table from '../../components/Table';
@@ -44,6 +45,7 @@ class ProductPage extends Component {
 
     constructor(props) {
         super(props);
+        this.props.changeActiveTab(this.props.location.pathname.substring(1));
         this.props.getInitialData();
     }
 
@@ -75,14 +77,15 @@ class ProductPage extends Component {
                     options={{brands, categories, sizes, colors}}
                     fetch={fetch}
                 />
-                <ServerDataTable
+
+                {!selectedProduct && <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_PRODUCT_RESOURCE)}
                     columns={columns}
                     data={data}
                     sorted={currentSort}
                     pages={totalPages}
                     loading={fetch.product.fetching === true}
-                    pageSize={pageSize}
+                    pageSize={data.length}
                     currentPage={currentPage}
                     totalResults={totalResults}
                     links={links}
@@ -98,7 +101,7 @@ class ProductPage extends Component {
                         };
                     }}
                     noDataText={'No rows found'}
-                />
+                />}
 
                 {selectedProduct && <DetailProduct
                     attributes={selectedProduct}
@@ -130,7 +133,8 @@ const mapDispatchToProps = {
     launchFilter,
     changeField,
     clearFields,
-    setSelectedProduct
+    setSelectedProduct,
+    changeActiveTab
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

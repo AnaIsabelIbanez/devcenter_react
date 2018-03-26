@@ -6,7 +6,7 @@ const initialState = {
     user: null
 };
 
-function appReducer(state = initialState, {type, payload}) {
+function userReducer(state = initialState, {type, payload}) {
     switch (type) {
         case SET_USER:
             return {
@@ -20,4 +20,4 @@ function appReducer(state = initialState, {type, payload}) {
     }
 }
 
-export default appReducer;
+export default userReducer;

@@ -8,9 +8,10 @@ export default ({
     under,
     place = under ? 'bottom' : 'right',
     type = 'dark',
+    id,
     ...props
 }) => (
-    <ReactTooltip delayShow={delayShow} effect={effect} place={place} type={type} {...props}>
+    <ReactTooltip delayShow={delayShow} effect={effect} place={place} type={type} id={id} {...props}>
         {children}
     </ReactTooltip>
 );

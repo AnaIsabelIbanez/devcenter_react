@@ -17,6 +17,7 @@ import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducer/rootReducer';
 import saga from './saga/rootSaga';
+import {changeActiveTab} from '../App/actions';
 import {fetchData} from '../common/table/actions';
 import Table from '../../components/Table';
 import DetailReturn from './DetailReturn';
@@ -32,10 +33,12 @@ import {
 
 const ServerDataTable = serverDataTableHoc(Table);
 
-class ReturnPage extends Component {
+class ReturnLine extends Component {
 
     constructor(props) {
         super(props);
+        console.log('this.props.location.pathname', this.props);
+        this.props.changeActiveTab('return');
         this.props.getInitialData(this.props.match.params.id);
     }
 
@@ -66,7 +69,7 @@ class ReturnPage extends Component {
                     data={tableData}
                     pages={totalPages}
                     loading={fetch.detailLine.fetching === true}
-                    pageSize={pageSize}
+                    pageSize={tableData.length}
                     currentPage={currentPage}
                     totalResults={totalResults}
                     links={links}
@@ -101,7 +104,8 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
     fetchData,
     getInitialData,
-    changeAttributeTable
+    changeAttributeTable,
+    changeActiveTab
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
@@ -112,4 +116,4 @@ export default compose(
     withReducer,
     withSaga,
     withConnect
-)(ReturnPage);
+)(ReturnLine);

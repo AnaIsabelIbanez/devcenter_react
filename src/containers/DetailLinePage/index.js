@@ -13,12 +13,16 @@ import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducer/rootReducers';
 import saga from './saga/rootSagas';
 import {getInitialData} from './actions';
+import {changeActiveTab} from '../App/actions';
 import DetailLine from './DetailLine';
 //TODO poner en sitio común:
 import DetailReturn from '../ReturnLines/DetailReturn';
-import UploadButton from '../../components/UploadButton2';
+import UploadButton from '../../components/UploadButton';
 import DropZone from '../../components/DropZone';
 import Icon from '../../components/Icon';
+import SelectField from '../../components/SelectField';
+import Panel from 'react-bootstrap/es/Panel';
+import {getLiteral} from '../../utils/utilities';
 
 const ImageComponent = ({photos}) => {
     const returnComponent = photos.length > 1
@@ -26,10 +30,10 @@ const ImageComponent = ({photos}) => {
             if (index !== 0) {
                 console.log('index', index);
                 return (<Col md={4} key={index}>
-                    <Image src={photo.location} thumbnail alt="242x200"/>
+                    <Image key={index} src={photo.location} thumbnail alt="242x200"/>
                 </Col>);
             } else {
-                return <span></span>;
+                return <span key={index}></span>;
             }
         })
         : <span></span>;
@@ -40,6 +44,7 @@ class DetailLinePage extends Component {
 
     constructor(props) {
         super(props);
+        this.props.changeActiveTab('return');
         this.props.getInitialData(this.props.match.params.id);
     }
 
@@ -61,89 +66,47 @@ class DetailLinePage extends Component {
                 <DetailReturn
                     detail={data.attributes.return}
                 />
-                {photos && photos.length > 0 &&
-                    <Thumbnail src={photos[0].location} alt="242x200">
-                        <Row>
-                            <ImageComponent photos={photos}/>
-                        </Row>
-                    </Thumbnail>
-                }
-                <div style={{
-                    borderRadius: '4px',
-                    position: 'relative',
-                    width: '750px',
-                    margin: '10px auto auto auto',
-                    borderRadius: '3px',
-                    border: '2px solid grey',
-                    background: '#f7f7f7',
-                    overflowY: 'hidden'
 
-                }}>
-                    <button type="button" onClick={() => console.log('clickbutton')}> x </button>
-                    <DropZone
-                        handleDrop={(e) => console.log('handle drop', e)}
-                        multipleFiles={false}
-                        dragOutJSX={[
-                            <Icon key={2}  name="camera" />,
-                            <span key={3} style={{
-                                color: '#30577a',
-                                fontSize: '2em',
-                                lineHeight: '5em'
-                            }}>Algo</span>
-                        ]}
-                        dragInJSX={[
-                            <Icon key={2} name="camera" style={{
-                                color: '#30577a',
-                                fontSize: '2em',
-                                marginRight: '5px'
-                            }} />,
-                            <span key={3} style={{
-                                color: '#30577a',
-                                fontSize: '2em',
-                                lineHeight: '5em'
-                            }}>Algo2</span>
-                        ]}
-                    >
+                <Row>
+                    <Col md={4}>
+                        <Panel>
+                            <Panel.Heading>{getLiteral('product.photos')}</Panel.Heading>
+                            <Panel.Body className="panel-body">
+                                <Thumbnail className="photos" src="https://react-bootstrap.github.io/thumbnail.png" alt="242x200">
+                                    <Row>
+                                        <Col md={4}>
+                                            <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail />
+                                        </Col>
+                                        <Col md={4}>
+                                            <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail />
+                                        </Col>
+                                        <Col md={4}>
+                                            <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail />
+                                        </Col>
+                                    </Row>
+                                </Thumbnail>
+                            </Panel.Body>
+                        </Panel>
+                    </Col>
+                    <Col md={2}>
                         <UploadButton
-                            id="economicDocuments"
-                            label={'hola'}
+                            label={getLiteral('common.upload')}
                             lg={true}
                             handleChange={(e) => console.log('upload button handleChange', e)}
                             validationConf={{
-                                xml: {
-                                    maxSize: 800
+                                pdf: {
+                                    maxSize: 1800
                                 }
                             }}
+                            handleSizeExceeded={({ name, size, maxSize }) =>
+                                console.log('invalid size')
+                            }
+                            handleIncorrectType={({ name, type }) =>
+                                console.log('invalid type')
+                            }
                         />
-                        <div style={{
-                            height: '100px',
-                            border: '1px dashed #404040',
-                            height: '100px',
-                            color: '#30577a'
-                        }}>
-                            <div style={{
-                                width: '15%',
-                                display: 'inline-block'
-                            }}>
-                            </div>
-                            <div style={{
-                                width: '70%',
-                                display: 'inline-block',
-                                height: '190px',
-                                position: 'absolute',
-                                textAlign: 'center'
-                            }}>
-                                <div styleName="iconUploadContainer">
-                                    <Icon upload styleName="iconUpload" />
-                                </div>
-                                <span styleName="uploadMessage">{'message upload'}</span>
-                                <div styleName="fileExtensions">
-                                </div>
-                            </div>
-
-                        </div>
-                    </DropZone>
-                </div>
+                    </Col>
+                </Row>
             </div>
         );
     }
@@ -155,7 +118,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-    getInitialData
+    getInitialData,
+    changeActiveTab
     // changeField
 };
 

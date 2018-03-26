@@ -8,3 +8,20 @@ body {
     height: 100%;
     margin: 0;
 }
+
+.container {
+    margin-left:0;
+}
+
+.main-body {
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+/**
+TODO
+ */
+
+.SingleDatePicker .DateInput {
+    width:40px;
+}

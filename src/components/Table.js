@@ -4,42 +4,41 @@ import 'react-table/react-table.css';
 
 import Pagination from './Pagination';
 import LoadingIndicator from './LoadingIndicator';
-import SelectForm from './SelectForm';
+import SelectForm from './SelectField';
+import styled from 'styled-components';
 
-const NoLoadinIndicator = () => (<div></div>);
+const NoLoadingIndicator = () => (<div></div>);
 
-export default ({pages, currentPage, onPagination, noDataText, loading, totalResults, onChangePageSize, ...props}) => {
+const myTable = ({className, pages, currentPage, onPagination, noDataText, loading, totalResults, onChangePageSize, ...props}) => {
     return (
-        <div>
+        <div className={className}>
             <ReactTable
                 manual
                 showPagination={false}
                 multiSort
                 pages={pages}
-                className="-striped -highlight"
+                className="-striped -highlight react-table"
                 loading={loading === true}
                 loadingText=""
-                LoadingComponent={loading === true ? LoadingIndicator : NoLoadinIndicator}
+                LoadingComponent={loading === true ? LoadingIndicator : NoLoadingIndicator}
                 noDataText={noDataText}
                 {...props}
             />
-            {onPagination && <span>Página {currentPage} de {pages} ({totalResults} elementos)
+            {onPagination &&
                 <Pagination
                     totalPages={pages}
+                    totalResults={totalResults}
                     currentPage={currentPage}
-                    onClick={onPagination}
-                /></span>}
-            {onChangePageSize && <SelectForm
-                style={{display: 'inline', width: 'auto'}}
-                width={1}
-                value={props.pageSize}
-                onChange={onChangePageSize}
-                options={[20, 100, 500]}
-                convert= {(item) => ({
-                    'id': item,
-                    'text': item
-                })}
-            />}
+                    onPageChanged={onPagination}
+                    onChangePageSize={onChangePageSize}
+                />}
         </div>
     );
 };
+
+export default styled(myTable)`
+        .react-table {
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        } 
+`;

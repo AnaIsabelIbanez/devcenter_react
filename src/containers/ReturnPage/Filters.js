@@ -1,11 +1,11 @@
 import React from 'react';
-import {Form, Col, Button, Row, Grid, ControlLabel, FormGroup, FormControl} from 'react-bootstrap';
+import {Form, Col, Button, Row, Grid, ControlLabel, FormGroup, FormControl, Panel} from 'react-bootstrap';
 import 'react-dates/initialize';
 import moment from 'moment/moment';
 import 'react-dates/lib/css/_datepicker.css';
 
-import FormField from '../../components/FormField';
-import Select from '../../components/SelectForm';
+import FormField from '../../components/InputField';
+import Select from '../../components/SelectField';
 import SingleDatepickerWrapper from '../../components/SingleDatepickerWrapper';
 import FieldWithTooltip from '../../components/FieldWithTooltip';
 import {getLiteral} from '../../utils/utilities';
@@ -50,7 +50,7 @@ export default ({
                 <Row>
                     <Col md={3}>
                         <CustomField
-                            width={3}
+                            width={6}
                             label={getLiteral('return.returnNum')}
                             fields={fields}
                             nameField="order_id"
@@ -65,7 +65,7 @@ export default ({
                         >
                             <CustomSelect
                                 label={getLiteral('return.returnType')}
-                                width={3}
+                                width={6}
                                 options={returnTypes}
                                 error={false}
                                 fields={fields}
@@ -83,7 +83,7 @@ export default ({
                             {/*nameField correcto ??????*/}
                             <CustomSelect
                                 label={getLiteral('return.returnReason')}
-                                width={3}
+                                width={6}
                                 options={reasons}
                                 error={false}
                                 fields={fields}
@@ -102,7 +102,7 @@ export default ({
                         >
                             <CustomSelect
                                 label={getLiteral('return.destinationWarehouse')}
-                                width={4}
+                                width={6}
                                 options={warehouseNames}
                                 error={false}
                                 fields={fields}
@@ -114,7 +114,7 @@ export default ({
                         </FieldWithTooltip>
 
                         <CustomField
-                            width={4}
+                            width={6}
                             label={getLiteral('common.campaingId')}
                             fields={fields}
                             nameField="campaign_id"
@@ -124,7 +124,7 @@ export default ({
                         />
 
                         <CustomField
-                            width={4}
+                            width={6}
                             label={getLiteral('common.compaignName')}
                             fields={fields}
                             nameField="campaign_name"
@@ -135,19 +135,22 @@ export default ({
 
                         {/*nameField correcto???*/}
                         <FormGroup>
-                            <Col componentClass={ControlLabel} sm={4}>{getLiteral('return.returnDate')}</Col>
-                            <SingleDatepickerWrapper
-                                date={fields.checkin_date ? moment(fields.checkin_date) : null}
-                                onDateChange={(date) => changeField({checkin_date: date.toISOString()})}
-                                numberOfMonths={1}
-                                displayFormat={dateFormat}
-                                disabled={disabled}
-                            />
+                            <Col componentClass={ControlLabel} md={6}>{getLiteral('return.returnDate')}</Col>
+                            <Col md={6}>
+                                <SingleDatepickerWrapper
+                                    small={true}
+                                    date={fields.checkin_date ? moment(fields.checkin_date) : null}
+                                    onDateChange={(date) => changeField({checkin_date: date.toISOString()})}
+                                    numberOfMonths={1}
+                                    displayFormat={dateFormat}
+                                    disabled={disabled}
+                                />
+                            </Col>
                         </FormGroup>
                     </Col>
-                    <Col md={3}>
+                    <Col md={2}>
                         <CustomField
-                            width={4}
+                            width={6}
                             label={getLiteral('return.partnerName')}
                             fields={fields}
                             nameField="member_name"
@@ -156,7 +159,7 @@ export default ({
                             disabled={disabled}
                         />
                         <CustomField
-                            width={4}
+                            width={6}
                             label={getLiteral('return.partnerEmail')}
                             fields={fields}
                             nameField="member_email"
@@ -165,46 +168,46 @@ export default ({
                             disabled={disabled}
                         />
                     </Col>
-                    <Col md={3}>
-                        <fieldset style={{border: '1px solid black', margin: '10px', padding: '10px'}}>
-                            <legend style={{width: 'auto', fontSize: '14px'}}>{getLiteral('return.warehouse')}</legend>
-                            <Row>
-                                <Col md={5}>
-                                    <label>
-                                        {getLiteral('return.managedWarehouse')}
-                                        <input type="checkbox"/>
-                                    </label>
-                                </Col>
-                                <Col md={5}>
-                                    <FormGroup>
-                                        <Col componentClass={ControlLabel} md={4}>{getLiteral('common.date')}</Col>
-                                        <SingleDatepickerWrapper
-                                            date={fields.warehouse_date ? moment(fields.warehouse_date) : null}
-                                            onDateChange={(date) => changeField({warehouse_date: date.toISOString()})}
-                                            numberOfMonths={1}
-                                            displayFormat={dateFormat}
+                    <Col md={4}>
+                        <Panel>
+                            <Panel.Heading>{getLiteral('return.warehouse')}</Panel.Heading>
+                            <Panel.Body>
+                                <Row>
+                                    <Col md={3}>
+                                        <Col componentClass={ControlLabel} md={8}>{getLiteral('return.managedWarehouse')}</Col>
+                                        <Col md={4}>
+                                            <input type="checkbox"/>
+                                        </Col>
+                                    </Col>
+                                    <Col md={4}>
+                                        <Col componentClass={ControlLabel} md={6}>{getLiteral('common.date')}</Col>
+                                        <Col md={6}>
+                                            <SingleDatepickerWrapper
+                                                small={true}
+                                                date={fields.warehouse_date ? moment(fields.warehouse_date) : null}
+                                                onDateChange={(date) => changeField({warehouse_date: date.toISOString()})}
+                                                numberOfMonths={1}
+                                                displayFormat={dateFormat}
+                                                disabled={disabled}
+                                            />
+                                        </Col>
+                                    </Col>
+                                    <Col md={5}>
+                                        <CustomSelect
+                                            label={getLiteral('return.subreason')}
+                                            width={6}
+                                            options={subreasons}
+                                            error={false}
+                                            fields={fields}
+                                            nameField="warehouse_subreason"
+                                            onChange={changeField}
                                             disabled={disabled}
+                                            loading={fetchStatus.returnSubreasons.fetching === true}
                                         />
-                                    </FormGroup>
-                                </Col>
-                                <FieldWithTooltip
-                                    id="warehouse_subreason"
-                                    message={getLiteral('return.filterInfo')}
-                                >
-                                    <CustomSelect
-                                        label={getLiteral('return.subreason')}
-                                        width={4}
-                                        options={subreasons}
-                                        error={false}
-                                        fields={fields}
-                                        nameField="warehouse_subreason"
-                                        onChange={changeField}
-                                        disabled={disabled}
-                                        loading={fetchStatus.returnSubreasons.fetching === true}
-                                    />
-                                </FieldWithTooltip>
-                            </Row>
-                        </fieldset>
+                                    </Col>
+                                </Row>
+                            </Panel.Body>
+                        </Panel>
                     </Col>
                 </Row>
                 <Row>

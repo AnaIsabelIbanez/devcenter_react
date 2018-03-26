@@ -85,36 +85,43 @@ export const removeKeys = (objectData, regularExpresion) => {
     return newObj;
 };
 
-export  const getLiteral = (id) => {
-    return <FormattedMessage id={id} />;
+export  const getLiteral = (id, values = {}) => {
+    return <FormattedMessage id={id} values={values} />;
 };
 
-export function getFileType(file) {
-    let fileType = '';
-    fileType = file && file.type && file.type.split('/');
-    if (fileType !== '') {
-        fileType = (fileType[1] || fileType[0]).toUpperCase();
-    }
-    return fileType;
-};
-
-export function validateFileType(file, types) {
-    let fileType = getFileType(file);
-
-    if (fileType === 'JPEG') {
-        fileType = 'JPG';
+const getFileType = file => {
+    if (!file.name && !file.type) {
+        return 'UNKNOWN';
     }
 
-    return types.includes(fileType);
-};
-
-export function validateFilesType(files, types) {
-    if (!types || types.length === 0) {
-        return true;
+    let type = '';
+    if (file.type) {
+        const fileType = ((file && file.type) || type).split('/');
+        type = fileType[1] || fileType[0];
     } else {
-        return files.every(file => validateFileType(file, types));
+        const nameSplit = file.name.split('.');
+        type = nameSplit[nameSplit.length - 1];
     }
+    type = type === 'jpeg' ? 'jpg' : type;
+    type = type === 'x-zip-compressed' ? 'zip' : type;
+    return type;
 };
+
+export function validateFileType(file, types = []) {
+    const type = getFileType(file);
+    return { result: types.includes(type), type, name: file.name };
+}
+
+export function validateFilesType(files = [], filesConf = {}) {
+    const types = Object.keys(filesConf);
+    const fileInvalid = files
+        .map(file => validateFileType(file, types))
+        .find(fileResult => !fileResult.result);
+
+    return (
+        fileInvalid || { result: true, type: null, maxSize: null, name: null }
+    );
+}
 
 export const objIsEmpty = (obj) => {
     for (var key in obj) {
@@ -127,26 +134,26 @@ export const objIsEmpty = (obj) => {
 
 export const mbToBytes = mb => mb * 1024 * 1024;
 
-export const validateFilesSize = (file, maxSizeMB = 0, filesConf = {}) => {
-    let maxSize = maxSizeMB;
-    let fileType = '';
+export const bytesToMb = bytes => parseFloat(bytes / 1024 / 1024).toFixed(2);
 
-    if (!objIsEmpty(filesConf)) {
-        fileType = file && file.type && file.type.split('/');
-        if (fileType !== '') {
-            fileType = (fileType[1] || fileType[0]).toUpperCase();
-        }
-
-        if (fileType === 'JPEG') {
-            fileType = 'JPG';
-        }
-
-        maxSize = (filesConf[fileType] && filesConf[fileType].maxSize) || 0;
-    }
+export const validateFileSize = (file, filesConf = {}) => {
+    const type = getFileType(file);
+    const maxSize = (filesConf[type] && filesConf[type].maxSize) || 0;
 
     return {
-        result: (!maxSize || maxSize < 0) ? true : file.size < mbToBytes(maxSize),
-        type: fileType,
-        maxSize
+        result: !maxSize || maxSize < 0 ? true : file.size < mbToBytes(maxSize),
+        maxSize,
+        size: bytesToMb(file.size),
+        name: file.name
     };
 };
+
+export function validateFilesSize(files = [], filesConf = {}) {
+    const fileInvalid = files
+        .map(file => validateFileSize(file, filesConf))
+        .find(fileResult => !fileResult.result);
+
+    return (
+        fileInvalid || { result: true, type: null, maxSize: null, name: null }
+    );
+}

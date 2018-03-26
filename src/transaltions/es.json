@@ -4,6 +4,9 @@
     "common.date": "Date ??",
     "common.campaingId": "Campaing Id ??",
     "common.compaignName": "compaign name ??",
+    "common.pageInfo": "Page {currentPage} of {totalPages} ({totalResults} elements) ??",
+    "common.pageSize": "Page size ??",
+    "common.upload": "Upload ??",
 
     "product.products": "Products ??",
     "product.ean": "Ean ??",
@@ -18,7 +21,8 @@
     "product.sku": "Sku ??",
     "product.shortDescription": "Short description ??",
     "product.reallyReceived": "Really received product ??",
-    "product.memberObservations": "Client observations",
+    "product.memberObservations": "Client observations ??",
+    "product.photos": "Product photos ??",
 
     "inboundQuality.inboundQuality": "Inbound Quality ??",
 

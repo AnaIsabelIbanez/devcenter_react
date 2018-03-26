@@ -1,20 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react';
+import {Nav, NavItem} from 'react-bootstrap';
+import { getLiteral } from '../utils/utilities';
 
-const StyledHeader = styled.div`
-    text-align: center;
-    font-size: 1.7em;
-    font-weight: bold;
-    padding: 1em;
-    margin-bottom: 1.5em; 
-    background: #323232;
-    color: white;
-`;
-
-const Header = () => (
-    <StyledHeader>
-        React Components
-    </StyledHeader>
+const Header = ({history, changeActiveTab, activeTab}) => (
+    <Nav bsStyle="tabs" activeKey={activeTab} onSelect={k => {
+        history.push(`/${k}`);
+        changeActiveTab(k);
+    }}>
+        <NavItem eventKey="product">
+            {getLiteral('product.products')}
+        </NavItem>
+        <NavItem eventKey="return">
+            {getLiteral('return.returns')}
+        </NavItem>
+        <NavItem eventKey="inbound">
+            {getLiteral('inboundQuality.inboundQuality')}
+        </NavItem>
+    </Nav>
 );
 
 export default Header;

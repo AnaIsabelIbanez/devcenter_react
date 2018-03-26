@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { ProgressBar } from 'react-bootstrap';
 
 import { validateFilesSize, validateFilesType } from '../../utils/utilities';
+import styled from 'styled-components';
 
 class UploadBtn extends React.Component {
     state = {
@@ -131,7 +132,6 @@ UploadBtn.propTypes = {
     handleSizeExceeded: PropTypes.func,
     handleIncorrectType: PropTypes.func,
     validationConf: PropTypes.object,
-    label: PropTypes.string,
     multiple: PropTypes.bool,
     disabled: PropTypes.bool,
     active: PropTypes.bool,
@@ -145,7 +145,6 @@ UploadBtn.defaultProps = {
     handleSizeExceeded: () => {},
     handleIncorrectType: () => {},
     validationConf: {},
-    label: '',
     multiple: false,
     disabled: false,
     active: false,
@@ -153,4 +152,47 @@ UploadBtn.defaultProps = {
     lg: false
 };
 
-export default UploadBtn;
+// export default UploadBtn;
+
+export default styled(UploadBtn)`
+    .container {
+    position: relative;
+
+    & .hidden-input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    & :global .progress .progress-bar {
+        background-image: linear-gradient(to bottom, #009fe1 0%, #0077af 100%);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(
+                startColorstr='#ff009fe1',
+                endColorstr='#ff0077af',
+                GradientType=0
+            );
+    }
+
+    & .bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: none;
+
+        & > div {
+            padding-top: 7px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+        }
+
+        & .lg-bar > div {
+            padding-top: 9px;
+        }
+    }
+}
+`;

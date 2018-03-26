@@ -63,7 +63,7 @@ const defaultProps = {
     monthFormat: 'MMMM YYYY'
 };
 
-class SingleDatePickerWrapper extends React.Component {
+export default class SingleDatePickerWrapper extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -100,5 +100,3 @@ class SingleDatePickerWrapper extends React.Component {
 
 SingleDatePickerWrapper.propTypes = propTypes;
 SingleDatePickerWrapper.defaultProps = defaultProps;
-
-export default SingleDatePickerWrapper;

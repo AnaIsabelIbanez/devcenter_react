@@ -21,7 +21,7 @@ const deleteModal = (modals, idModal) => {
     return copyModals;
 };
 
-function appReducer(state = initialState, {type, payload}) {
+function modalReducer(state = initialState, {type, payload}) {
     switch (type) {
         case SHOW_MODAL:
             return {
@@ -40,4 +40,4 @@ function appReducer(state = initialState, {type, payload}) {
     }
 }
 
-export default appReducer;
+export default modalReducer;

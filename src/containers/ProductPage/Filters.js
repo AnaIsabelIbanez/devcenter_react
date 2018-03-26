@@ -4,12 +4,13 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
 import {getLiteral} from '../../utils/utilities';
-import FormField from '../../components/FormField';
-import Select from '../../components/SelectForm';
+import InputField from '../../components/InputField';
+import SelectField from '../../components/SelectField';
+import FilterButtons from '../../components/FilterButtons';
 
 const CustomField = ({fields, nameField, onChange, ...props}) => {
     return (
-        <FormField
+        <InputField
             value={fields[nameField] ? fields[nameField] : ''}
             onChange={({target}) => onChange({[nameField]: target.value})}
             {...props}
@@ -19,7 +20,7 @@ const CustomField = ({fields, nameField, onChange, ...props}) => {
 
 const CustomSelect = ({fields, nameField, onChange, ...props}) => {
     return (
-        <Select
+        <SelectField
             value={fields[nameField] ? fields[nameField] : ''}
             onChange={({target}) => onChange({[nameField]: target.value})}
             {...props}
@@ -27,8 +28,7 @@ const CustomSelect = ({fields, nameField, onChange, ...props}) => {
     );
 };
 
-
-export default class ReturnFilters extends Component {
+export default class ProductFilters extends Component {
 
     render() {
         const {
@@ -48,9 +48,9 @@ export default class ReturnFilters extends Component {
             }}>
                 <Grid>
                     <Row>
-                        <Col md={4}>
+                        <Col md={6}>
                             <CustomField
-                                width={3}
+                                width={6}
                                 label={getLiteral('product.ean')}
                                 fields={fields}
                                 nameField="ean"
@@ -59,7 +59,7 @@ export default class ReturnFilters extends Component {
                                 disabled={disabled}
                             />
                             <CustomField
-                                width={3}
+                                width={6}
                                 label={getLiteral('product.refCom')}
                                 fields={fields}
                                 nameField="ref_com"
@@ -68,7 +68,7 @@ export default class ReturnFilters extends Component {
                                 disabled={disabled}
                             />
                             <CustomField
-                                width={3}
+                                width={6}
                                 label={getLiteral('product.refPhis')}
                                 fields={fields}
                                 nameField="ref_physic"
@@ -77,7 +77,7 @@ export default class ReturnFilters extends Component {
                                 disabled={disabled}
                             />
                             <CustomField
-                                width={3}
+                                width={6}
                                 label={getLiteral('product.refLog')}
                                 fields={fields}
                                 nameField="ref_logistic"
@@ -86,7 +86,7 @@ export default class ReturnFilters extends Component {
                                 disabled={disabled}
                             />
                             <CustomField
-                                width={3}
+                                width={6}
                                 label={getLiteral('common.campaingId')}
                                 fields={fields}
                                 nameField="campaign_id"
@@ -96,9 +96,9 @@ export default class ReturnFilters extends Component {
                             />
                         </Col>
 
-                        <Col md={4}>
+                        <Col md={6}>
                             <CustomField
-                                width={3}
+                                width={6}
                                 label={getLiteral('product.text')}
                                 fields={fields}
                                 nameField="text"
@@ -108,7 +108,7 @@ export default class ReturnFilters extends Component {
                             />
                             <CustomSelect
                                 label={getLiteral('product.brand')}
-                                width={4}
+                                width={6}
                                 options={brands}
                                 error={false}
                                 fields={fields}
@@ -119,7 +119,7 @@ export default class ReturnFilters extends Component {
                             />
                             <CustomSelect
                                 label={getLiteral('product.category')}
-                                width={4}
+                                width={6}
                                 options={categories}
                                 error={false}
                                 fields={fields}
@@ -130,7 +130,7 @@ export default class ReturnFilters extends Component {
                             />
                             <CustomSelect
                                 label={getLiteral('product.size')}
-                                width={4}
+                                width={6}
                                 options={sizes}
                                 error={false}
                                 fields={fields}
@@ -141,7 +141,7 @@ export default class ReturnFilters extends Component {
                             />
                             <CustomSelect
                                 label={getLiteral('product.color')}
-                                width={4}
+                                width={6}
                                 options={colors}
                                 error={false}
                                 fields={fields}
@@ -153,15 +153,7 @@ export default class ReturnFilters extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col md={6} mdOffset={6}>
-                            <Button type="submit">{getLiteral('common.filter')}</Button>
-                            <Button
-                                onClick={() => clearFields()}
-                            >
-                                {getLiteral('common.clear')}
-                            </Button>
-
-                        </Col>
+                        <FilterButtons onClearFields={clearFields}/>
                     </Row>
                 </Grid>
             </Form>

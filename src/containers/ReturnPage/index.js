@@ -30,6 +30,7 @@ import Table from '../../components/Table';
 import Filters from './Filters';
 import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_RETURN_RESOURCE} from './constants';
+import {changeActiveTab} from '../App/actions';
 import {getInitialData} from './actions';
 import {launchFilter, changeField, clearFields} from '../common/filters/actions';
 import columns from './columnsDefinition';
@@ -41,6 +42,7 @@ class ReturnPage extends Component {
 
     constructor(props) {
         super(props);
+        this.props.changeActiveTab(this.props.location.pathname.substring(1));
         this.props.getInitialData();
     }
 
@@ -79,7 +81,7 @@ class ReturnPage extends Component {
                     sorted={currentSort}
                     pages={totalPages}
                     loading={fetchStatus.return.fetching === true}
-                    pageSize={pageSize}
+                    pageSize={data.length}
                     currentPage={currentPage}
                     totalResults={totalResults}
                     links={links}
@@ -121,7 +123,8 @@ const mapDispatchToProps = {
     launchFilter,
     changeField,
     clearFields,
-    getInitialData
+    getInitialData,
+    changeActiveTab
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

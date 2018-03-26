@@ -2,6 +2,7 @@ import React from 'react';
 import {ControlLabel, FormGroup, Col, FormControl} from 'react-bootstrap';
 
 import Icon from './Icon';
+import styled from 'styled-components';
 
 // Example of convert function to pass the component if needed:
 // const convert = (item) => ({
@@ -9,15 +10,17 @@ import Icon from './Icon';
 //     'text': item.text
 // });
 
-export default ({width = '', label, value, onChange, options, error, loading, convert, ...props}) => (
-    <FormGroup>
-        <Col componentClass={ControlLabel} md={width}>{label}</Col>
-        {loading
-            ? <div>
-                <FormControl type="text"/>
-                <Icon style={{fontSize: '1.2em', top: '25%'}} spin name="circle-o-notch" />
-            </div>
-            :  <FormControl
+const mySelectField = ({className, width, label, value, onChange, options, error, loading, convert, ...props}) => (
+    <div >
+        <Col componentClass={ControlLabel} md={width} className="select-label">{label}</Col>
+        <Col md={width}>
+            {loading
+                && <span>
+                    <Icon className="loading-icon" spin name="circle-o-notch" /> Loading...
+                </span>}
+            <FormControl
+                style={{display: loading ? 'none' : 'block'}}
+                className="select-field"
                 componentClass="select"
                 value={value}
                 onChange={onChange}
@@ -31,6 +34,18 @@ export default ({width = '', label, value, onChange, options, error, loading, co
                         <option key={i} value={parsedElem.id}>{parsedElem.text}</option>
                     );
                 })}
-            </FormControl>}
-    </FormGroup>
+            </FormControl>
+        </Col>
+    </div>
 );
+
+export default styled(mySelectField)`
+    .select-label {
+        text-align: right;
+    }
+    .select-field {
+        text-align: left;
+        width: 100%;
+    }
+    padding: 20px 0;  
+`;

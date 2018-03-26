@@ -1,4 +1,4 @@
-import {SET_USER, HIDE_MODAL, SHOW_MODAL} from './constants';
+import {SET_USER, HIDE_MODAL, SHOW_MODAL, CHANGE_TAB} from './constants';
 
 export const setUser = user => {
     return {
@@ -26,5 +26,12 @@ export const showError = ({parsedBody: { type, details = [] }, message}) => {
 export const hideModal = () => {
     return {
         type: HIDE_MODAL
+    };
+};
+
+export const changeActiveTab = (activeTab) => {
+    return {
+        type: CHANGE_TAB,
+        payload: activeTab
     };
 };

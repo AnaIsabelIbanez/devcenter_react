@@ -12,40 +12,34 @@ import Product from '../ProductPage';
 import Return from '../ReturnPage';
 import ReturnLines from '../ReturnLines';
 import Modal from '../../components/Modal';
-import {getUser, getModalOptions} from './selectors';
+import {getUser, getModalOptions, getActiveTab} from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import reducer from './reducer/rootReducer';
-import {hideModal, showError} from './actions';
+import {hideModal, showError, changeActiveTab} from './actions';
 import {getLiteral} from '../../utils/utilities';
 import DetailLinePage from '../DetailLinePage';
 
 class App extends Component {
 
+    constructor(props) {
+        super(props);
+        this.props.changeActiveTab(this.props.location.pathname.substring(1));
+    }
+
     render() {
-        const {user, modals, hideModal} = this.props;
+        const {user, modals, hideModal, activeTab, changeActiveTab} = this.props;
         return (
             <div>
-                <Header/>
-                <div>
+                <Header history={this.props.history} changeActiveTab={changeActiveTab} activeTab={activeTab} />
+                <div className="main-body">
                     {modals.modals.map((modalOpt, index) => {
                         return (<Modal key={index} hideModal={hideModal} {...modalOpt} />);
                     })}
-                    <Button
-                        onClick={() => this.props.history.push('/product')}
-                    >{getLiteral('product.products')}
-                    </Button>
-                    <Button
-                        onClick={() => this.props.history.push('/return')}
-                    >{getLiteral('return.returns')}
-                    </Button>
-                    <Button>
-                        {getLiteral('inboundQuality.inboundQuality')}
-                    </Button>
                     <Switch>
                         {/*{!user && <Route exact path="/product" render={() => (<Redirect to="/"/>)}/>}*/}
                         {/*{!user && <Route exact path="/" component={Login}/>}*/}
                         {/*{user && <Route exact path="/" render={() => (<Redirect to="/product"/>)}/>}*/}
-                        {!user && <Route exact path="/" render={() => (<Redirect to="/product"/>)}/>}
+                        {!user && <Route exact path="/" render={() => {changeActiveTab('product'); return (<Redirect to="/product"/>); }}/>}
                         {!user && <Route path="/product" component={Product}/>}
                         {!user && <Route exact path="/return" component={Return}/>}
                         {!user && <Route exact path="/return/:id" component={ReturnLines}/>}
@@ -59,12 +53,14 @@ class App extends Component {
 
 const mapStateToProps = createStructuredSelector({
     user: getUser(),
-    modals: getModalOptions()
+    modals: getModalOptions(),
+    activeTab: getActiveTab()
 });
 
 const mapDispatchToProps = {
     hideModal,
-    showError
+    showError,
+    changeActiveTab
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

@@ -16,23 +16,30 @@ export default ({detail}) => {
 
                 <dt className="col-md-2">{getLiteral('product.ean')}</dt>
                 <dd className="col-md-2">{attributes.ean}</dd>
-
+            </dl>
+            <dl className="row">
                 <dt className="col-md-2">{getLiteral('product.reallyReceived')}</dt>
                 <dd className="col-md-2">{attributes.sku_real_product}</dd>
-
-                <dt className="col-md-2">{getLiteral('return.returnReason')}</dt>
-                <dd className="col-md-2">{attributes.member_reason}</dd>
-
-                <dt className="col-md-2">{getLiteral('product.memberObservations')}</dt>
-                <dd className="col-md-2">{attributes.member_observations}</dd>
 
                 <dt className="col-md-2">{getLiteral('return.warehouseReason')}</dt>
                 <dd className="col-md-2">{attributes.warehouse_reason}</dd>
 
+                <dt className="col-md-2">{getLiteral('return.returnReason')}</dt>
+                <dd className="col-md-2">{attributes.member_reason}</dd>
+
+
+            </dl>
+            <dl className="row">
+
+                <dt className="col-md-2">{getLiteral('product.memberObservations')}</dt>
+                <dd className="col-md-2">{attributes.member_observations}</dd>
 
                 <dt className="col-md-2">{getLiteral('return.warehouseSubreason')}</dt>
                 <dd className="col-md-2">{attributes.warehouse_subreason}</dd>
 
+
+            </dl>
+            <dl className="row">
                 <dt className="col-md-2">{getLiteral('return.productionSubreason')}</dt>
                 <dd className="col-md-2">{attributes.production_subreason}</dd>
 

@@ -20,7 +20,7 @@ import DetailReturn from '../ReturnLines/DetailReturn';
 import UploadButton from '../../components/UploadButton';
 import DropZone from '../../components/DropZone';
 import Icon from '../../components/Icon';
-import SelectField from '../../components/SelectField';
+import {SelectForm} from '../../components/SelectField';
 import Panel from 'react-bootstrap/es/Panel';
 import {getLiteral} from '../../utils/utilities';
 

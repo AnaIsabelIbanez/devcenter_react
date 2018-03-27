@@ -17,53 +17,53 @@ const myDetailProduct = ({className, attributes}) => {
         </Row>
         <Row>
             <Col md={4}>
-                <dl class="row">
+                <dl className="row">
                     <dt className="col-md-6">{getLiteral('product.sku')}</dt>
                     <dd className="col-md-6">{attributes.sku}</dd>
                 </dl>
 
-                <dl class="row">
+                <dl className="row">
                     <dt className="col-md-6">{getLiteral('product.ean')}</dt>
                     <dd className="col-md-6">{attributes.ean}</dd>
                 </dl>
 
-                <dl class="row">
+                <dl className="row">
                     <dt className="col-md-6">{getLiteral('product.brand')}</dt>
                     <dd className="col-md-6">{attributes.brand}</dd>
                 </dl>
 
-                <dl class="row">
+                <dl className="row">
                     <dt className="col-md-6">{getLiteral('product.refCom')}</dt>
                     <dd className="col-md-6">{attributes.ref_com}</dd>
                 </dl>
 
-                <dl class="row">
+                <dl className="row">
                     <dt className="col-md-6">{getLiteral('product.refLog')}</dt>
                     <dd className="col-md-6">{attributes.ref_logistic}</dd>
                 </dl>
-                <dl class="row">
+                <dl className="row">
                     <dt className="col-md-6">{getLiteral('product.shortDescription')}</dt>
                     <dd className="col-md-6">{attributes.short_description}</dd>
                 </dl>
 
-                <dl class="row">
+                <dl className="row">
                     <dt className="col-md-6">{getLiteral('product.category')}</dt>
                     <dd className="col-md-6">{attributes.category}</dd>
                 </dl>
-                <dl class="row">
+                <dl className="row">
                     <dt className="col-md-6">{getLiteral('product.size')}</dt>
                     <dd className="col-md-6">{attributes.size}</dd>
                 </dl>
-                <dl class="row">
+                <dl className="row">
                     <dt className="col-md-6">{getLiteral('product.color')}</dt>
                     <dd className="col-md-6">{attributes.color}</dd>
                 </dl>
 
-                <dl class="row">
+                <dl className="row">
                     <dt className="col-md-6">{getLiteral('common.campaingId')}</dt>
                     <dd className="col-md-6">{attributes.campaign_id}</dd>
                 </dl>
-                <dl class="row">
+                <dl className="row">
                     <dt className="col-md-6">{getLiteral('common.compaignName')}</dt>
                     <dd className="col-md-6">{attributes.campaign_name}</dd>
                 </dl>

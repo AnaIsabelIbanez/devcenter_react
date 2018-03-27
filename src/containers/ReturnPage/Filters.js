@@ -4,16 +4,19 @@ import 'react-dates/initialize';
 import moment from 'moment/moment';
 import 'react-dates/lib/css/_datepicker.css';
 
-import FormField from '../../components/InputField';
-import Select from '../../components/SelectField';
+import {InputForm} from '../../components/InputField';
+import {SelectForm, GenericSelect} from '../../components/SelectField';
 import SingleDatepickerWrapper from '../../components/SingleDatepickerWrapper';
 import FieldWithTooltip from '../../components/FieldWithTooltip';
 import {getLiteral} from '../../utils/utilities';
 import {dateFormat} from '../App/constants';
+import {DatePickerForm, GenericDatePicker} from '../../components/DatePickerField';
+import SmallPanel from '../../components/SmallPanel';
+import ManagedFilter from './ManagedFilter';
 
 const CustomField = ({fields, nameField, onChange, ...props}) => {
     return (
-        <FormField
+        <InputForm
             value={fields[nameField] ? fields[nameField] : ''}
             onChange={({target}) => onChange({[nameField]: target.value})}
             {...props}
@@ -23,7 +26,17 @@ const CustomField = ({fields, nameField, onChange, ...props}) => {
 
 const CustomSelect = ({fields, nameField, onChange, ...props}) => {
     return (
-        <Select
+        <SelectForm
+            value={fields[nameField] ? fields[nameField] : ''}
+            onChange={({target}) => onChange({[nameField]: target.value})}
+            {...props}
+        />
+    );
+};
+
+const SelectInPanel = ({fields, nameField, onChange, ...props}) => {
+    return (
+        <GenericSelect
             value={fields[nameField] ? fields[nameField] : ''}
             onChange={({target}) => onChange({[nameField]: target.value})}
             {...props}
@@ -50,7 +63,8 @@ export default ({
                 <Row>
                     <Col md={3}>
                         <CustomField
-                            width={6}
+                            width={4}
+                            inputWidth={8}
                             label={getLiteral('return.returnNum')}
                             fields={fields}
                             nameField="order_id"
@@ -65,7 +79,8 @@ export default ({
                         >
                             <CustomSelect
                                 label={getLiteral('return.returnType')}
-                                width={6}
+                                inputWidth={8}
+                                width={4}
                                 options={returnTypes}
                                 error={false}
                                 fields={fields}
@@ -83,7 +98,8 @@ export default ({
                             {/*nameField correcto ??????*/}
                             <CustomSelect
                                 label={getLiteral('return.returnReason')}
-                                width={6}
+                                width={4}
+                                inputWidth={8}
                                 options={reasons}
                                 error={false}
                                 fields={fields}
@@ -102,7 +118,8 @@ export default ({
                         >
                             <CustomSelect
                                 label={getLiteral('return.destinationWarehouse')}
-                                width={6}
+                                width={4}
+                                inputWidth={8}
                                 options={warehouseNames}
                                 error={false}
                                 fields={fields}
@@ -114,7 +131,8 @@ export default ({
                         </FieldWithTooltip>
 
                         <CustomField
-                            width={6}
+                            width={4}
+                            inputWidth={8}
                             label={getLiteral('common.campaingId')}
                             fields={fields}
                             nameField="campaign_id"
@@ -124,7 +142,8 @@ export default ({
                         />
 
                         <CustomField
-                            width={6}
+                            width={4}
+                            inputWidth={8}
                             label={getLiteral('common.compaignName')}
                             fields={fields}
                             nameField="campaign_name"
@@ -134,23 +153,19 @@ export default ({
                         />
 
                         {/*nameField correcto???*/}
-                        <FormGroup>
-                            <Col componentClass={ControlLabel} md={6}>{getLiteral('return.returnDate')}</Col>
-                            <Col md={6}>
-                                <SingleDatepickerWrapper
-                                    small={true}
-                                    date={fields.checkin_date ? moment(fields.checkin_date) : null}
-                                    onDateChange={(date) => changeField({checkin_date: date.toISOString()})}
-                                    numberOfMonths={1}
-                                    displayFormat={dateFormat}
-                                    disabled={disabled}
-                                />
-                            </Col>
-                        </FormGroup>
+                        <DatePickerForm
+                            width={4}
+                            inputWidth={8}
+                            label={getLiteral('return.returnDate')}
+                            value={fields.checkin_date}
+                            onChange={(date) => changeField({checkin_date: date.toISOString()})}
+                            disabled={disabled}
+                        />
                     </Col>
-                    <Col md={2}>
+                    <Col md={3}>
                         <CustomField
-                            width={6}
+                            width={4}
+                            inputWidth={8}
                             label={getLiteral('return.partnerName')}
                             fields={fields}
                             nameField="member_name"
@@ -159,7 +174,8 @@ export default ({
                             disabled={disabled}
                         />
                         <CustomField
-                            width={6}
+                            width={4}
+                            inputWidth={8}
                             label={getLiteral('return.partnerEmail')}
                             fields={fields}
                             nameField="member_email"
@@ -168,46 +184,46 @@ export default ({
                             disabled={disabled}
                         />
                     </Col>
-                    <Col md={4}>
-                        <Panel>
-                            <Panel.Heading>{getLiteral('return.warehouse')}</Panel.Heading>
-                            <Panel.Body>
-                                <Row>
-                                    <Col md={3}>
-                                        <Col componentClass={ControlLabel} md={8}>{getLiteral('return.managedWarehouse')}</Col>
-                                        <Col md={4}>
-                                            <input type="checkbox"/>
-                                        </Col>
-                                    </Col>
-                                    <Col md={4}>
-                                        <Col componentClass={ControlLabel} md={6}>{getLiteral('common.date')}</Col>
-                                        <Col md={6}>
-                                            <SingleDatepickerWrapper
-                                                small={true}
-                                                date={fields.warehouse_date ? moment(fields.warehouse_date) : null}
-                                                onDateChange={(date) => changeField({warehouse_date: date.toISOString()})}
-                                                numberOfMonths={1}
-                                                displayFormat={dateFormat}
-                                                disabled={disabled}
-                                            />
-                                        </Col>
-                                    </Col>
-                                    <Col md={5}>
-                                        <CustomSelect
-                                            label={getLiteral('return.subreason')}
-                                            width={6}
-                                            options={subreasons}
-                                            error={false}
-                                            fields={fields}
-                                            nameField="warehouse_subreason"
-                                            onChange={changeField}
-                                            disabled={disabled}
-                                            loading={fetchStatus.returnSubreasons.fetching === true}
-                                        />
-                                    </Col>
-                                </Row>
-                            </Panel.Body>
-                        </Panel>
+                    <Col md={3}>
+                        <Row>
+                            <ManagedFilter
+                                title={getLiteral('return.warehouse')}
+                                fields={fields}
+                                changeField={changeField}
+                                disabled={disabled}
+                                fetchStatus={fetchStatus}
+                                options={subreasons}
+                                nameDate="warehouse_date"
+                                nameSubreason="warehouse_subreason"
+                                nameManaged="managed_warehouse"
+                            />
+                        </Row>
+                        <Row>
+                            <ManagedFilter
+                                title={getLiteral('return.quality')}
+                                fields={fields}
+                                changeField={changeField}
+                                disabled={disabled}
+                                fetchStatus={fetchStatus}
+                                options={subreasons}
+                                nameDate="quality_date"
+                                nameSubreason="quality_subreason"
+                                nameManaged="managed_quality"
+                            />
+                        </Row>
+                        <Row>
+                            <ManagedFilter
+                                title={getLiteral('return.production')}
+                                fields={fields}
+                                changeField={changeField}
+                                disabled={disabled}
+                                fetchStatus={fetchStatus}
+                                options={subreasons}
+                                nameDate="production_date"
+                                nameSubreason="production_subreason"
+                                nameManaged="managed_production"
+                            />
+                        </Row>
                     </Col>
                 </Row>
                 <Row>

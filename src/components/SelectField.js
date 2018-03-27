@@ -10,10 +10,10 @@ import styled from 'styled-components';
 //     'text': item.text
 // });
 
-const mySelectField = ({className, width, label, value, onChange, options, error, loading, convert, ...props}) => (
-    <div >
+const mySelectField = ({className, width, inputWidth, label, value, onChange, options, error, loading, convert, ...props}) => (
+    <div className={className}>
         <Col componentClass={ControlLabel} md={width} className="select-label">{label}</Col>
-        <Col md={width}>
+        <Col md={inputWidth ? inputWidth : width}>
             {loading
                 && <span>
                     <Icon className="loading-icon" spin name="circle-o-notch" /> Loading...
@@ -39,7 +39,7 @@ const mySelectField = ({className, width, label, value, onChange, options, error
     </div>
 );
 
-export default styled(mySelectField)`
+export const GenericSelect = styled(mySelectField)`
     .select-label {
         text-align: right;
     }
@@ -47,5 +47,8 @@ export default styled(mySelectField)`
         text-align: left;
         width: 100%;
     }
+`;
+
+export const SelectForm = GenericSelect.extend`
     padding: 20px 0;  
 `;

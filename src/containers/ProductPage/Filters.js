@@ -4,13 +4,13 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
 import {getLiteral} from '../../utils/utilities';
-import InputField from '../../components/InputField';
-import SelectField from '../../components/SelectField';
+import {InputForm} from '../../components/InputField';
+import {SelectForm} from '../../components/SelectField';
 import FilterButtons from '../../components/FilterButtons';
 
 const CustomField = ({fields, nameField, onChange, ...props}) => {
     return (
-        <InputField
+        <InputForm
             value={fields[nameField] ? fields[nameField] : ''}
             onChange={({target}) => onChange({[nameField]: target.value})}
             {...props}
@@ -20,7 +20,7 @@ const CustomField = ({fields, nameField, onChange, ...props}) => {
 
 const CustomSelect = ({fields, nameField, onChange, ...props}) => {
     return (
-        <SelectField
+        <SelectForm
             value={fields[nameField] ? fields[nameField] : ''}
             onChange={({target}) => onChange({[nameField]: target.value})}
             {...props}

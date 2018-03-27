@@ -4,12 +4,13 @@ import 'react-table/react-table.css';
 
 import Pagination from './Pagination';
 import LoadingIndicator from './LoadingIndicator';
-import SelectForm from './SelectField';
+import {SelectForm} from './SelectField';
 import styled from 'styled-components';
 
 const NoLoadingIndicator = () => (<div></div>);
 
 const myTable = ({className, pages, currentPage, onPagination, noDataText, loading, totalResults, onChangePageSize, ...props}) => {
+
     return (
         <div className={className}>
             <ReactTable

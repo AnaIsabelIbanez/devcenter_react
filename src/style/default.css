@@ -17,11 +17,3 @@ body {
     margin-right: 25px;
     margin-left: 25px;
 }
-
-/**
-TODO
- */
-
-.SingleDatePicker .DateInput {
-    width:40px;
-}

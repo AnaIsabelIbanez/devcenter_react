@@ -13,6 +13,7 @@ import {dateFormat} from '../App/constants';
 import {DatePickerForm, GenericDatePicker} from '../../components/DatePickerField';
 import SmallPanel from '../../components/SmallPanel';
 import ManagedFilter from './ManagedFilter';
+import FilterButtons from '../../components/FilterButtons';
 
 const CustomField = ({fields, nameField, onChange, ...props}) => {
     return (
@@ -59,9 +60,9 @@ export default ({
             e.preventDefault();
             launchFilter();
         }}>
-            <div>
+            <Grid className="extended">
                 <Row>
-                    <Col md={3}>
+                    <Col md={2}>
                         <CustomField
                             width={4}
                             inputWidth={8}
@@ -184,7 +185,7 @@ export default ({
                             disabled={disabled}
                         />
                     </Col>
-                    <Col md={3}>
+                    <Col md={4}>
                         <Row>
                             <ManagedFilter
                                 title={getLiteral('return.warehouse')}
@@ -227,18 +228,11 @@ export default ({
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={6} mdOffset={6}>
-                        <Button type="submit" disabled={buttonDisabled}>{getLiteral('common.filter')}</Button>
-                        <Button
-                            onClick={() => clearFields()}
-                            disabled={buttonDisabled}
-                        >
-                            {getLiteral('common.clear')}
-                        </Button>
-
+                    <Col md={12}>
+                        <FilterButtons className="pull-right"/>
                     </Col>
                 </Row>
-            </div>
+            </Grid>
         </Form>
     );
 };

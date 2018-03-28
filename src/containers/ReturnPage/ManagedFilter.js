@@ -33,9 +33,9 @@ export default ({
         <SmallPanel title={title}>
             <Row>
                 <Col md={3}>
-                    <Col componentClass={ControlLabel} md={5}>{getLiteral('return.managed')}</Col>
-                    <Col md={1}>
-                        <input type="checkbox" checked={fields[nameManaged] === true} onChange={({target}) => changeField({[nameManaged]: target.checked})}/>
+                    <Col componentClass={ControlLabel} md={8}>{getLiteral('return.managed')}</Col>
+                    <Col md={4}>
+                        <input type="checkbox" value={fields[nameManaged] === true} checked={fields[nameManaged] === true} onChange={({target}) => changeField({[nameManaged]: target.checked})}/>
                     </Col>
                 </Col>
                 <Col md={5}>

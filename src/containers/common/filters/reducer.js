@@ -1,4 +1,4 @@
-import {CHANGE_FIELD, LAUNCH_FILTER, CLEAR_FIELDS} from './constants';
+import {CHANGE_FIELD, LAUNCH_FILTER, CLEAR_FIELDS, CLEAR_FILTERS} from './constants';
 import {clearEmptyValues} from '../../../utils/utilities';
 
 const defaultState = {
@@ -27,6 +27,12 @@ export default (state = defaultState, { type, payload, resource }) => {
             return {
                 ...state,
                 filters: clearEmptyValues(state.fields)
+            };
+        };
+        case `${CLEAR_FILTERS}_${resource}`: {
+            return {
+                ...state,
+                filters: {}
             };
         };
     }

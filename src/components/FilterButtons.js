@@ -5,21 +5,15 @@ import {getLiteral} from '../utils/utilities';
 
 
 const myFilterButtons = ({className, onClearFields, ...props}) => (
-    <Grid className={className}>
-        <Row>
-            <Col md={5} mdOffset={7}>
-                <div className="pull-right">
-                    <Col md={12}>
-                        <Button type="submit">{getLiteral('common.filter')}</Button>
-                        &nbsp;
-                        <Button onClick={() => onClearFields()}>
-                            {getLiteral('common.clear')}
-                        </Button>
-                    </Col>
-                </div>
-            </Col>
-        </Row>
-    </Grid>
+    <div className={className}>
+        <Col md={12}>
+            <Button type="submit">{getLiteral('common.filter')}</Button>
+            &nbsp;
+            <Button onClick={() => onClearFields()}>
+                {getLiteral('common.clear')}
+            </Button>
+        </Col>
+    </div>
 );
 
 export default styled(myFilterButtons)`

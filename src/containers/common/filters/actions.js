@@ -1,4 +1,4 @@
-import {CHANGE_FIELD, LAUNCH_FILTER, CLEAR_FIELDS} from './constants';
+import {CHANGE_FIELD, LAUNCH_FILTER, CLEAR_FIELDS, CLEAR_FILTERS} from './constants';
 
 import {getType} from '../../../utils/utilities';
 
@@ -15,5 +15,10 @@ export const changeField = (resource, field) => ({
 
 export const clearFields = (resource) => ({
     type: getType(CLEAR_FIELDS, resource),
+    resource
+});
+
+export const clearFilters = (resource) => ({
+    type: getType(CLEAR_FILTERS, resource),
     resource
 });

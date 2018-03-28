@@ -153,7 +153,9 @@ export default class ProductFilters extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <FilterButtons onClearFields={clearFields}/>
+                        <Col md={12}>
+                            <FilterButtons className="pull-right"/>
+                        </Col>
                     </Row>
                 </Grid>
             </Form>

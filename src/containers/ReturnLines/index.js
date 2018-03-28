@@ -37,9 +37,12 @@ class ReturnLine extends Component {
 
     constructor(props) {
         super(props);
-        console.log('this.props.location.pathname', this.props);
         this.props.changeActiveTab('return');
         this.props.getInitialData(this.props.match.params.id);
+    }
+
+    showDetail = (ean) => {
+        this.props.history.push(`/product/${ean}`);
     }
 
     render() {
@@ -59,26 +62,31 @@ class ReturnLine extends Component {
         const {data = {attributes: {}}} = detail;
         return (
             <div>
+                <h3>Return detail</h3>
                 {fetch.detailLine.fetching === true
                     ? <LoadingIndicator/>
-                    : <DetailReturn detail={data.attributes} />
+                    : <DetailReturn className="extended" detail={data.attributes} />
                 }
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_LINE_RESOURCE)}
-                    columns={columns(rol, changeAttributeTable, reasons, subreasons)}
+                    columns={columns(rol, changeAttributeTable, this.showDetail, reasons, subreasons)}
                     data={tableData}
                     pages={totalPages}
                     loading={fetch.detailLine.fetching === true}
-                    pageSize={tableData.length}
+                    pageSize={tableData.length ? tableData.length : 4}
                     currentPage={currentPage}
                     totalResults={totalResults}
+                    dataInitialized
                     links={links}
                     baseUri={`/return/${this.props.match.params.id}/${KEY_LINE_RESOURCE}`}
                     noDataText={'No rows found'}
                     getTdProps={(state, rowInfo, column, instance) => {
                         return {
                             onClick: (e, handleOriginal) => {
-                                if (rowInfo) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                console.log('column', column);
+                                if (rowInfo && column.id !== 'sku') {
                                     this.props.history.push(`/line/${rowInfo.original.id}`);
                                 }
                             }

@@ -1,7 +1,8 @@
 import {
     FETCH_DATA,
     SET_DATA,
-    SET_CURRENT_SORT
+    SET_CURRENT_SORT,
+    RESET_TABLE
 } from './constants';
 
 import {getType} from '../../../utils/utilities';
@@ -26,5 +27,11 @@ export const setCurrentSort = (currentSort, resource) => {
         type: getType(SET_CURRENT_SORT, resource),
         payload: currentSort,
         resource
+    };
+};
+
+export const resetTable = (resource) => {
+    return {
+        type: getType(RESET_TABLE, resource)
     };
 };

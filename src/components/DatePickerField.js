@@ -11,15 +11,16 @@ const myInputField = ({className, width, inputWidth, label, value, onChange, err
     <div className={className}>
         <Col componentClass={ControlLabel} md={width}  className="date-label">{label}</Col>
         <Col md={inputWidth ? inputWidth : width}>
-            <SingleDatepickerWrapper
-                className="date-field"
-                date={value ? moment(value) : null}
-                onDateChange={onChange}
-                numberOfMonths={1}
-                displayFormat={dateFormat}
-                disabled={disabled}
-                {...props}
-            />
+            <span className="date-field">
+                <SingleDatepickerWrapper
+                    date={value ? moment(value) : null}
+                    onDateChange={onChange}
+                    numberOfMonths={1}
+                    displayFormat={dateFormat}
+                    disabled={disabled}
+                    {...props}
+                />
+            </span>
         </Col>
     </div>
 );

@@ -1,4 +1,16 @@
-import {SET_CURRENT_SORT, SET_DATA} from './constants';
+import {RESET_TABLE, SET_CURRENT_SORT, SET_DATA} from './constants';
+
+export const initialState = {
+    data: [],
+    currentSort: [],
+    meta: {
+        currentPage: 1,
+        totalPages: 1,
+        pageSize: 4,
+        totalResults: 0
+    },
+    links: {}
+};
 
 const setData = (state, payload) => {
     const {meta} = payload;
@@ -23,21 +35,14 @@ const setCurrentSort = (state, payload) => {
     };
 };
 
-export const initialState = {
-    data: [],
-    currentSort: [],
-    meta: {
-        currentPage: 1,
-        totalPages: 0,
-        pageSize: 3,
-        totalResults: 0
-    },
-    links: {}
+const resetTable = () => {
+    return initialState;
 };
 
 export const tableReducerTypes = (resource) => {
     return {
         [`${SET_DATA}_${resource}`]: setData,
-        [`${SET_CURRENT_SORT}_${resource}`]: setCurrentSort
+        [`${SET_CURRENT_SORT}_${resource}`]: setCurrentSort,
+        [`${RESET_TABLE}_${resource}`]: resetTable
     };
 };

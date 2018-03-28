@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import queryString from 'query-string';
-import {isEqual} from 'lodash';
+import {isEmpty, isEqual} from 'lodash';
 
 import {removeKeys} from '../utils/utilities';
 import LoadingIndicator from '../components/LoadingIndicator';
@@ -19,7 +19,9 @@ export default function withServerSideData(WrappedTable, keyResource) {
 
         constructor(props) {
             super(props);
-            this.props.fetchData(this.props.baseUri);
+            if (this.props.dataInitialized === true) {
+                this.props.fetchData(this.props.baseUri);
+            }
         }
 
         getParsedSortFromTable(sort) {
@@ -47,18 +49,17 @@ export default function withServerSideData(WrappedTable, keyResource) {
         }
 
         changeResults = (isFilter, newParameter, currentSort = this.props.currentSort) => {
-            const selfLink = this.props.links ? this.props.links.self : null;
-            if (selfLink) {
-                const currentQueryObject = queryString.parse(selfLink.substr(selfLink.indexOf('?') + 1));
-                const queryObjNoFilters = isFilter ? removeKeys(currentQueryObject, /^filter\[/) : currentQueryObject;
-                const queryObject = {...queryObjNoFilters, ...newParameter};
-                const query = queryString.stringify(queryObject);
-                this.props.fetchData(`${this.props.baseUri}?${query}`, currentSort);
+            const selfLink = this.props.links && this.props.links.self ? this.props.links.self : '';
+            const currentQueryObject = queryString.parse(selfLink.substr(selfLink.indexOf('?') + 1));
+            let queryObj = isFilter ? removeKeys(currentQueryObject, /^filter\[/) : currentQueryObject;
+            if (!isEmpty(newParameter)) {
+                queryObj = {...queryObj, ...newParameter};
             }
+            const query = queryString.stringify(queryObj);
+            this.props.fetchData(`${this.props.baseUri}?${query}`, currentSort);
         }
 
         changePageSize = (valuePageSize) => {
-            console.log('a',valuePageSize);
             const newParameter = {
                 ['page[limit]']: valuePageSize,
                 ['page[offset]']: 0

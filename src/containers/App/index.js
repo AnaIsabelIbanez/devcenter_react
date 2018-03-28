@@ -40,7 +40,8 @@ class App extends Component {
                         {/*{!user && <Route exact path="/" component={Login}/>}*/}
                         {/*{user && <Route exact path="/" render={() => (<Redirect to="/product"/>)}/>}*/}
                         {!user && <Route exact path="/" render={() => {changeActiveTab('product'); return (<Redirect to="/product"/>); }}/>}
-                        {!user && <Route path="/product" component={Product}/>}
+                        {!user && <Route exact path="/product" component={Product}/>}
+                        {!user && <Route exact path="/product/:id" component={Product}/>}
                         {!user && <Route exact path="/return" component={Return}/>}
                         {!user && <Route exact path="/return/:id" component={ReturnLines}/>}
                         {!user && <Route exact path="/line/:id" component={DetailLinePage}/>}

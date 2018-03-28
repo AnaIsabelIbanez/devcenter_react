@@ -42,4 +42,7 @@ export default styled(myTable)`
             border-radius: 4px;
             border: 1px solid #ccc;
         } 
+        .hide {
+            display: none
+        }
 `;

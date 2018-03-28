@@ -34,6 +34,7 @@ import {changeActiveTab} from '../App/actions';
 import {getInitialData} from './actions';
 import {launchFilter, changeField, clearFields} from '../common/filters/actions';
 import columns from './columnsDefinition';
+import {Col, Grid, Row} from 'react-bootstrap';
 
 
 const ServerDataTable = serverDataTableHoc(Table, KEY_RETURN_RESOURCE);
@@ -64,41 +65,49 @@ class ReturnPage extends Component {
             fetchStatus
         } = this.props;
         return (
-            <div>
-                <Filters
-                    fields={filterFields}
-                    changeField={changeField.bind(null, KEY_RETURN_RESOURCE)}
-                    launchFilter={launchFilter.bind(null, KEY_RETURN_RESOURCE)}
-                    clearFields={clearFields.bind(null, KEY_RETURN_RESOURCE)}
-                    options={{subreasons, reasons, returnTypes, warehouseNames}}
-                    buttonDisabled={links === undefined}
-                    fetchStatus={fetchStatus}
-                />
-                <ServerDataTable
-                    fetchData={this.props.fetchData.bind(null, KEY_RETURN_RESOURCE)}
-                    columns={columns}
-                    data={data}
-                    sorted={currentSort}
-                    pages={totalPages}
-                    loading={fetchStatus.return.fetching === true}
-                    pageSize={data.length}
-                    currentPage={currentPage}
-                    totalResults={totalResults}
-                    links={links}
-                    filters={filters}
-                    getTdProps={(state, rowInfo, column, instance) => {
-                        return {
-                            onClick: (e, handleOriginal) => {
-                                if (rowInfo) {
-                                    this.props.history.push(`/return/${rowInfo.original.id}`);
-                                }
-                            }
-                        };
-                    }}
-                    noDataText={'No rows found'}
-                    baseUri={`/${KEY_RETURN_RESOURCE}`}
-                />
-            </div>
+            <Grid className="extended">
+                <Row>
+                    <Col>
+                        <Filters
+                            fields={filterFields}
+                            changeField={changeField.bind(null, KEY_RETURN_RESOURCE)}
+                            launchFilter={launchFilter.bind(null, KEY_RETURN_RESOURCE)}
+                            clearFields={clearFields.bind(null, KEY_RETURN_RESOURCE)}
+                            options={{subreasons, reasons, returnTypes, warehouseNames}}
+                            buttonDisabled={links === undefined}
+                            fetchStatus={fetchStatus}
+                        />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <ServerDataTable
+                            fetchData={this.props.fetchData.bind(null, KEY_RETURN_RESOURCE)}
+                            columns={columns}
+                            data={data}
+                            sorted={currentSort}
+                            pages={totalPages}
+                            loading={fetchStatus.return.fetching === true}
+                            pageSize={data.length ? data.length : 4}
+                            currentPage={currentPage}
+                            totalResults={totalResults}
+                            links={links}
+                            filters={filters}
+                            getTdProps={(state, rowInfo, column, instance) => {
+                                return {
+                                    onClick: (e, handleOriginal) => {
+                                        if (rowInfo) {
+                                            this.props.history.push(`/return/${rowInfo.original.id}`);
+                                        }
+                                    }
+                                };
+                            }}
+                            noDataText={'No rows found'}
+                            baseUri={`/${KEY_RETURN_RESOURCE}`}
+                        />
+                    </Col>
+                </Row>
+            </Grid>
         );
     }
 };

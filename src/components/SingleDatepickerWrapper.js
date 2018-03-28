@@ -29,7 +29,7 @@ const defaultProps = {
     showDefaultInputIcon: false,
     customInputIcon: null,
     block: false,
-    small: false,
+    small: true,
     regular: false,
     verticalSpacing: undefined,
     keepFocusOnInput: false,
@@ -64,7 +64,7 @@ const defaultProps = {
     monthFormat: 'MMMM YYYY'
 };
 
-class SingleDatePickerWrapper extends React.Component {
+export default class SingleDatePickerWrapper extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -87,9 +87,8 @@ class SingleDatePickerWrapper extends React.Component {
             'autoFocus',
             'initialDate'
         ]);
-        console.log('this.props.className', this.props.className);
         return (
-            <span className={this.props.className}>
+            <span>
                 <SingleDatePicker
                     {...props}
                     focused={focused}
@@ -104,33 +103,33 @@ class SingleDatePickerWrapper extends React.Component {
 SingleDatePickerWrapper.propTypes = propTypes;
 SingleDatePickerWrapper.defaultProps = defaultProps;
 
-export default styled(SingleDatePickerWrapper)`
-        .SingleDatePickerInput {
-            border: 0;
-            margin: 0;
-            padding: 0;
-            width: 100%;   
-        }
-        .DayPickerKeyboardShortcuts_buttonReset {
-                border-right: 33px solid #565a5c;
-        }
-        .DateInput {
-             width: 100%; 
-        }
-        input {
-            display: block;
-            width: 100%;
-            height: 34px;
-            padding: 6px 12px;
-            font-size: 14px;
-            line-height: 1.42857143;
-            color: #555;
-            background-color: #fff;
-            background-image: none;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-        }
-        
-`;
+// export default styled(SingleDatePickerWrapper)`
+//         .SingleDatePickerInput {
+//             border: 0;
+//             margin: 0;
+//             padding: 0;
+//             width: 100%;
+//         }
+//         .DayPickerKeyboardShortcuts_buttonReset {
+//                 border-right: 33px solid #565a5c;
+//         }
+//         .DateInput {
+//              width: 100%;
+//         }
+//         input {
+//             display: block;
+//             width: 100%;
+//             height: 34px;
+//             padding: 6px 12px;
+//             font-size: 14px;
+//             line-height: 1.42857143;
+//             color: #555;
+//             background-color: #fff;
+//             background-image: none;
+//             border: 1px solid #ccc;
+//             border-radius: 4px;
+//             -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+//             box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+//         }
+//
+// `;

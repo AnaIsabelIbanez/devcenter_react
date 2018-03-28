@@ -1,9 +1,11 @@
-import {spawn} from 'redux-saga/effects';
+import {spawn, put} from 'redux-saga/effects';
 
 import {setGeneralList} from '../../common/generalData/reducer';
 import {getReturnReasons, getReturnSubreasons, getReturnTypes, getWarehouseNames} from '../../../api/globalsResources';
 import {RETURN_REASONS, RETURN_TYPES, WAREHOUSE_NAMES, RETURN_SUBREASONS} from '../../common/generalData/constants';
 import fetchApiSaga from '../../common/fetchManage/saga';
+import {clearFilters} from '../../common/filters/actions';
+import {KEY_RETURN_RESOURCE} from '../constants';
 
 // const getData = function* (getResource, resourceName) {
 //     const returnTypes = yield call(getResource);
@@ -12,6 +14,7 @@ import fetchApiSaga from '../../common/fetchManage/saga';
 
 
 export default function* getGeneralData() {
+
     yield spawn(fetchApiSaga, getReturnTypes, setGeneralList.bind(null, RETURN_TYPES), RETURN_TYPES);
     // yield put(setGeneralList(RETURN_TYPES, returnTypes));
     //getData(getReturnTypes, RETURN_TYPES);

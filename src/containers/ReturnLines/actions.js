@@ -6,7 +6,6 @@ export const getInitialData = (id) =>  ({
 });
 
 export const changeAttributeTable = (attrChanged, dataRow) => {
-    console.log('dataRow', dataRow);
     return ({
         type: CHANGE_ATTRIBUTE_TABLE,
         payload: {attrChanged, dataRow}

@@ -27,7 +27,7 @@ export default [
     {
         Header: getLiteral('return.managedWarehouse'),
         Cell: row => {
-            return <Checkbox checked={row.original.warehouse_date} readOnly/>;
+            return <input type="checkbox" checked={row.original.warehouse_date} disabled readOnly/>;
         },
         sortable: false
     },
@@ -39,7 +39,7 @@ export default [
     {
         Header: getLiteral('return.managedQuality'),
         Cell: row => {
-            return <Checkbox checked={row.original.quality_date} readOnly/>;
+            return <input type="checkbox" checked={row.original.warehouse_date} disabled readOnly/>;
         },
         sortable: false
     },
@@ -51,7 +51,7 @@ export default [
     {
         Header: getLiteral('return.managedProduction'),
         Cell: row => {
-            return <Checkbox checked={row.original.production_date} readOnly/>;
+            return <input type="checkbox" checked={!row.original.warehouse_date} disabled readOnly/>;
         },
         sortable: false
     },

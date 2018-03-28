@@ -4,11 +4,15 @@ import Select from '../../components/Select';
 import {ROL_WAREHOUSE, ROL_PRODUCTION, ROL_QUALITY} from '../App/constants';
 import {getLiteral} from '../../utils/utilities';
 
-export default (rol, changeAttribute, reasons, subreasons) => {
+export default (rol, changeAttribute, showDetail, reasons, subreasons) => {
     const SelectCell = ({row, rolName, attributeName, options}) => {
         return rol === rolName
             ? <Select
                 value={row.value}
+                onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                } }
                 onChange={(value) => {
                     changeAttribute({[`${attributeName}`]: value}, row.original);
                 }}
@@ -20,7 +24,12 @@ export default (rol, changeAttribute, reasons, subreasons) => {
     return [
         {
             Header: getLiteral('product.sku'),
-            accessor: 'sku'
+            accessor: 'sku',
+            Cell: row => <span onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                showDetail(row.value);
+            }}>{row.original.ean}</span>
         },
         {
             Header: getLiteral('product.refCom'),

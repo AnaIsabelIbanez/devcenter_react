@@ -20,5 +20,6 @@ export default function* fetchApiSaga(apiRequest, action, resource, content) {
             type: `FETCH_${resource}_REJECTED`
         });
         yield put(showError(error));
+        return error;
     }
 }

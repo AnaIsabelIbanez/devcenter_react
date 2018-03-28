@@ -14,8 +14,6 @@ const myPagination = ({
     pageSizeValue,
     onChangePageSize
 }) => {
-    //const totalPages = Math.ceil(totalRecords / recordsPerPage);
-    // const currentPage = Math.ceil(sliceEnd / recordsPerPage);
     return (
         <Row className={className}>
             <Col md={9}>
@@ -45,6 +43,7 @@ const myPagination = ({
                         <Button
                             bsStyle="link"
                             onClick={() => onPageChanged({page: 'prev'})}
+                            disabled={totalPages === 1}
                         >
                             {currentPage - 1}
                         </Button>
@@ -60,19 +59,21 @@ const myPagination = ({
                         <Button
                             bsStyle="link"
                             onClick={() => onPageChanged({page: 'next'})}
+                            disabled={totalPages === 1}
                         >
                             {currentPage + 1}
                         </Button> -
                         <Button
                             bsStyle="link"
                             onClick={() => onPageChanged({page: 'last'})}
+                            disabled={totalPages === 1}
                         >
                             {totalPages}
                         </Button>
                     </span>}
                     <Button
                         bsStyle="link"
-                        disabled={currentPage === totalPages}
+                        disabled={currentPage === totalPages || totalPages === 1}
                         onClick={() => onPageChanged({page: 'last'})}
                     >
                         <Icon name="angle-double-right" />

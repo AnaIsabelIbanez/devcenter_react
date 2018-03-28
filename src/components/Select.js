@@ -6,6 +6,7 @@ export default ({value, onChange, options, loading, ...props}) => {
     return (<span>{loading
         ? <LoadingIndicator/>
         : <select
+            {...props}
             value={value}
             onChange={({target}) => onChange(target.value)}
         >   {options && options.map((opt, index) => {

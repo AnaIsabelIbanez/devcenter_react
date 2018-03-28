@@ -16,7 +16,8 @@ import {
     getSizes,
     getBrands,
     getFetch,
-    getSelectedProduct
+    getSelectedProduct,
+    getFiltering
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -24,7 +25,7 @@ import reducer from './reducer/rootReducers';
 import saga from './saga/rootSagas';
 import {fetchData} from '../common/table/actions';
 import {changeActiveTab} from '../App/actions';
-import {launchFilter, changeField, clearFields} from '../common/filters/actions';
+import {launchFilter, changeField, clearFields, clearFilters} from '../common/filters/actions';
 import {getInitialData, setSelectedProduct} from './actions';
 import Table from '../../components/Table';
 import serverDataTableHoc from '../../components/ServerDataTable';
@@ -53,6 +54,9 @@ class ProductPage extends Component {
     componentWillUpdate() {
         if (this.props.data.length === 1) {
             this.props.setSelectedProduct(this.props.data[0]);
+        }
+        if (this.props.fetch.product.fetching && this.props.filtering === true) {
+            this.props.clearFilters(KEY_PRODUCT_RESOURCE);
         }
     }
 
@@ -105,6 +109,7 @@ class ProductPage extends Component {
                             links={links}
                             baseUri={`/${KEY_PRODUCT_RESOURCE}`}
                             filters={filters}
+                            filtering={this.props.filtering}
                             getTdProps={(state, rowInfo, column, instance) => {
                                 return {
                                     onClick: (e, handleOriginal) => {
@@ -143,7 +148,8 @@ const mapStateToProps = createStructuredSelector({
     brands: getBrands(),
     categories: getCategories(),
     fetch: getFetch(),
-    selectedProduct: getSelectedProduct()
+    selectedProduct: getSelectedProduct(),
+    filtering: getFiltering()
 });
 
 const mapDispatchToProps = {
@@ -153,7 +159,8 @@ const mapDispatchToProps = {
     changeField,
     clearFields,
     setSelectedProduct,
-    changeActiveTab
+    changeActiveTab,
+    clearFilters
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

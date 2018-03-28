@@ -3,7 +3,8 @@ import {clearEmptyValues} from '../../../utils/utilities';
 
 const defaultState = {
     fields: {},
-    filters: {}
+    filters: {},
+    filtering: false
 };
 
 export default (state = defaultState, { type, payload, resource }) => {
@@ -19,6 +20,7 @@ export default (state = defaultState, { type, payload, resource }) => {
         case `${CLEAR_FIELDS}_${resource}`: {
             return {
                 ...state,
+                filtering: true,
                 fields: {},
                 filters: {}
             };
@@ -26,13 +28,15 @@ export default (state = defaultState, { type, payload, resource }) => {
         case `${LAUNCH_FILTER}_${resource}`: {
             return {
                 ...state,
+                filtering: true,
                 filters: clearEmptyValues(state.fields)
             };
         };
         case `${CLEAR_FILTERS}_${resource}`: {
             return {
                 ...state,
-                filters: {}
+                filters: {},
+                filtering: false
             };
         };
     }

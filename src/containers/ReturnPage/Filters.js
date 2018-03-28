@@ -229,7 +229,7 @@ export default ({
                 </Row>
                 <Row>
                     <Col md={12}>
-                        <FilterButtons className="pull-right"/>
+                        <FilterButtons onClearFields={clearFields} className="pull-right"/>
                     </Col>
                 </Row>
             </Grid>

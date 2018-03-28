@@ -19,7 +19,8 @@ import {
     getReturnTypes,
     getWarehouseNames,
     getSubreasons,
-    getFetch
+    getFetch,
+    getFiltering
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -32,7 +33,7 @@ import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_RETURN_RESOURCE} from './constants';
 import {changeActiveTab} from '../App/actions';
 import {getInitialData} from './actions';
-import {launchFilter, changeField, clearFields} from '../common/filters/actions';
+import {launchFilter, changeField, clearFields, clearFilters} from '../common/filters/actions';
 import columns from './columnsDefinition';
 import {Col, Grid, Row} from 'react-bootstrap';
 
@@ -45,6 +46,12 @@ class ReturnPage extends Component {
         super(props);
         this.props.changeActiveTab(this.props.location.pathname.substring(1));
         this.props.getInitialData();
+    }
+
+    componentWillUpdate() {
+        if (this.props.fetch.return.fetching && this.props.filtering === true) {
+            this.props.clearFilters(KEY_RETURN_RESOURCE);
+        }
     }
 
     render() {
@@ -62,7 +69,7 @@ class ReturnPage extends Component {
             returnTypes,
             warehouseNames,
             subreasons,
-            fetchStatus
+            fetch
         } = this.props;
         return (
             <Grid className="extended">
@@ -75,7 +82,7 @@ class ReturnPage extends Component {
                             clearFields={clearFields.bind(null, KEY_RETURN_RESOURCE)}
                             options={{subreasons, reasons, returnTypes, warehouseNames}}
                             buttonDisabled={links === undefined}
-                            fetchStatus={fetchStatus}
+                            fetchStatus={fetch}
                         />
                     </Col>
                 </Row>
@@ -87,10 +94,11 @@ class ReturnPage extends Component {
                             data={data}
                             sorted={currentSort}
                             pages={totalPages}
-                            loading={fetchStatus.return.fetching === true}
+                            loading={fetch.return.fetching === true}
                             pageSize={data.length ? data.length : 4}
                             currentPage={currentPage}
                             totalResults={totalResults}
+                            filtering={this.props.filtering}
                             links={links}
                             filters={filters}
                             getTdProps={(state, rowInfo, column, instance) => {
@@ -124,7 +132,8 @@ const mapStateToProps = createStructuredSelector({
     returnTypes: getReturnTypes(),
     warehouseNames: getWarehouseNames(),
     subreasons: getSubreasons(),
-    fetchStatus: getFetch()
+    fetch: getFetch(),
+    filtering: getFiltering()
 });
 
 const mapDispatchToProps = {
@@ -133,7 +142,8 @@ const mapDispatchToProps = {
     changeField,
     clearFields,
     getInitialData,
-    changeActiveTab
+    changeActiveTab,
+    clearFilters
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

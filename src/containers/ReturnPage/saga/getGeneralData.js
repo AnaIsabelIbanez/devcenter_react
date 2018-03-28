@@ -4,8 +4,6 @@ import {setGeneralList} from '../../common/generalData/reducer';
 import {getReturnReasons, getReturnSubreasons, getReturnTypes, getWarehouseNames} from '../../../api/globalsResources';
 import {RETURN_REASONS, RETURN_TYPES, WAREHOUSE_NAMES, RETURN_SUBREASONS} from '../../common/generalData/constants';
 import fetchApiSaga from '../../common/fetchManage/saga';
-import {clearFilters} from '../../common/filters/actions';
-import {KEY_RETURN_RESOURCE} from '../constants';
 
 // const getData = function* (getResource, resourceName) {
 //     const returnTypes = yield call(getResource);

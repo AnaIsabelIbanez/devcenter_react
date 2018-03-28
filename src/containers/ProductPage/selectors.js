@@ -37,6 +37,7 @@ const getCurrentSort = () => makeSelectList('currentSort');
 
 const getFields = () => makeSelectFilters('fields');
 const getFilters = () => makeSelectFilters('filters');
+const getFiltering = () => makeSelectFilters('filtering');
 
 const getColors = () => getGeneralData(COLORS);
 const getCategories = () => getGeneralData(CATEGORIES);
@@ -56,5 +57,6 @@ export {
     getSizes,
     getBrands,
     getFetch,
-    getSelectedProduct
+    getSelectedProduct,
+    getFiltering
 };

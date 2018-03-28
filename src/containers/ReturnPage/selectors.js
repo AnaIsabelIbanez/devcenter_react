@@ -35,6 +35,7 @@ const getCurrentSort = () => makeSelectList('currentSort');
 
 const getFields = () => makeSelectFilters('fields');
 const getFilters = () => makeSelectFilters('filters');
+const getFiltering = () => makeSelectFilters('filtering');
 
 const getReasons = () => getGeneralData(RETURN_REASONS);
 const getReturnTypes = () => getGeneralData(RETURN_TYPES);
@@ -53,5 +54,6 @@ export {
     getReturnTypes,
     getWarehouseNames,
     getSubreasons,
-    getFetch
+    getFetch,
+    getFiltering
 };

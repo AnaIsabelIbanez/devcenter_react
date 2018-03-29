@@ -28,6 +28,8 @@ const makeSelectDetail = (attribute) => createSelector(
 );
 
 const getSelectedProduct = () => makeSelectDetail('selectedProduct');
+const getMainPhoto = () => makeSelectDetail('mainPhoto');
+const getSmallPhotos = () => makeSelectDetail('smallPhotos');
 
 const getData = () => makeSelectList('data');
 const getShowSpinner = () => makeSelectList('showSpinner');
@@ -58,5 +60,7 @@ export {
     getBrands,
     getFetch,
     getSelectedProduct,
-    getFiltering
+    getFiltering,
+    getMainPhoto,
+    getSmallPhotos
 };

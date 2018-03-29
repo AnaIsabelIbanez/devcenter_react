@@ -13,7 +13,8 @@ export default function* getDataSaga({payload = '', meta, resource}) {
         yield put(resetTable(resource));
     } else {
         const {data} = response;
-        const selectedProduct = data.length === 1 ? data[0] : null;
-        yield put(setSelectedProduct(selectedProduct));
+        if (data.length === 1) {
+            yield put(setSelectedProduct(data[0]));
+        }
     }
 };

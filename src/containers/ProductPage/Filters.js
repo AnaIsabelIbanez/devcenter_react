@@ -46,7 +46,7 @@ export default class ProductFilters extends Component {
                 e.preventDefault();
                 launchFilter();
             }}>
-                <Grid>
+                <Grid fluid>
                     <Row>
                         <Col md={6}>
                             <CustomField

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const myDetailReturn = ({className, detail = {}}) => {
     return (
-        <Grid className={className}>
+        <Grid fluid className={className}>
             <Row>
                 <Col md={4}>
                     <dl className="row">

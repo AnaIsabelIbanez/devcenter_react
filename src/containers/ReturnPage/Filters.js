@@ -60,7 +60,7 @@ export default ({
             e.preventDefault();
             launchFilter();
         }}>
-            <Grid className="extended">
+            <Grid fluid>
                 <Row>
                     <Col md={2}>
                         <CustomField

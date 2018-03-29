@@ -65,7 +65,7 @@ class ReturnLine extends Component {
                 <h3>Return detail</h3>
                 {fetch.detailLine.fetching === true
                     ? <LoadingIndicator/>
-                    : <DetailReturn className="extended" detail={data.attributes} />
+                    : <DetailReturn detail={data.attributes} />
                 }
                 <ServerDataTable
                     fetchData={this.props.fetchData.bind(null, KEY_LINE_RESOURCE)}

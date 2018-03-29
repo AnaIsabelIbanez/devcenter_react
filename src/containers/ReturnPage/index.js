@@ -2,25 +2,21 @@ import React, {Component} from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
-import styled from 'styled-components';
-// import 'react-table/react-table.css';
-
-import CustomGrid from '../../components/CustomGrid';
 import {
-    getData,
-    getShowSpinner,
-    getMeta,
-    getLinks,
-    getCurrentSort,
     getColumns,
-    getFilters,
+    getCurrentSort,
+    getData,
+    getFetch,
     getFields,
+    getFiltering,
+    getFilters,
+    getLinks,
+    getMeta,
     getReasons,
     getReturnTypes,
-    getWarehouseNames,
+    getShowSpinner,
     getSubreasons,
-    getFetch,
-    getFiltering
+    getWarehouseNames
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -33,9 +29,10 @@ import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_RETURN_RESOURCE} from './constants';
 import {changeActiveTab} from '../App/actions';
 import {getInitialData} from './actions';
-import {launchFilter, changeField, clearFields, clearFilters} from '../common/filters/actions';
+import {changeField, clearFields, clearFilters, launchFilter} from '../common/filters/actions';
 import columns from './columnsDefinition';
 import {Col, Grid, Row} from 'react-bootstrap';
+// import 'react-table/react-table.css';
 
 
 const ServerDataTable = serverDataTableHoc(Table, KEY_RETURN_RESOURCE);
@@ -72,7 +69,7 @@ class ReturnPage extends Component {
             fetch
         } = this.props;
         return (
-            <Grid className="extended">
+            <Grid fluid>
                 <Row>
                     <Col>
                         <Filters

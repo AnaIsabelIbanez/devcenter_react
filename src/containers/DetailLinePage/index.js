@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
-import {Thumbnail, Row, Image, Col} from 'react-bootstrap';
+import {Thumbnail, Row, Image, Col, Grid, Button} from 'react-bootstrap';
 
 import {
     getDetail,
@@ -28,10 +28,12 @@ const ImageComponent = ({photos}) => {
     const returnComponent = photos.length > 1
         ? photos.map((photo, index) => {
             if (index !== 0) {
-                console.log('index', index);
-                return (<Col md={4} key={index}>
-                    <Image key={index} src={photo.location} thumbnail alt="242x200"/>
-                </Col>);
+                return (
+                    <Col key={index} md={3}>
+                        <div> <Button bsStyle="link">Delete</Button> </div>
+                        <div> <Image src={photo.location} thumbnail alt="242x200" /> </div>
+                    </Col>
+                );
             } else {
                 return <span key={index}></span>;
             }
@@ -57,57 +59,77 @@ class DetailLinePage extends Component {
         const {data = {attributes: {}}} = detailLine;
         const {photos} = data.attributes;
         return (
-            <div>
-                <h3>Line detail</h3>
-                <DetailLine
-                    detail={data}
-                />
-                <h3>Return detail</h3>
-                <DetailReturn
-                    detail={data.attributes.return}
-                />
-
+            <Grid fluid>
                 <Row>
-                    <Col md={4}>
+                    <Col md={12}>
                         <Panel>
-                            <Panel.Heading>{getLiteral('product.photos')}</Panel.Heading>
+                            <Panel.Heading>Return detail</Panel.Heading>
+                            <Panel.Body> <DetailReturn detail={data.attributes.return}/> </Panel.Body>
+                        </Panel>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={12}>
+                        <Panel>
+                            <Panel.Heading>Line detail</Panel.Heading>
+                            <Panel.Body> <DetailLine detail={data} /> </Panel.Body>
+                        </Panel>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={12}>
+                        <Panel>
+                            <Panel.Heading>
+                                {getLiteral('product.photos')}
+                            </Panel.Heading>
                             <Panel.Body className="panel-body">
-                                <Thumbnail className="photos" src="https://react-bootstrap.github.io/thumbnail.png" alt="242x200">
+                                <Grid fluid>
                                     <Row>
-                                        <Col md={4}>
-                                            <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail />
+                                        <Col md={3}>
+                                            <div> <Button bsStyle="link">Delete</Button> </div>
+                                            <div> <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail /> </div>
                                         </Col>
-                                        <Col md={4}>
-                                            <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail />
+                                        <Col md={3}>
+                                            <div> <Button bsStyle="link">Delete</Button> </div>
+                                            <div> <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail /> </div>
                                         </Col>
-                                        <Col md={4}>
-                                            <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail />
+                                        <Col md={3}>
+                                            <div> <Button bsStyle="link">Delete</Button> </div>
+                                            <div> <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail /> </div>
+                                        </Col>
+                                        <Col md={3}>
+                                            <div> <Button bsStyle="link">Delete</Button> </div>
+                                            <div> <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail /> </div>
                                         </Col>
                                     </Row>
-                                </Thumbnail>
+                                    <Row>
+                                        <Col md={12}>
+                                            <UploadButton
+                                                label={getLiteral('common.upload')}
+                                                lg={true}
+                                                handleChange={(e) => console.log('upload button handleChange', e)}
+                                                validationConf={{
+                                                    pdf: {
+                                                        maxSize: 1800
+                                                    }
+                                                }}
+                                                handleSizeExceeded={({ name, size, maxSize }) =>
+                                                    console.log('invalid size')
+                                                }
+                                                handleIncorrectType={({ name, type }) =>
+                                                    console.log('invalid type')
+                                                }
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Grid>
                             </Panel.Body>
                         </Panel>
                     </Col>
-                    <Col md={2}>
-                        <UploadButton
-                            label={getLiteral('common.upload')}
-                            lg={true}
-                            handleChange={(e) => console.log('upload button handleChange', e)}
-                            validationConf={{
-                                pdf: {
-                                    maxSize: 1800
-                                }
-                            }}
-                            handleSizeExceeded={({ name, size, maxSize }) =>
-                                console.log('invalid size')
-                            }
-                            handleIncorrectType={({ name, type }) =>
-                                console.log('invalid type')
-                            }
-                        />
-                    </Col>
                 </Row>
-            </div>
+
+
+            </Grid>
         );
     }
 };

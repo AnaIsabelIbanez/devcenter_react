@@ -1,11 +1,15 @@
-import React from 'react';
-import {Col, Row, Thumbnail, Image, Panel, Button} from 'react-bootstrap';
+import React, {Component} from 'react';
+import {Button, Col, Image, Panel, Row, Thumbnail} from 'react-bootstrap';
 
 import {getLiteral} from '../../utils/utilities';
 import styled from 'styled-components';
 import Icon from '../../components/Icon';
+import bwipjs from 'bwip-js';
 
-const myDetailProduct = ({className, attributes}) => {
+
+const MyDetailProduct = ({className, attributes, smallPhotos, mainPhoto, setMainPhoto}) => {
+    console.log('smallPhotos', smallPhotos);
+
     return (<div className={className}>
         <Row>
             <Col md={12}>
@@ -76,27 +80,29 @@ const myDetailProduct = ({className, attributes}) => {
             </Col>
             <Col md={4}>
                 <Panel>
-                    <Panel.Heading>Descripción web</Panel.Heading>
+                    <Panel.Heading>Photos of the product</Panel.Heading>
                     <Panel.Body className="panel-body">
-                        <Thumbnail className="photos" src="https://react-bootstrap.github.io/thumbnail.png" alt="242x200">
+                        {<Thumbnail className="photos" src={mainPhoto ? mainPhoto : 'https://react-bootstrap.github.io/thumbnail.png'}
+                            alt="242x200">
                             <Row>
                                 <Col md={4}>
-                                    <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail />
+                                    <Image src={smallPhotos && smallPhotos.length > 0 && smallPhotos[0]  ? smallPhotos[0] : 'https://react-bootstrap.github.io/thumbnail.png'} onClick={() => setMainPhoto(0)} thumbnail/>
                                 </Col>
                                 <Col md={4}>
-                                    <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail />
+                                    <Image src={smallPhotos && smallPhotos.length > 1 && smallPhotos[1]  ? smallPhotos[1] : 'https://react-bootstrap.github.io/thumbnail.png'} onClick={() => setMainPhoto(1)} thumbnail/>
                                 </Col>
                                 <Col md={4}>
-                                    <Image src="https://react-bootstrap.github.io/thumbnail.png" thumbnail />
+                                    <Image src={smallPhotos && smallPhotos.length > 2 && smallPhotos[2]  ? smallPhotos[2] : 'https://react-bootstrap.github.io/thumbnail.png'} onClick={() => setMainPhoto(2)} thumbnail/>
                                 </Col>
                             </Row>
-                        </Thumbnail>
+                        </Thumbnail>}
                     </Panel.Body>
                 </Panel>
             </Col>
             <Row>
                 <Col md={12}>
                     <div className="pull-right">
+                        <canvas id="mycanvas">algo</canvas>
                         <Button>Imprimir Etiqueta</Button>
                     </div>
                 </Col>
@@ -105,11 +111,11 @@ const myDetailProduct = ({className, attributes}) => {
     </div>);
 };
 
-export default styled(myDetailProduct)`
+export default styled(MyDetailProduct)`
     dt {
         text-align: right;
     }
-    
+
     .panel-body {
         height: 400px;
         max-height: 400px;

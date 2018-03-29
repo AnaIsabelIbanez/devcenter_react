@@ -14,17 +14,17 @@ body {
 }
 
 
-@media (min-width: 1500px) {
-    .container.extended {
-        width: 1470px;
-    }
-}
+/*@media (min-width: 1500px) {*/
+    /*.container.extended {*/
+        /*width: 1470px;*/
+    /*}*/
+/*}*/
 
-@media (min-width: 1900px) {
-    .container.extended {
-        width: 1870px;
-    }
-}
+/*@media (min-width: 1900px) {*/
+    /*.container.extended {*/
+        /*width: 1870px;*/
+    /*}*/
+/*}*/
 
 /** Remove focus blue square on several elements **/
 div {

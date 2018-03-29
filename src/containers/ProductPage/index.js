@@ -17,7 +17,9 @@ import {
     getBrands,
     getFetch,
     getSelectedProduct,
-    getFiltering
+    getFiltering,
+    getMainPhoto,
+    getSmallPhotos
 } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
@@ -26,7 +28,7 @@ import saga from './saga/rootSagas';
 import {fetchData} from '../common/table/actions';
 import {changeActiveTab} from '../App/actions';
 import {launchFilter, changeField, clearFields, clearFilters} from '../common/filters/actions';
-import {getInitialData, setSelectedProduct} from './actions';
+import {getInitialData, setSelectedProduct, setMainPhoto} from './actions';
 import Table from '../../components/Table';
 import serverDataTableHoc from '../../components/ServerDataTable';
 import {KEY_PRODUCT_RESOURCE} from './constants';
@@ -51,10 +53,7 @@ class ProductPage extends Component {
         this.props.getInitialData(this.props.match.params.id);
     }
 
-    componentWillUpdate() {
-        if (this.props.data.length === 1) {
-            this.props.setSelectedProduct(this.props.data[0]);
-        }
+    componentDidUpdate() {
         if (this.props.fetch.product.fetching && this.props.filtering === true) {
             this.props.clearFilters(KEY_PRODUCT_RESOURCE);
         }
@@ -76,11 +75,14 @@ class ProductPage extends Component {
             colors,
             filters,
             fetch,
-            selectedProduct
+            selectedProduct,
+            mainPhoto,
+            smallPhotos,
+            setMainPhoto
         } = this.props;
 
         return (
-            <Grid className="extended">
+            <Grid fluid>
                 <Row>
                     <Col>
                         <Filters
@@ -127,6 +129,9 @@ class ProductPage extends Component {
                     <Col>
                         {selectedProduct && <DetailProduct
                             attributes={selectedProduct}
+                            mainPhoto={mainPhoto}
+                            smallPhotos={smallPhotos}
+                            setMainPhoto={setMainPhoto}
                         />}
                     </Col>
                 </Row>
@@ -149,7 +154,9 @@ const mapStateToProps = createStructuredSelector({
     categories: getCategories(),
     fetch: getFetch(),
     selectedProduct: getSelectedProduct(),
-    filtering: getFiltering()
+    filtering: getFiltering(),
+    mainPhoto: getMainPhoto(),
+    smallPhotos: getSmallPhotos()
 });
 
 const mapDispatchToProps = {
@@ -160,7 +167,8 @@ const mapDispatchToProps = {
     clearFields,
     setSelectedProduct,
     changeActiveTab,
-    clearFilters
+    clearFilters,
+    setMainPhoto
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

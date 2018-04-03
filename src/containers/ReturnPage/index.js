@@ -32,6 +32,7 @@ import {getInitialData} from './actions';
 import {changeField, clearFields, clearFilters, launchFilter} from '../common/filters/actions';
 import columns from './columnsDefinition';
 import {Col, Grid, Row} from 'react-bootstrap';
+import {getLiteral} from '../../utils/utilities';
 // import 'react-table/react-table.css';
 
 
@@ -107,7 +108,7 @@ class ReturnPage extends Component {
                                     }
                                 };
                             }}
-                            noDataText={'No rows found'}
+                            noDataText={getLiteral('common.noResults')}
                             baseUri={`/${KEY_RETURN_RESOURCE}`}
                         />
                     </Col>

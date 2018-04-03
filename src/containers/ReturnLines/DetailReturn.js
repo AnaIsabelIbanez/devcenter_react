@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col, Grid, Row} from 'react-bootstrap';
+import {Checkbox, Col, Grid, Row} from 'react-bootstrap';
 import {formatIsoString, getLiteral} from '../../utils/utilities';
 import SmallPanel from '../../components/SmallPanel';
 import styled from 'styled-components';
@@ -51,7 +51,7 @@ const myDetailReturn = ({className, detail = {}}) => {
                         <SmallPanel title={getLiteral('return.warehouse')}>
                             <dl className="row">
                                 <dt className="col-md-3">{getLiteral('return.managed')}</dt>
-                                <dd className="col-md-3"> <input type="checkbox" disabled value={detail.warehouse_date} checked={detail.warehouse_date} /></dd>
+                                <dd className="col-md-3"> <input type="checkbox" checked={detail.warehouse_date === true} disabled/></dd>
 
                                 <dt className="col-md-3">{getLiteral('common.date')}</dt>
                                 <dd className="col-md-3">{formatIsoString(detail.warehouse_date)}</dd>
@@ -62,7 +62,7 @@ const myDetailReturn = ({className, detail = {}}) => {
                         <SmallPanel title={getLiteral('return.quality')}>
                             <dl className="row">
                                 <dt className="col-md-3">{getLiteral('return.managed')}</dt>
-                                <dd className="col-md-3"> <input type="checkbox" disabled value={detail.quality_date} checked={detail.quality_date}  /></dd>
+                                <dd className="col-md-3"> <input type="checkbox" checked={detail.quality_date === true} disabled/></dd>
 
                                 <dt className="col-md-3">{getLiteral('common.date')}</dt>
                                 <dd className="col-md-3">{formatIsoString(detail.quality_date)}</dd>
@@ -73,7 +73,7 @@ const myDetailReturn = ({className, detail = {}}) => {
                         <SmallPanel title={getLiteral('return.production')}>
                             <dl className="row">
                                 <dt className="col-md-3">{getLiteral('return.managed')}</dt>
-                                <dd className="col-md-3"> <input type="checkbox" disabled value={detail.production_date} checked={detail.production_date} /> </dd>
+                                <dd className="col-md-3"> <input type="checkbox"  checked={detail.production_date === true} disabled/></dd>
 
                                 <dt className="col-md-3">{getLiteral('common.date')}</dt>
                                 <dd className="col-md-3">{formatIsoString(detail.production_date)}</dd>

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import {RETURN_REASONS, RETURN_SUBREASONS, RETURN_TYPES, WAREHOUSE_NAMES} from '../common/generalData/constants';
+import {RETURN_REASONS, RETURN_SUBREASONS, RETURN_TYPES, WAREHOUSE_NAMES} from '../common/resourcesConstants';
 
 const selectReturn = (state) => state.return;
 

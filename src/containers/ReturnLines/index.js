@@ -29,6 +29,7 @@ import {
     getInitialData,
     changeAttributeTable
 } from './actions';
+import {getLiteral} from '../../utils/utilities';
 
 
 const ServerDataTable = serverDataTableHoc(Table);
@@ -79,7 +80,7 @@ class ReturnLine extends Component {
                     dataInitialized
                     links={links}
                     baseUri={`/return/${this.props.match.params.id}/${KEY_LINE_RESOURCE}`}
-                    noDataText={'No rows found'}
+                    noDataText={getLiteral('common.noResults')}
                     getTdProps={(state, rowInfo, column, instance) => {
                         return {
                             onClick: (e, handleOriginal) => {

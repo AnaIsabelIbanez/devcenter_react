@@ -1,3 +1,5 @@
+import * as keys from '../resourcesConstants';
+
 const composeObjectName = (match, p1) => {
     return p1.toUpperCase();
 };
@@ -23,18 +25,18 @@ const defaultPromiseStatus = {
 };
 
 const defaultState = {
-    returnTypes: defaultPromiseStatus,
-    returnReasons: defaultPromiseStatus,
-    returnSubreasons: defaultPromiseStatus,
-    warehouseNames: defaultPromiseStatus,
-    colors: defaultPromiseStatus,
-    categories: defaultPromiseStatus,
-    sizes: defaultPromiseStatus,
-    brands: defaultPromiseStatus,
-    return: defaultPromiseStatus,
-    detailReturnLines: defaultPromiseStatus,
-    product: defaultPromiseStatus,
-    detailLine: defaultPromiseStatus
+    [keys.RETURN_TYPES]: defaultPromiseStatus,
+    [keys.RETURN_REASONS]: defaultPromiseStatus,
+    [keys.RETURN_SUBREASONS]: defaultPromiseStatus,
+    [keys.WAREHOUSE_NAMES]: defaultPromiseStatus,
+    [keys.COLORS]: defaultPromiseStatus,
+    [keys.CATEGORIES]: defaultPromiseStatus,
+    [keys.SIZES]: defaultPromiseStatus,
+    [keys.BRANDS]: defaultPromiseStatus,
+    [keys.RETURN]: defaultPromiseStatus,
+    [keys.DETAIL_RETURN_LINES]: defaultPromiseStatus,
+    [keys.PRODUCT]: defaultPromiseStatus,
+    [keys.DETAIL_LINE]: defaultPromiseStatus
 };
 
 export default (state = defaultState, { type, payload }) => {

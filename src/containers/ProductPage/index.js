@@ -36,6 +36,7 @@ import Filters from './Filters';
 import DetailProduct from './DetailProduct';
 import columns from './columnsDefinition';
 import {Col, Grid, Row} from 'react-bootstrap';
+import {getLiteral} from '../../utils/utilities';
 
 // const StyledGrid = styled(CustomGrid)`
 //     && {
@@ -121,7 +122,7 @@ class ProductPage extends Component {
                                     }
                                 };
                             }}
-                            noDataText={'No rows found'}
+                            noDataText={getLiteral('common.noResults')}
                         />}
                     </Col>
                 </Row>

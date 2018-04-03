@@ -2,7 +2,7 @@ import {spawn, put} from 'redux-saga/effects';
 
 import {setGeneralList} from '../../common/generalData/reducer';
 import {getReturnReasons, getReturnSubreasons, getReturnTypes, getWarehouseNames} from '../../../api/globalsResources';
-import {RETURN_REASONS, RETURN_TYPES, WAREHOUSE_NAMES, RETURN_SUBREASONS} from '../../common/generalData/constants';
+import {RETURN_REASONS, RETURN_TYPES, WAREHOUSE_NAMES, RETURN_SUBREASONS} from '../../common/resourcesConstants';
 import fetchApiSaga from '../../common/fetchManage/saga';
 
 // const getData = function* (getResource, resourceName) {

@@ -1,16 +1,17 @@
 import {
     SET_GENERAL_LIST
 } from './constants';
+import * as keys from '../resourcesConstants';
 
 const initialState = {
-    returnTypes: [],
-    returnReasons: [],
-    returnSubreasons: [],
-    warehouseNames: [],
-    colors: [],
-    categories: [],
-    sizes: [],
-    brands: []
+    [keys.RETURN_TYPES]: [],
+    [keys.RETURN_REASONS]: [],
+    [keys.RETURN_SUBREASONS]: [],
+    [keys.WAREHOUSE_NAMES]: [],
+    [keys.COLORS]: [],
+    [keys.CATEGORIES]: [],
+    [keys.SIZES]: [],
+    [keys.BRANDS]: []
 };
 
 export default function generalReducer(state = initialState, {type, payload, resource}) {

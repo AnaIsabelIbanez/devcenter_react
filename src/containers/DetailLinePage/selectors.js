@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import {RETURN_REASONS, RETURN_SUBREASONS} from '../common/generalData/constants';
+import {RETURN_REASONS, RETURN_SUBREASONS} from '../common/resourcesConstants';
 
 const selectDetailLine = (state) => state.lineDetail;
 

@@ -7,14 +7,12 @@ import {setSelectedProduct} from '../actions';
 
 export default function* getDataSaga({payload = '', meta, resource}) {
     const response = yield call(fetchApiSaga, getGenericResource, setData.bind(null, resource), resource, payload);
-    console.log('result', response);
     yield put(setCurrentSort(meta, resource));
     if (response.isBackendError === true) {
         yield put(resetTable(resource));
     } else {
         const {data} = response;
-        if (data.length === 1) {
-            yield put(setSelectedProduct(data[0]));
-        }
+        const selectedProduct = data.length === 1 ? data[0].attributes : null;
+        yield put(setSelectedProduct(selectedProduct));
     }
 };

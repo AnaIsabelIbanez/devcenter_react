@@ -6,11 +6,35 @@ const defaultState = {
     smallPhotos: []
 };
 
+const addNoPhotoImages = (smallPhotos) => {
+    while (smallPhotos.length < 3) {
+        smallPhotos.push('https://react-bootstrap.github.io/thumbnail.png');
+    }
+    return smallPhotos;
+};
+
 const getSmallPhotos = (index, state) => {
     let copyState = {...state};
-    copyState.smallPhotos.splice(index, 1);
-    copyState.smallPhotos.push(copyState.mainPhoto);
+    const {smallPhotos} = copyState;
+    for (var i = 0; i < 3; i++) {
+        if (index === i) {
+            smallPhotos[i] = copyState.mainPhoto;
+        } else if (smallPhotos.length >= i) {
+            smallPhotos[i] = smallPhotos[i];
+        }  else {
+            smallPhotos[i] = 'https://react-bootstrap.github.io/thumbnail.png';
+        }
+    }
     return copyState.smallPhotos;
+};
+
+const getSmallPhotosFromSelectedProduct = (payload) => {
+    if (!payload) {
+        return null;
+    }
+    const {photos} = payload;
+    photos.splice(0,1);
+    return addNoPhotoImages(photos);
 };
 
 export default (state = defaultState, { type, payload }) => {
@@ -19,8 +43,8 @@ export default (state = defaultState, { type, payload }) => {
             return {
                 ...state,
                 selectedProduct: payload,
-                mainPhoto: payload && payload.photos.length > 0 ? payload.photos[0] : null,
-                smallPhotos: payload && payload.photos.splice(0,1)
+                mainPhoto: payload  && payload.photos.length > 0 ? payload.photos[0] : null,
+                smallPhotos: getSmallPhotosFromSelectedProduct(payload)
             };
         case SET_MAIN_PHOTO:
             return {

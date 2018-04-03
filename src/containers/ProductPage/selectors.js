@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import {CATEGORIES, COLORS, SIZES, BRANDS} from '../common/generalData/constants';
+import {CATEGORIES, COLORS, SIZES, BRANDS} from '../common/resourcesConstants';
 
 const selectProduct = (state) => state.product;
 

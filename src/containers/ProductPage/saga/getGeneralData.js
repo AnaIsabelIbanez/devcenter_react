@@ -2,7 +2,7 @@ import {spawn, put} from 'redux-saga/effects';
 
 import {setGeneralList} from '../../common/generalData/reducer';
 import {getBrands, getCategories, getColors, getSizes} from '../../../api/globalsResources';
-import {BRANDS, CATEGORIES, COLORS, SIZES} from '../../common/generalData/constants';
+import {BRANDS, CATEGORIES, COLORS, SIZES} from '../../common/resourcesConstants';
 import {launchFilter, changeField, clearFields} from '../../common/filters/actions';
 import fetchApiSaga from '../../common/fetchManage/saga';
 import {KEY_PRODUCT_RESOURCE} from '../constants';

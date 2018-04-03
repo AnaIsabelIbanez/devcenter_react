@@ -8,7 +8,6 @@ import bwipjs from 'bwip-js';
 
 
 const MyDetailProduct = ({className, attributes, smallPhotos, mainPhoto, setMainPhoto}) => {
-    console.log('smallPhotos', smallPhotos);
 
     return (<div className={className}>
         <Row>
@@ -85,15 +84,13 @@ const MyDetailProduct = ({className, attributes, smallPhotos, mainPhoto, setMain
                         {<Thumbnail className="photos" src={mainPhoto ? mainPhoto : 'https://react-bootstrap.github.io/thumbnail.png'}
                             alt="242x200">
                             <Row>
-                                <Col md={4}>
-                                    <Image src={smallPhotos && smallPhotos.length > 0 && smallPhotos[0]  ? smallPhotos[0] : 'https://react-bootstrap.github.io/thumbnail.png'} onClick={() => setMainPhoto(0)} thumbnail/>
-                                </Col>
-                                <Col md={4}>
-                                    <Image src={smallPhotos && smallPhotos.length > 1 && smallPhotos[1]  ? smallPhotos[1] : 'https://react-bootstrap.github.io/thumbnail.png'} onClick={() => setMainPhoto(1)} thumbnail/>
-                                </Col>
-                                <Col md={4}>
-                                    <Image src={smallPhotos && smallPhotos.length > 2 && smallPhotos[2]  ? smallPhotos[2] : 'https://react-bootstrap.github.io/thumbnail.png'} onClick={() => setMainPhoto(2)} thumbnail/>
-                                </Col>
+                                {smallPhotos.map((photo, index) => {
+                                    return (
+                                        <Col key={index} md={4}>
+                                            <Image src={photo ? photo : 'https://react-bootstrap.github.io/thumbnail.png'} onClick={() => setMainPhoto(index)} thumbnail/>
+                                        </Col>
+                                    );
+                                })}
                             </Row>
                         </Thumbnail>}
                     </Panel.Body>

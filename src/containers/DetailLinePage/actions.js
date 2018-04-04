@@ -1,4 +1,4 @@
-import {GET_INITIAL_DATA_DETAIL_LINE, SET_DETAIL_LINE, FETCH_DELETE_PHOTO, DELETE_PHOTO, UPLOAD_PHOTO} from './constants';
+import {GET_INITIAL_DATA_DETAIL_LINE, SET_DETAIL_LINE, FETCH_DELETE_PHOTO, DELETE_PHOTO, UPLOAD_PHOTO, ADD_PHOTO} from './constants';
 
 export const getInitialData = (id) =>  ({
     type: GET_INITIAL_DATA_DETAIL_LINE,
@@ -15,15 +15,20 @@ export const fetchDeletePhoto = (idPhoto) => ({
     idPhoto
 });
 
-export const deletePhoto = (photo) => ({
+export const deletePhoto = (photoId) => ({
     type: DELETE_PHOTO,
-    payload: photo
+    payload: photoId
 });
 
 export const uploadPhoto = (file, lineId) => {
-    console.log('lineId', lineId);
     return ({
         type: UPLOAD_PHOTO,
         file,
         lineId
+    });};
+
+export const addPhoto = (file) => {
+    return ({
+        type: ADD_PHOTO,
+        payload: file
     });};

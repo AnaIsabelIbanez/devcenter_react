@@ -11,4 +11,4 @@ export const DETAIL_RETURN_LINES = 'detailReturnLines';
 export const PRODUCT = 'product';
 export const DETAIL_LINE = 'detailLine';
 export const DELETE_PHOTO = 'deletePhoto';
-export const PHOTO = 'photo';
+export const UPLOAD_PHOTO = 'uploadPhoto';

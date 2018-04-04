@@ -36,7 +36,8 @@ const defaultState = {
     [keys.RETURN]: defaultPromiseStatus,
     [keys.DETAIL_RETURN_LINES]: defaultPromiseStatus,
     [keys.PRODUCT]: defaultPromiseStatus,
-    [keys.DETAIL_LINE]: defaultPromiseStatus
+    [keys.DETAIL_LINE]: defaultPromiseStatus,
+    [keys.UPLOAD_PHOTO]: defaultPromiseStatus
 };
 
 export default (state = defaultState, { type, payload }) => {

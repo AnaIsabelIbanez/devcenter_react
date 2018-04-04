@@ -20,13 +20,16 @@ import DetailReturn from '../ReturnLines/DetailReturn';
 import UploadButton from '../../components/UploadButton';
 import Panel from 'react-bootstrap/es/Panel';
 import {getLiteral} from '../../utils/utilities';
-import {DETAIL_LINE} from '../common/resourcesConstants';
+import {DETAIL_LINE, UPLOAD_PHOTO} from '../common/resourcesConstants';
 import LoadingIndicator from '../../components/LoadingIndicator';
 
 class DetailLinePage extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            invalidUploadPhoto: null
+        };
         this.props.changeActiveTab('return');
         this.props.getInitialData(this.props.match.params.id);
     }
@@ -39,6 +42,7 @@ class DetailLinePage extends Component {
             uploadPhoto
         } = this.props;
         const {photos = []} = detailLine;
+        console.log('fetch[UPLOAD_PHOTO]', fetch[UPLOAD_PHOTO]);
         return (
             fetch[DETAIL_LINE].fetching === true
                 ? <LoadingIndicator/>
@@ -68,33 +72,44 @@ class DetailLinePage extends Component {
                                 <Panel.Body className="panel-body">
                                     <Grid fluid>
                                         <Row>
-                                            {photos.map((photo, index) => {
-                                                return (<Col key={index} md={3}>
+                                            {photos.map((photo) => {
+                                                return (<Col className={`${photo.id}`} key={photo.id} md={3}>
                                                     <div> <Button bsStyle="link" onClick={() => fetchDeletePhoto(photo.id)}>{getLiteral('common.delete')}</Button> </div>
                                                     <div> <Image src={photo.location} thumbnail /> </div>
                                                 </Col>);
                                             })}
                                         </Row>
-                                        <Row>
-                                            <Col md={12}>
+                                        <Row style={{  marginTop: '10px' }}>
+                                            <Col md={2}>
                                                 <UploadButton
                                                     disabled={photos.length >= 4}
                                                     label={getLiteral('common.upload')}
                                                     lg={true}
-                                                    handleChange={(file) => uploadPhoto(file, detailLine.id)}
+                                                    uploading={true }//fetch[UPLOAD_PHOTO].fetching === true}
+                                                    handleChange={
+                                                        (file) => {
+                                                            this.setState({ invalidUploadPhoto: null });
+                                                            uploadPhoto(file, detailLine.id);
+                                                        }
+                                                    }
                                                     validationConf={{
-                                                        pdf: {
+                                                        png: {
                                                             maxSize: 1800
                                                         }
                                                     }}
                                                     handleSizeExceeded={({ name, size, maxSize }) =>
-                                                        console.log('invalid size')
+                                                        this.setState({invalidUploadPhoto: { name, invalidSize: { size, maxSize } }})
                                                     }
                                                     handleIncorrectType={({ name, type }) =>
-                                                        console.log('invalid type')
+                                                        this.setState({invalidUploadPhoto: { name, invalidType: {type}}})
                                                     }
                                                 />
                                             </Col>
+                                            {/*{this.state.invalidUploadPhoto && <Col md={6} style={{ border: '1px solid #8c1c1cbd', color: '#8c1c1cbd', backgroundColor: '#ffc4c4e8', padding: '5px 35px 5px 35px', borderRadius: '3%', width: 'auto' }}>*/}
+                                            {/*<Row><Col>{`invalid file: ${this.state.invalidUploadPhoto.name}`}</Col></Row>*/}
+                                            {/*{this.state.invalidUploadPhoto.invalidType && <Row><Col>{`extension ${this.state.invalidUploadPhoto.invalidType.type} not allowed`}</Col></Row>}*/}
+                                            {/*{this.state.invalidUploadPhoto.invalidSize && <Row><Col>{`size file is ${this.state.invalidUploadPhoto.invalidSize.size}. Exceed the max size allowed (${this.state.invalidUploadPhoto.invalidSize.maxSize}`}</Col></Row>}*/}
+                                            {/*</Col>}*/}
                                         </Row>
                                     </Grid>
                                 </Panel.Body>

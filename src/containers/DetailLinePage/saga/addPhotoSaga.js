@@ -1,17 +1,15 @@
-import {spawn, put} from 'redux-saga/effects';
+import {call, put} from 'redux-saga/effects';
 
-import {addPhoto} from '../../../api/return';
-import {deletePhoto} from '../actions';
+import {addPhoto as addPhotoApi} from '../../../api/return';
+import {addPhoto} from '../actions';
 import fetchApiSaga from '../../common/fetchManage/saga';
+import {UPLOAD_PHOTO} from '../../common/resourcesConstants';
 
 export default function* getGeneralData({file, lineId}) {
-    console.log('before upload');
-    const response = yield spawn(fetchApiSaga, addPhoto, null, '', {file, lineId});
+    const response = yield call(fetchApiSaga, addPhotoApi, null, UPLOAD_PHOTO, {file, lineId});
 
-    console.log('response upload', response);
-
-    // if (!response.isBackendError && !response.error) {
-    //     yield put(deletePhoto(response));
-    // }
+    if (!response.isBackendError) {
+        yield put(addPhoto(response.photo));
+    }
 
 };

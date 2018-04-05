@@ -4,11 +4,11 @@ import {withRouter} from 'react-router';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
-import {Button} from 'react-bootstrap';
 
 import Header from '../../common/Header';
 import Login from '../Login';
 import Product from '../ProductPage';
+import BarcodePage from '../ProductPage/BarcodePage';
 import Return from '../ReturnPage';
 import ReturnLines from '../ReturnLines';
 import Modal from '../../components/Modal';
@@ -30,7 +30,7 @@ class App extends Component {
         const {user, modals, hideModal, activeTab, changeActiveTab} = this.props;
         return (
             <div>
-                <Header history={this.props.history} changeActiveTab={changeActiveTab} activeTab={activeTab} />
+                <Header match={this.props.match} history={this.props.history} changeActiveTab={changeActiveTab} activeTab={activeTab} />
                 <div className="main-body">
                     {modals.modals.map((modalOpt, index) => {
                         return (<Modal key={index} hideModal={hideModal} {...modalOpt} />);
@@ -45,6 +45,7 @@ class App extends Component {
                         {!user && <Route exact path="/return" component={Return}/>}
                         {!user && <Route exact path="/return/:id" component={ReturnLines}/>}
                         {!user && <Route exact path="/line/:id" component={DetailLinePage}/>}
+                        {!user && <Route exact path="/barcode/:id" component={BarcodePage}/>}
                     </Switch>
                 </div>
             </div>

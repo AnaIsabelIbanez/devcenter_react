@@ -22,6 +22,8 @@ import Panel from 'react-bootstrap/es/Panel';
 import {getLiteral} from '../../utils/utilities';
 import {DETAIL_LINE, UPLOAD_PHOTO} from '../common/resourcesConstants';
 import LoadingIndicator from '../../components/LoadingIndicator';
+import {ErrorBlock} from '../../components/NotificationBlock';
+
 
 class DetailLinePage extends Component {
 
@@ -34,6 +36,17 @@ class DetailLinePage extends Component {
         this.props.getInitialData(this.props.match.params.id);
     }
 
+    getErrorPhotoDetails() {
+        const details = [];
+        if (this.state.invalidUploadPhoto.invalidType) {
+            details.push(`extension ${this.state.invalidUploadPhoto.invalidType.type} not allowed`);
+        }
+        if (this.state.invalidUploadPhoto.invalidSize) {
+            details.push(`size file is ${this.state.invalidUploadPhoto.invalidSize.size}. Exceed the max size allowed (${this.state.invalidUploadPhoto.invalidSize.maxSize}`);
+        }
+        return details;
+    }
+
     render() {
         const {
             detailLine = {},
@@ -42,7 +55,6 @@ class DetailLinePage extends Component {
             uploadPhoto
         } = this.props;
         const {photos = []} = detailLine;
-        console.log('fetch[UPLOAD_PHOTO]', fetch[UPLOAD_PHOTO]);
         return (
             fetch[DETAIL_LINE].fetching === true
                 ? <LoadingIndicator/>
@@ -80,23 +92,19 @@ class DetailLinePage extends Component {
                                             })}
                                         </Row>
                                         <Row style={{  marginTop: '10px' }}>
-                                            <Col md={2}>
+                                            <Col md={1}>
                                                 <UploadButton
                                                     disabled={photos.length >= 4}
                                                     label={getLiteral('common.upload')}
                                                     lg={true}
-                                                    uploading={true }//fetch[UPLOAD_PHOTO].fetching === true}
+                                                    uploading={fetch[UPLOAD_PHOTO].fetching === true}
                                                     handleChange={
                                                         (file) => {
                                                             this.setState({ invalidUploadPhoto: null });
                                                             uploadPhoto(file, detailLine.id);
                                                         }
                                                     }
-                                                    validationConf={{
-                                                        png: {
-                                                            maxSize: 1800
-                                                        }
-                                                    }}
+                                                    validationConf={{ png: {}, jpg: {} }}
                                                     handleSizeExceeded={({ name, size, maxSize }) =>
                                                         this.setState({invalidUploadPhoto: { name, invalidSize: { size, maxSize } }})
                                                     }
@@ -105,11 +113,13 @@ class DetailLinePage extends Component {
                                                     }
                                                 />
                                             </Col>
-                                            {/*{this.state.invalidUploadPhoto && <Col md={6} style={{ border: '1px solid #8c1c1cbd', color: '#8c1c1cbd', backgroundColor: '#ffc4c4e8', padding: '5px 35px 5px 35px', borderRadius: '3%', width: 'auto' }}>*/}
-                                            {/*<Row><Col>{`invalid file: ${this.state.invalidUploadPhoto.name}`}</Col></Row>*/}
-                                            {/*{this.state.invalidUploadPhoto.invalidType && <Row><Col>{`extension ${this.state.invalidUploadPhoto.invalidType.type} not allowed`}</Col></Row>}*/}
-                                            {/*{this.state.invalidUploadPhoto.invalidSize && <Row><Col>{`size file is ${this.state.invalidUploadPhoto.invalidSize.size}. Exceed the max size allowed (${this.state.invalidUploadPhoto.invalidSize.maxSize}`}</Col></Row>}*/}
-                                            {/*</Col>}*/}
+                                            {this.state.invalidUploadPhoto && <Col md={6}>
+                                                <ErrorBlock
+                                                    title={`invalid file: ${this.state.invalidUploadPhoto.name}`}
+                                                    details={this.getErrorPhotoDetails()}
+                                                    type="error"
+                                                />
+                                            </Col>}
                                         </Row>
                                     </Grid>
                                 </Panel.Body>

@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Button, Col, Image, Panel, Row, Thumbnail} from 'react-bootstrap';
+import Barcode from 'react-barcode';
 
 import {getLiteral} from '../../utils/utilities';
 import styled from 'styled-components';
 import Icon from '../../components/Icon';
-import bwipjs from 'bwip-js';
 
 
 const MyDetailProduct = ({className, attributes, smallPhotos, mainPhoto, setMainPhoto}) => {
@@ -99,8 +99,7 @@ const MyDetailProduct = ({className, attributes, smallPhotos, mainPhoto, setMain
             <Row>
                 <Col md={12}>
                     <div className="pull-right">
-                        <canvas id="mycanvas">algo</canvas>
-                        <Button>Imprimir Etiqueta</Button>
+                        <Button onClick={() => window.open(`/barcode/${attributes.ean}`, '_blank', 'width=700,height=700')}>{getLiteral('product.print')}</Button>
                     </div>
                 </Col>
             </Row>

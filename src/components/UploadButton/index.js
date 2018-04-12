@@ -60,20 +60,14 @@ class UploadBtn extends React.Component {
             disabled,
             active,
             block,
+            className,
             lg
         } = this.props;
         const { width, uploading, progress } = this.state;
         return (
-            <div style={{position: 'relative'}}>
+            <div className={className}>
                 <input
-                    style={{
-                        width: '0.1px',
-                        height: '0.1px',
-                        opacity: 0,
-                        overflow: 'hidden',
-                        position: 'absolute',
-                        zIndex: -1
-                    }}
+                    className="hidden-input"
                     type="file"
                     id={id}
                     onChange={({ target, target: { files } }) => {
@@ -156,9 +150,10 @@ UploadBtn.defaultProps = {
 
 export default styled(UploadBtn)`
     .container {
-    position: relative;
+        position: relative;
+    }
 
-    & .hidden-input {
+    .hidden-input {
         width: 0.1px;
         height: 0.1px;
         opacity: 0;
@@ -166,33 +161,4 @@ export default styled(UploadBtn)`
         position: absolute;
         z-index: -1;
     }
-
-    & :global .progress .progress-bar {
-        background-image: linear-gradient(to bottom, #009fe1 0%, #0077af 100%);
-        background-repeat: repeat-x;
-        filter: progid:DXImageTransform.Microsoft.gradient(
-                startColorstr='#ff009fe1',
-                endColorstr='#ff0077af',
-                GradientType=0
-            );
-    }
-
-    & .bar {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: none;
-
-        & > div {
-            padding-top: 7px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, .6);
-        }
-
-        & .lg-bar > div {
-            padding-top: 9px;
-        }
-    }
-}
 `;

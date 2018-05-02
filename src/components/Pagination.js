@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Button, Col, FormControl, Grid, Row} from 'react-bootstrap';
+import {Button, Col, FormControl, Row} from 'react-bootstrap';
 import styled from 'styled-components';
 import Icon from './Icon';
 import {getLiteral} from '../utils/utilities';
@@ -98,10 +98,6 @@ const myPagination = ({
         </Row>
     );
 };
-
-// myPagination.defaultProps = {
-//     maxVisiblePages: 5
-// };
 
 export default styled(myPagination)`
     margin: 20px 0;

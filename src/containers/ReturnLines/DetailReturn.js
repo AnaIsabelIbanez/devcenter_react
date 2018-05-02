@@ -1,5 +1,5 @@
 import React from 'react';
-import {Checkbox, Col, Grid, Row} from 'react-bootstrap';
+import {Col, Grid, Row} from 'react-bootstrap';
 import {formatIsoString, getLiteral} from '../../utils/utilities';
 import SmallPanel from '../../components/SmallPanel';
 import styled from 'styled-components';

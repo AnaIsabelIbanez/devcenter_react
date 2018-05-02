@@ -3,7 +3,6 @@ import {takeLatest} from 'redux-saga/effects';
 import {FETCH_DATA} from '../../common/table/constants';
 import {KEY_PRODUCT_RESOURCE, GET_INITIAL_DATA_PRODUCTS} from '../constants';
 import {getType} from '../../../utils/utilities';
-// import dataTableSaga from '../../common/table/saga';
 import dataTableSaga from './productSaga';
 import getInitialDataSaga from './getGeneralData';
 

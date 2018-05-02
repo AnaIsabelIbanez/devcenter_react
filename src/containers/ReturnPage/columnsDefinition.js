@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import {Checkbox} from 'react-bootstrap';
+import React from 'react';
 
 import {formatIsoString, getLiteral} from '../../utils/utilities';
 

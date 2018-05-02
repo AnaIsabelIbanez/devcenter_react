@@ -1,5 +1,5 @@
 import React from 'react';
-import {ControlLabel, FormGroup, Col, FormControl, Grid, Row, Button} from 'react-bootstrap';
+import { Col, Button} from 'react-bootstrap';
 import styled from 'styled-components';
 import {getLiteral} from '../utils/utilities';
 

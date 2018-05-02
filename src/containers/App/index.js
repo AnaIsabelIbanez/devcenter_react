@@ -6,7 +6,6 @@ import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 
 import Header from '../../common/Header';
-import Login from '../Login';
 import Product from '../ProductPage';
 import BarcodePage from '../ProductPage/BarcodePage';
 import Return from '../ReturnPage';
@@ -16,7 +15,6 @@ import {getUser, getModalOptions, getActiveTab} from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import reducer from './reducer/rootReducer';
 import {hideModal, showError, changeActiveTab} from './actions';
-import {getLiteral} from '../../utils/utilities';
 import DetailLinePage from '../DetailLinePage';
 
 class App extends Component {

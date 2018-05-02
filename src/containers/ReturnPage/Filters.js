@@ -1,17 +1,13 @@
 import React from 'react';
-import {Form, Col, Button, Row, Grid, ControlLabel, FormGroup, FormControl, Panel} from 'react-bootstrap';
+import {Form, Col, Row, Grid} from 'react-bootstrap';
 import 'react-dates/initialize';
-import moment from 'moment/moment';
 import 'react-dates/lib/css/_datepicker.css';
 
 import {InputForm} from '../../components/InputField';
 import {SelectForm, GenericSelect} from '../../components/SelectField';
-import SingleDatepickerWrapper from '../../components/SingleDatepickerWrapper';
 import FieldWithTooltip from '../../components/FieldWithTooltip';
 import {getLiteral} from '../../utils/utilities';
-import {dateFormat} from '../App/constants';
 import {DatePickerForm, GenericDatePicker} from '../../components/DatePickerField';
-import SmallPanel from '../../components/SmallPanel';
 import ManagedFilter from './ManagedFilter';
 import FilterButtons from '../../components/FilterButtons';
 

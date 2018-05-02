@@ -1,5 +1,5 @@
 import React from 'react';
-import {ControlLabel, FormGroup, Col, FormControl} from 'react-bootstrap';
+import {ControlLabel, Col, FormControl} from 'react-bootstrap';
 
 import Icon from './Icon';
 import styled from 'styled-components';

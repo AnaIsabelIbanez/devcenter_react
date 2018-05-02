@@ -1,4 +1,4 @@
-import {put, spawn, call} from 'redux-saga/effects';
+import {put, call} from 'redux-saga/effects';
 
 import {getGenericResource} from '../../../api/genericResource';
 import {setData, setCurrentSort, resetTable} from './actions';

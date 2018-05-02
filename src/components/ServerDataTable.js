@@ -3,18 +3,8 @@ import queryString from 'query-string';
 import {isEmpty, isEqual} from 'lodash';
 
 import {removeKeys} from '../utils/utilities';
-import LoadingIndicator from '../components/LoadingIndicator';
-import styled from 'styled-components';
 
-// import CustomGrid from './CustomGrid';
-
-// const StyledGrid = styled(CustomGrid)`
-//     && {
-//         padding: 20px;
-//     }
-// `;
-
-export default function withServerSideData(WrappedTable, keyResource) {
+export default function withServerSideData(WrappedTable) {
     return class ServerDataTable extends Component {
 
         constructor(props) {
@@ -73,7 +63,7 @@ export default function withServerSideData(WrappedTable, keyResource) {
                 <div>
                     <div>
                         <WrappedTable
-                            onSortedChange={(newSorted, column, shiftKey) => {
+                            onSortedChange={(newSorted) => {
                                 this.changeResults(false, {sort: this.getParsedSortFromTable(newSorted)}, newSorted);
                             }}
                             onPagination={({page}) => {

@@ -5,7 +5,6 @@ import {getLiteral} from '../../utils/utilities';
 import styled from 'styled-components';
 
 const myDetailLine = ({className, detail}) => {
-    //const {attributes = {}} = detail;
     return (
         <Grid fluid className={className}>
             <Row>

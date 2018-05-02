@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
-import styled from 'styled-components';
 
 import {
     getData,

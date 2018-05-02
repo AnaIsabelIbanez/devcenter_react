@@ -33,8 +33,6 @@ import {changeField, clearFields, clearFilters, launchFilter} from '../common/fi
 import columns from './columnsDefinition';
 import {Col, Grid, Row} from 'react-bootstrap';
 import {getLiteral} from '../../utils/utilities';
-// import 'react-table/react-table.css';
-
 
 const ServerDataTable = serverDataTableHoc(Table, KEY_RETURN_RESOURCE);
 

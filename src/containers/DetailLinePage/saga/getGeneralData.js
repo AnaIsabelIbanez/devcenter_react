@@ -1,7 +1,7 @@
 import {spawn} from 'redux-saga/effects';
 
 import {setGeneralList} from '../../common/generalData/reducer';
-import {getReturnReasons, getReturnSubreasons, getReturnTypes} from '../../../api/globalsResources';
+import {getReturnReasons, getReturnSubreasons} from '../../../api/globalsResources';
 import {getLine} from '../../../api/return';
 import {RETURN_REASONS, RETURN_SUBREASONS, DETAIL_LINE} from '../../common/resourcesConstants';
 import {setDetailLine} from '../actions';

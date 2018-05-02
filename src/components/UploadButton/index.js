@@ -146,8 +146,6 @@ UploadBtn.defaultProps = {
     lg: false
 };
 
-// export default UploadBtn;
-
 export default styled(UploadBtn)`
     .container {
         position: relative;

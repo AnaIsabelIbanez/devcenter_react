@@ -1,6 +1,5 @@
 import {tableReducerTypes, initialState} from '../../common/table/reducerTypes';
 import {KEY_PRODUCT_RESOURCE} from '../constants';
-import {SET_DATA} from '../../common/table/constants';
 
 function ProductReducer(state = initialState, {type, payload}) {
 

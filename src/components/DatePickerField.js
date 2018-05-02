@@ -2,7 +2,6 @@ import React from 'react';
 import {ControlLabel, FormGroup, Col, FormControl} from 'react-bootstrap';
 import styled from 'styled-components';
 import {dateFormat} from '../containers/App/constants';
-import {getLiteral} from '../utils/utilities';
 import moment from 'moment/moment';
 import SingleDatepickerWrapper from './SingleDatepickerWrapper';
 

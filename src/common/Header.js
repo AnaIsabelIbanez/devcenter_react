@@ -5,9 +5,9 @@ import { getLiteral } from '../utils/utilities';
 const Header = ({history, changeActiveTab, activeTab}) => (
     history.location.pathname.includes('/barcode/') ?
         <span></span> :
-        (<Nav bsStyle="tabs" activeKey={activeTab} onSelect={k => {
-            history.push(`/${k}`);
-            changeActiveTab(k);
+        (<Nav bsStyle="tabs" activeKey={activeTab} onSelect={tab => {
+            history.push(`/${tab}`);
+            changeActiveTab(tab);
         }}>
             <NavItem eventKey="product">
                 {getLiteral('product.products')}

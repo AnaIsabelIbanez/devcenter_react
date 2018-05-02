@@ -37,11 +37,6 @@ import columns from './columnsDefinition';
 import {Col, Grid, Row} from 'react-bootstrap';
 import {getLiteral} from '../../utils/utilities';
 
-// const StyledGrid = styled(CustomGrid)`
-//     && {
-//         padding: 20px;
-//     }
-// `;
 
 const ServerDataTable = serverDataTableHoc(Table, KEY_PRODUCT_RESOURCE);
 
